@@ -1,2 +1,2 @@
 # DTM-Reserveringen
-De gir repository voor het DTM Reserveringen school project
+De git repository voor het DTM Reserveringen school project
