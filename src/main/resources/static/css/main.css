@@ -1,3 +1,206 @@
-#testbutton {
-    background: blue;
+:root {
+    --background: rgb(255, 255, 255);
+    --primary: rgb(230, 51, 45);
+    --secondary: rgb(0, 136, 200);
+
+    --text-color-primary: rgb(51, 51, 51);
+    --text-color-secondary: ;
+
+    --border-color: rgb(221, 221, 221);
+    --border-radius: 4px;
+
+    --container-desktop: 1240px;
+    --container-tablet: 940px;
+    --container-mobile: 100vw;
+
+    --header-height: 60px;
+    --sidebar-width: 250px;
+}
+
+* {
+    scrollbar-width: thin;
+}
+
+html,
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--background);
+}
+
+.container {
+    max-width: var(--container-desktop);
+    margin: 0 auto;
+}
+
+/* header */
+
+header {
+    border-bottom: 1px solid #bbb;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .14);
+    overflow: hidden;
+}
+
+header .topbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: var(--header-height);
+}
+
+header .topbar-logo-container {
+    width: var(--sidebar-width);
+    padding: 0 15px;
+}
+
+header .topbar-logo-container .topbar-logo-link {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    width: min-content;
+}
+
+header .topbar-logo-container .topbar-logo-link .topbar-logo {
+    height: 44px;
+    min-width: 180px;
+}
+
+header .topbar-nav {
+    height: 48px;
+    width: calc(100% - var(--sidebar-width));
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px 0 0;
+}
+
+header .topbar-nav .search-bar-container {
+    height: 48px;
+    display: flex;
+    align-items: center;
+}
+
+header .topbar-nav .search-bar-container form {
+    display: flex;
+    flex-direction: row;
+}
+
+header .topbar-nav .search-bar-container form .search-bar {
+    width: 250px;
+    display: flex;
+    flex: 1;
+    height: auto;
+    padding: 6px 10px;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    color: var(--text-color-primary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--background);
+    background-image: none;
+    box-shadow: none;
+    font-size: 17px;
+    line-height: 1.5;
+    margin-right: 10px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+header .topbar-nav .search-bar-container form .search-bar:focus {
+    border-color: var(--secondary);
+    outline: 0;
+    background-color: var(--background);
+    box-shadow: none;
+}
+
+header .topbar-nav .search-bar-container form .search-button {
+    transition: all .2s ease-in-out;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    color: #333;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--border-color);
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+header .topbar-nav .search-bar-container form .search-button:hover {
+    color: #333;
+    border-color: #b1b1b1;
+    background-color: #b1b1b1;
+}
+
+header .topbar-nav .account {
+    display: flex;
+    align-items: center;
+    height: 48px;
+}
+
+/* main */
+
+main {
+    margin-top: 15px;
+}
+
+main .content-container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 0 15px 0 0;
+}
+
+main .content-container .sidebar-nav {
+    min-width: var(--sidebar-width);
+    padding: 15px;
+    padding-top: 0;
+}
+
+main .content-container .products-container {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+    border-bottom: none;
+    padding: 15px;
+    height: calc(100vh - var(--header-height) - 16px);
+    width: calc(100% - var(--sidebar-width));
+}
+
+main .content-container .products-container .products {
+    width: 100%;
+    height: 100%;
+
+    display: inline-flex;
+    gap: 20px;
+}
+
+/* product card */
+
+.product {
+    background-color: #f0f0f0;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.product img {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    width: 100%;
+    height: 150px;
+}
+
+.product.unavailable {
+
+
+    cursor: not-allowed;
 }
