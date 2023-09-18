@@ -71,7 +71,8 @@ export class Device {
     }
 
     render() {
-        const tile = document.getElementById("tile");
+        const tile = document.createElement("div");
+        tile.classList.add("tile");
         const h1 = document.createElement("h1");
 
 
