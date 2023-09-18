@@ -37,13 +37,14 @@ public class Product {
         this.typeId = typeId;
     }
 
-    public String getStatusId() {
-        return Integer.toString(statusId);
-    }
-
     public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
+
+    public int getStatusId() {
+        return (statusId);
+    }
+
 
     public String getName() {
         return name;

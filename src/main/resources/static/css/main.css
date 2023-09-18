@@ -330,3 +330,28 @@ main .content-container .products-container .products {
     opacity: 0.5;
 }
 
+=======
+#testbutton {
+    background: blue;
+}
+
+.tile {
+    background-color: gray;
+    border: solid;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+    border-radius: 5px;
+    display: inline-block;
+    width: 250px;
+}
+
+.tile h1 {
+   color: white;
+}
+
+.tile:hover {
+    transform: scale(1.03);
+}
+>>>>>>> 26a56d1e55159434e243ef6de268380a2f8a4122
