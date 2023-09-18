@@ -7,28 +7,18 @@ import jakarta.persistence.Id;
 public class Product {
 
     @Id
-    int id;
+    private int id;
 
-    int typeId;
-    int statusId;
+    private int typeId;
+    private int statusId;
 
-    String name;
-    String description;
-    String details;
-    String contents;
-
-    public Product(int id, int typeId, int statusId, String name, String description, String details, String contents) {
-        this.id = id;
-        this.typeId = typeId;
-        this.statusId = statusId;
-        this.name = name;
-        this.description = description;
-        this.details = details;
-        this.contents = contents;
-    }
+    private String name;
+    private String description;
+    private String details;
+    private String contents;
 
     public Product() {
-
+        //currently no need for constructor
     }
 
     public int getId() {
@@ -47,8 +37,8 @@ public class Product {
         this.typeId = typeId;
     }
 
-    public int getStatusId() {
-        return statusId;
+    public String getStatusId() {
+        return Integer.toString(statusId);
     }
 
     public void setStatusId(int statusId) {
