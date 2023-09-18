@@ -2,7 +2,7 @@ import {Device} from "./device.js";
 
 // bind the greeter to the input name and output element
 const device = new Device(
-    document.getElementById('listOfTiles')
+    document.getElementById('tileDisplay')
 );
 
 for (let i = 0; i < 1; i++) {
