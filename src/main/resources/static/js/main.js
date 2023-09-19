@@ -5,8 +5,18 @@ const device = new Device(
     document.getElementById('tileDisplay')
 );
 
-//using i = 1 bc the database start at index 1
-for (let i = 1; i <= 38; i++) {
+try {
+    const response = await fetch("/product/count");
+    console.log("Product amount: response is ok? " + response.ok + "Status code " + response.status);
+
+    const json = await response.json();
+    console.log("Product amount: got a json response; " + JSON.stringify(json));
+}
+catch (ex) {
+    console.log("Something went wrong retrieving in fetch() amount . Exception message is '" + ex.message + "'");
+}
+
+for (let i = 0; i < 1; i++) {
     await device.fetch();
     device.render()
 }

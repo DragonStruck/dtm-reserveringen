@@ -13,6 +13,8 @@ export class Device {
         this.description = "";
         this.details = "";
         this.contents = "";
+        this.imageId = "";
+        this.imagePath = "";
 
         // bind html elements
         this.outputElement = outputElement;
@@ -20,6 +22,8 @@ export class Device {
 
     async fetch() {
         try {
+            console.log("----")
+            console.log("product")
             const responseProduct = await fetch("/product/variables?index=" + this.index);
             console.log("Product: response is ok? " + responseProduct.ok + "Status code " + responseProduct.status);
 
@@ -28,6 +32,7 @@ export class Device {
 
             this.index += 1;
 
+            //retrieve data for the product from other tables using id's
             if (responseProduct.ok) {
                 this.id = jsonProduct.id;
                 this.name = jsonProduct.name;
@@ -37,6 +42,8 @@ export class Device {
                 this.contents = jsonProduct.contents;
 
                 //Retrieves the status of the product given the statusID
+                console.log("----")
+                console.log("product status")
                 const responseStatus = await fetch("/status/id?id=" + jsonProduct.statusId);
                 console.log("Product status: response is ok? " + responseProduct.ok + "Status code " + responseProduct.status);
 
@@ -50,6 +57,8 @@ export class Device {
                 }
 
                 //Retrieves the type of the product given the typeId
+                console.log("----")
+                console.log("product type")
                 const responseType = await fetch("/type/id?id=" + jsonProduct.typeId);
                 console.log("Product type: response is ok? " + responseProduct.ok + "Status code " + responseProduct.status);
 
@@ -60,6 +69,41 @@ export class Device {
                     this.type = jsonType.type;
                 } else {
                     console.log("Product type: error retrieving from database" + responseType.status);
+                }
+
+                //retrieves the imageID
+                console.log("----")
+                console.log("product image id")
+                const responseImageID = await fetch("/imageId/productId?id=" + this.id);
+                console.log("Product ImageID: response is ok? " + responseImageID.ok + "Status code " + responseImageID.status);
+
+                const jsonImageID = await responseImageID.json();
+                console.log("Product ImageID: got a json response; " + JSON.stringify(jsonImageID));
+
+                if (responseImageID.ok) {
+                    this.imageId = jsonImageID.imageId;
+                } else {
+                    console.log("Product type: error retrieving from database" + responseImageID.status);
+                }
+
+
+                //retrieves the imagePath
+                console.log("----")
+                console.log("product image path")
+                const responseImagePath = await fetch("/imagePath/imageId?id=" + this.imageId);
+                console.log("Product ImagePath: response is ok? " + responseImagePath.ok + "Status code " + responseImagePath.status);
+
+                const jsonImagePath = await responseImagePath.json();
+                console.log("Product imagePath: got a json response; " + JSON.stringify(jsonImagePath));
+
+                if (responseImagePath.ok) {
+                    if (jsonImagePath.imagePath === "") {
+                        this.imagePath = jsonImagePath.altText;
+                    } else {
+                        this.imagePath = jsonImagePath.imagePath;
+                    }
+                } else {
+                    console.log("Product imagePath: error retrieving from database" + responseType.status);
                 }
 
             } else {
@@ -94,7 +138,7 @@ export class Device {
 
         const image = document.createElement("img");
         image.classList.add("product-image");
-//        image.src = "";
+        // image.src = this.imagePath;
         tile.appendChild(image);
 
 
@@ -111,7 +155,6 @@ export class Device {
 
         tile.appendChild(product_details);
 
-
         const status = document.createElement("div");
         status.classList.add("status");
 
@@ -125,38 +168,6 @@ export class Device {
         status.appendChild(status_text);
 
         tile.appendChild(status);
-
-//        const tile = document.createElement("div");
-//        tile.classList.add("tile");
-//        const h1 = document.createElement("h1");
-//
-//        h1.textContent = this.id;
-//        tile.appendChild(h1);
-//        console.log(this.id);
-//
-//        h1.textContent = this.name;
-//        tile.appendChild(h1);
-//        console.log(this.name);
-//
-//        h1.textContent = this.status;
-//        tile.appendChild(h1);
-//        console.log(this.status);
-//
-//        h1.textContent = this.type;
-//        tile.appendChild(h1);
-//        console.log(this.type);
-//
-//        h1.textContent = this.description;
-//        tile.appendChild(h1);
-//        console.log(this.description);
-//
-//        h1.textContent = this.details;
-//        tile.appendChild(h1);
-//        console.log(this.details);
-//
-//        h1.textContent = this.contents;
-//        tile.appendChild(h1);
-//        console.log(this.contents);
 
         this.outputElement.appendChild(tile);
     }

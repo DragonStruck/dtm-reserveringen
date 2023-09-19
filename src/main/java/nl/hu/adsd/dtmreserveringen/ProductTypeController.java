@@ -22,7 +22,6 @@ public class ProductTypeController {
 
     @GetMapping("/id")
     public ResponseEntity<ProductType> getProduct(@RequestParam long id) {
-        logger.info(String.valueOf(id));
         Optional<ProductType> statusOptional = productTypeRepository.findById(id);
 
         if (statusOptional.isPresent()) {

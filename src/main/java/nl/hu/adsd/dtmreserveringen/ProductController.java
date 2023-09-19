@@ -2,7 +2,6 @@ package nl.hu.adsd.dtmreserveringen;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ public class ProductController {
      * return a GreetingResponse (will be serialized to JSON)
      */
 
-    @Autowired
+
     public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -38,6 +37,11 @@ public class ProductController {
             logger.info("product is not present with index value of {}",  index);
             return ResponseEntity.notFound().build(); // Return a 404 response
         }
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getAmountOfProducts() {
+        return ResponseEntity.ok(productRepository.count());
     }
 }
 
