@@ -1,27 +1,3 @@
-#testbutton {
-    background: blue;
-}
-
-.tile {
-    background-color: rgb(128, 128, 128);
-    border: solid;
-    padding: 20px;
-    margin: 20px;
-    text-align: center;
-    transition: transform 0.2s;
-    border-radius: 5px;
-    display: inline-block;
-    width: 250px;
-}
-
-.tile h1 {
-   color: white;
-}
-
-.tile:hover {
-    transform: scale(1.03);
-}
-
 :root {
     --background: rgb(255, 255, 255);
     --primary: rgb(230, 51, 45);
@@ -274,12 +250,10 @@ main .content-container .products-container .products {
 }
 
 .product .product-text p {
-    height: calc(100% - 30px);
-    max-height: calc(100% - 30px);
     padding-right: var(--default-padding);
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
 }
 
@@ -318,16 +292,6 @@ main .content-container .products-container .products {
     position: relative;
 }
 
-.product .grayout {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background: white;
-    opacity: 0;
-    border-radius: 4px;
-    z-index: 5;
-}
-
 .product.available .status-background {
     background: rgb(43, 230, 43) !important;
 }
@@ -348,10 +312,3 @@ main .content-container .products-container .products {
 .product.unavailable .status-background {
     background: rgb(230, 48, 43) !important;
 }
-
-.product.processing .grayout,
-.product.unavailable .grayout {
-    opacity: 0.5;
-}
-
-

@@ -72,39 +72,91 @@ export class Device {
 
     render() {
         const tile = document.createElement("div");
-        tile.classList.add("tile");
-        const h1 = document.createElement("h1");
+        tile.classList.add("product");
+
+        switch(this.status) {
+            case "Op voorraad":
+                tile.classList.add("available");
+                break;
+            case "In verwerking":
+                tile.classList.add("processing");
+                break;
+            case "Goedgekeurd":
+                tile.classList.add("processing");
+               break;
+            case "Uitgeleend":
+                tile.classList.add("unavailable");
+                break;
+            case "Kwijt":
+                tile.classList.add("unavailable");
+                break;
+        }
+
+        const image = document.createElement("img");
+        image.classList.add("product-image");
+//        image.src = "";
+        tile.appendChild(image);
 
 
-        h1.textContent = this.id;
-        tile.appendChild(h1);
-        console.log(this.id);
+        const product_details = document.createElement("div");
+        product_details.classList.add("product-text");
 
-        h1.textContent = this.name;
-        tile.appendChild(h1);
-        console.log(this.name);
+        const product_details_h1 = document.createElement("h1");
+        product_details_h1.textContent = this.name;
+        product_details.appendChild(product_details_h1);
 
-        h1.textContent = this.status;
-        tile.appendChild(h1);
-        console.log(this.status);
+        const product_details_p = document.createElement("p");
+        product_details_p.textContent = this.description;
+        product_details.appendChild(product_details_p);
 
-        h1.textContent = this.type;
-        tile.appendChild(h1);
-        console.log(this.type);
-
-        h1.textContent = this.description;
-        tile.appendChild(h1);
-        console.log(this.description);
-
-        h1.textContent = this.details;
-        tile.appendChild(h1);
-        console.log(this.details);
-
-        h1.textContent = this.contents;
-        tile.appendChild(h1);
-        console.log(this.contents);
+        tile.appendChild(product_details);
 
 
+        const status = document.createElement("div");
+        status.classList.add("status");
+
+        const status_background = document.createElement("div");
+        status_background.classList.add("status-background");
+        status.appendChild(status_background);
+
+        const status_text = document.createElement("span");
+        status_text.classList.add("status-text");
+        status_text.textContent = this.status;
+        status.appendChild(status_text);
+
+        tile.appendChild(status);
+
+//        const tile = document.createElement("div");
+//        tile.classList.add("tile");
+//        const h1 = document.createElement("h1");
+//
+//        h1.textContent = this.id;
+//        tile.appendChild(h1);
+//        console.log(this.id);
+//
+//        h1.textContent = this.name;
+//        tile.appendChild(h1);
+//        console.log(this.name);
+//
+//        h1.textContent = this.status;
+//        tile.appendChild(h1);
+//        console.log(this.status);
+//
+//        h1.textContent = this.type;
+//        tile.appendChild(h1);
+//        console.log(this.type);
+//
+//        h1.textContent = this.description;
+//        tile.appendChild(h1);
+//        console.log(this.description);
+//
+//        h1.textContent = this.details;
+//        tile.appendChild(h1);
+//        console.log(this.details);
+//
+//        h1.textContent = this.contents;
+//        tile.appendChild(h1);
+//        console.log(this.contents);
 
         this.outputElement.appendChild(tile);
     }
