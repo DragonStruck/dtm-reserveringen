@@ -9,6 +9,8 @@
     <title>DTM Reserveringen</title>
 
     <script defer type="module" src="js/index.js"></script>
+    <script defer type="module" src="js/main.js"></script>
+    <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/main.css">
 </head>
 
@@ -18,8 +20,140 @@
 </template>
 
 <body>
+
     <div id="listOfTiles">
 
     </div>
+
+    <header>
+        <div class="container">
+            <div class="topbar-container">
+                <div class="topbar-logo-container">
+                    <a class="topbar-logo-link" href="./">
+                        <img class="topbar-logo" src="./icons/HU_logo_big.svg" alt="HU logo">
+                    </a>
+                </div>
+                <div class="topbar-nav">
+                    <div class="search-bar-container">
+                        <form action="#" method="post">
+                            <input class="search-bar" placeholder="Zoek producten..." type="search">
+                            <button class="search-button" type="submit">Zoek</button>
+                        </form>
+                    </div>
+                    <div class="account">
+                        <a href="./admin.html">hier admin account link ofzo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="content-container">
+                <nav class="sidebar-nav">
+                        
+                    <button id="testbutton">Test</button>
+                    <a href="./info.html">bleh</a>
+                </nav>
+                <div class="products-container">
+                    <div id="products" class="products">
+
+                        <div class="product available">
+                            <img class="product-image" src="https://picsum.photos/seed/picsum/600/600" alt="">
+                            <div class="product-text">
+                                <h1>Name</h1>
+                                <p>Lorum ipsum bla bLorum ipsum ipsum bla bla bipsum bla bla bbla bla blaLorum ipsum bla bla blaLorum ipsum bla bla blaLorum ipsum bla bla blaLorum ipsum bla bla blaLorum ipsum bla bla blala bla</p>
+                            </div>
+                            <div class="grayout"></div>
+                            <div id="status" class="status">
+                                <div class="status-background"></div>
+                                <span class="status-text">Status</span>
+                            </div>
+                        </div>
+
+                        <div class="product unavailable">
+                            <img class="product-image" src="https://picsum.photos/seed/picsum/600/600" alt="">
+                            <div class="product-text">
+                                <h1>Name</h1>
+                                <p>Lorum ipsum bla bla bla</p>
+                            </div>
+                            <div class="grayout"></div>
+                            <div id="status" class="status">
+                                <div class="status-background"></div>
+                                <span class="status-text">Status</span>
+                            </div>
+                        </div>
+
+                        <div class="product processing">
+                            <img class="product-image" src="https://picsum.photos/seed/picsum/600/600" alt="">
+                            <div class="product-text">
+                                <h1>Name</h1>
+                                <p>Lorum ipsum bla bla bla</p>
+                            </div>
+                            <div class="grayout"></div>
+                            <div id="status" class="status">
+                                <div class="status-background"></div>
+                                <span class="status-text">Status</span>
+                            </div>
+                        </div>
+
+                        <div class="product processing">
+                            <img class="product-image" src="https://picsum.photos/seed/picsum/600/600" alt="">
+                            <div class="product-text">
+                                <h1>Name</h1>
+                                <p>Lorum ipsum bla bla bla</p>
+                            </div>
+                            <div class="grayout"></div>
+                            <div id="status" class="status">
+                                <div class="status-background"></div>
+                                <span class="status-text">Status</span>
+                            </div>
+                        </div>
+
+                        <div class="product available">
+                            <img class="product-image" src="https://picsum.photos/seed/picsum/600/600" alt="">
+                            <div class="product-text">
+                                <h1>Name</h1>
+                                <p>Lorum ipsum bla bla bla</p>
+                            </div>
+                            <div class="grayout"></div>
+                            <div id="status" class="status">
+                                <div class="status-background"></div>
+                                <span class="status-text">Status</span>
+                            </div>
+                        </div>
+
+                        <div class="product available">
+                            <img class="product-image" src="https://picsum.photos/seed/picsum/600/600" alt="">
+                            <div class="product-text">
+                                <h1>Name</h1>
+                                <p>Lorum ipsum bla bla bla</p>
+                            </div>
+                            <div class="grayout"></div>
+                            <div id="status" class="status">
+                                <div class="status-background"></div>
+                                <span class="status-text">Status</span>
+                            </div>
+                        </div>
+
+                        <div class="product available">
+                            <img class="product-image" src="https://picsum.photos/seed/picsum/600/600" alt="">
+                            <div class="product-text">
+                                <h1>Name</h1>
+                                <p>Lorum ipsum bla bla bla</p>
+                            </div>
+                            <div class="grayout"></div>
+                            <div id="status" class="status">
+                                <div class="status-background"></div>
+                                <span class="status-text">Status</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
