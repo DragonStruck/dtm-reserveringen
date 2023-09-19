@@ -8,13 +8,34 @@
 
     <title>DTM Reserveringen</title>
 
-    <script defer type="module" src="js/main.js"></script>
+    <script defer type="module" src="js/info.js"></script>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/main.css">
 </head>
+
 <body>
-    <a class="topbar-logo-link" href="./">
-        <img class="topbar-logo" src="./icons/HU_logo_small.png" alt="HU logo">
-    </a>
+<header>
+    <div class="container">
+        <div class="topbar-container">
+            <div class="topbar-logo-container">
+                <a class="topbar-logo-link" href="./">
+                    <img class="topbar-logo" src="./icons/HU_logo_big.svg" alt="HU logo">
+                </a>
+            </div>
+            <div class="topbar-nav">
+                <div class="search-bar-container">
+                    <form name="search">
+                        <input class="search-bar" placeholder="Zoek producten..." type="search">
+                        <button class="search-button" type="submit">Zoek</button>
+                    </form>
+                </div>
+                <div class="account">
+                    <a href="./admin.html">hier admin account link ofzo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div id="product-info" class="product-info"></div>
 </body>
 </html>

@@ -8,8 +8,13 @@ const device = new Device(
 //using i = 1 bc the database start at index 1
 for (let i = 1; i <= 38; i++) {
     await device.fetch();
-    device.render()
+    device.renderTile()
 }
+
+// call the search when the form is submitted
+document.forms['search'].addEventListener('submit', async (event) => {
+    event.preventDefault();
+});
 
 
 document.getElementById("testbutton").addEventListener('click', () => {

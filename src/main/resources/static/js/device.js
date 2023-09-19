@@ -18,15 +18,21 @@ export class Device {
         this.outputElement = outputElement;
     }
 
-    async fetch() {
+    async fetch(i = null) {
         try {
+            if (i != null) {
+                this.index = i;
+            }
+
             const responseProduct = await fetch("/product/variables?index=" + this.index);
             console.log("Product: response is ok? " + responseProduct.ok + "Status code " + responseProduct.status);
 
             const jsonProduct = await responseProduct.json();
             console.log("Product: got a json response; " + JSON.stringify(jsonProduct));
 
-            this.index += 1;
+            if (i == null) {
+                this.index += 1;
+            }
 
             if (responseProduct.ok) {
                 this.id = jsonProduct.id;
@@ -70,7 +76,7 @@ export class Device {
         }
     }
 
-    render() {
+    renderTile() {
         const tile = document.createElement("div");
         tile.classList.add("product");
 
@@ -159,5 +165,11 @@ export class Device {
 //        console.log(this.contents);
 
         this.outputElement.appendChild(tile);
+    }
+
+    async renderPage() {
+        const product_info = document.createElement("div");
+
+       this.outputElement.appendChild(product_info);
     }
 }
