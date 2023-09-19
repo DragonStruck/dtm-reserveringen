@@ -339,7 +339,7 @@ main .content-container .products-container .products {
 }
 
 .tile {
-    background-color: gray;
+    background-color: rgb(128, 128, 128);
     border: solid;
     padding: 20px;
     margin: 20px;
