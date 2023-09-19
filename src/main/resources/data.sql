@@ -64,8 +64,8 @@ INSERT IGNORE INTO image (id, image_path, alt_text) VALUES
     (10, 'LEDGO 3.png', ''),
     (11, 'Metaquest 2.png', ''),
     (12, 'Metaquest 3.png', ''),
-    (13, 'Sennheiser audio set.jpg', ''),
-    (14, 'Sennheiser audio set details.jpg', ''),
+    (13, 'Sennheiser Audio set.jpg', ''),
+    (14, 'Sennheiser Audio set details.jpg', ''),
     (15, 'Zoom H8.jpg', ''),
     (16, 'Zoom H8 details.jpg', '');
 
