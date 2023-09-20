@@ -13,7 +13,7 @@ export class Device {
         this.description = "";
         this.details = "";
         this.contents = "";
-        this.imageId = "";
+        this.imageId = [];
         this.imagePath = "";
 
         // bind html elements
@@ -23,8 +23,8 @@ export class Device {
     async fetch() {
         try {
             console.log("----")
-            console.log("product")
-            const responseProduct = await fetch("/product/variables?index=" + this.index);
+            console.log("product" + this.index)
+            const responseProduct = await fetch("/product/" + this.index);
             console.log("Product: response is ok? " + responseProduct.ok + "Status code " + responseProduct.status);
 
             const jsonProduct = await responseProduct.json();
@@ -44,7 +44,8 @@ export class Device {
                 //Retrieves the status of the product given the statusID
                 console.log("----")
                 console.log("product status")
-                const responseStatus = await fetch("/status/id?id=" + jsonProduct.statusId);
+
+                const responseStatus = await fetch("/status/" + jsonProduct.statusId);
                 console.log("Product status: response is ok? " + responseProduct.ok + "Status code " + responseProduct.status);
 
                 const jsonStatus = await responseStatus.json();
@@ -59,7 +60,8 @@ export class Device {
                 //Retrieves the type of the product given the typeId
                 console.log("----")
                 console.log("product type")
-                const responseType = await fetch("/type/id?id=" + jsonProduct.typeId);
+
+                const responseType = await fetch("/type/" + jsonProduct.typeId);
                 console.log("Product type: response is ok? " + responseProduct.ok + "Status code " + responseProduct.status);
 
                 const jsonType = await responseType.json();
@@ -74,14 +76,19 @@ export class Device {
                 //retrieves the imageID
                 console.log("----")
                 console.log("product image id")
-                const responseImageID = await fetch("/imageId/productId?id=" + this.id);
+
+                const responseImageID = await fetch("/imageId/" + this.id);
                 console.log("Product ImageID: response is ok? " + responseImageID.ok + "Status code " + responseImageID.status);
 
                 const jsonImageID = await responseImageID.json();
                 console.log("Product ImageID: got a json response; " + JSON.stringify(jsonImageID));
 
                 if (responseImageID.ok) {
-                    this.imageId = jsonImageID.imageId;
+                    const imageIdString = jsonImageID.imageId;
+                    //the string in the database has multiple integers because a product can only refer to one other value in the database
+                    this.imageId = imageIdString.split(",").map(function (item) {
+                        return parseInt(item, 10); // 10 refers to the decimal system
+                    });
                 } else {
                     console.log("Product type: error retrieving from database" + responseImageID.status);
                 }
@@ -90,18 +97,21 @@ export class Device {
                 //retrieves the imagePath
                 console.log("----")
                 console.log("product image path")
-                const responseImagePath = await fetch("/imagePath/imageId?id=" + this.imageId);
+
+                const responseImagePath = await fetch("/imagePath/" + this.imageId[0]);
                 console.log("Product ImagePath: response is ok? " + responseImagePath.ok + "Status code " + responseImagePath.status);
 
                 const jsonImagePath = await responseImagePath.json();
                 console.log("Product imagePath: got a json response; " + JSON.stringify(jsonImagePath));
 
                 if (responseImagePath.ok) {
+                    //for when there is no image specified, give generic image not found
                     if (jsonImagePath.imagePath === "") {
-                        this.imagePath = jsonImagePath.altText;
+                        this.imagePath = "image not found";
                     } else {
                         this.imagePath = jsonImagePath.imagePath;
                     }
+                    console.log(this.imagePath);
                 } else {
                     console.log("Product imagePath: error retrieving from database" + responseType.status);
                 }
@@ -138,7 +148,7 @@ export class Device {
 
         const image = document.createElement("img");
         image.classList.add("product-image");
-        // image.src = this.imagePath;
+        image.src = "images/" + this.imagePath;
         tile.appendChild(image);
 
 
