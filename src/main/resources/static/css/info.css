@@ -1,0 +1,37 @@
+:root {
+    --datepicker-width: 400px;
+}
+
+main .content-container .product {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+    border-bottom: none;
+    padding: var(--default-padding);
+    height: calc(100vh - var(--header-height) - 16px);
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.product {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.product-info {
+    background-color: aqua;
+
+    width: calc(100% - var(--datepicker-width));
+    overflow-y: auto;
+    overflow-x: hidden;
+
+
+}
+
+.product-datepicker {
+    background-color: burlywood;
+
+    min-width: var(--datepicker-width);
+}

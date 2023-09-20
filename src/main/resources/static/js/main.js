@@ -15,8 +15,3 @@ for (let i = 1; i <= 38; i++) {
 document.forms['search'].addEventListener('submit', async (event) => {
     event.preventDefault();
 });
-
-
-document.getElementById("testbutton").addEventListener('click', () => {
-    alert("test");
-})
