@@ -3,9 +3,10 @@ package nl.hu.adsd.dtmreserveringen;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 
 @Entity
-@Table(name = "status")
+@Table(name = "productStatus")
 public class ProductStatus {
 
     @Id
@@ -16,11 +17,11 @@ public class ProductStatus {
         //currently no need for constructor
     }
 
-    public void setStatus(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getStatus() {
+    public String getName() {
         return name;
     }
 

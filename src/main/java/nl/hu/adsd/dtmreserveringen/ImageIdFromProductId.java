@@ -5,25 +5,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="productImage")
-public class imageIdFromProductId {
+@Table(name="productImageId")
+public class ImageIdFromProductId {
     @Id
     private int productId;
-    private int imageId;
+    private String imageId;
 
     public int getId() {
         return productId;
     }
 
     public void setId(int productId) {
-        this.productId = imageIdFromProductId.this.productId;
+        this.productId = productId;
     }
 
-    public int getImageID() {
+    public String getImageId() {
         return imageId;
     }
 
-    public void setImageID(int imageID) {
+    public void setImageID(String imageId) {
         this.imageId = imageId;
     }
 }

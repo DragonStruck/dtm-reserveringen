@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="image")
+@Table(name="productImagePath")
 public class ImagePathFromId {
     @Id
     private int id;

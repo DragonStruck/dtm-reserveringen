@@ -1,5 +1,6 @@
 package nl.hu.adsd.dtmreserveringen;
 
+import jakarta.websocket.server.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,8 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
-    @GetMapping("/variables")
-    public ResponseEntity<Product> getProduct(@RequestParam long index) {
+    @GetMapping("/{index}")
+    public ResponseEntity<Product> getProduct(@PathVariable long index) {
         logger.info(String.valueOf(index));
         Optional<Product> productOptional = productRepository.findById(index);
 

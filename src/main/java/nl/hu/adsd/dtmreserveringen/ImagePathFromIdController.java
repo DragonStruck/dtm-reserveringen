@@ -3,10 +3,7 @@ package nl.hu.adsd.dtmreserveringen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -21,8 +18,8 @@ public class ImagePathFromIdController {
         this.imagePathFromIdRepository = imagePathFromIdRepository;
     }
 
-    @RequestMapping("/imageId")
-    public ResponseEntity<ImagePathFromId> getImagePathFromImageId(@RequestParam Long id) {
+    @RequestMapping("/{id}")
+    public ResponseEntity<ImagePathFromId> getImagePathFromImageId(@PathVariable Long id) {
         Optional<ImagePathFromId> imagePathFromIdOptional = imagePathFromIdRepository.findById(id);
 
         if (imagePathFromIdOptional.isPresent()) {

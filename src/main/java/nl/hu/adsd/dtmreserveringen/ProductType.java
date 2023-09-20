@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "type")
+@Table(name = "productType")
 public class ProductType {
 
     @Id
@@ -16,11 +16,11 @@ public class ProductType {
         //currently no need for constructor
     }
 
-    public String getType() {
+    public String getName() {
         return name;
     }
 
-    public void setType(String type) {
+    public void setName(String name) {
         this.name = name;
     }
 

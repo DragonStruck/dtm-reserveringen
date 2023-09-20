@@ -20,8 +20,8 @@ public class ProductTypeController {
         this.productTypeRepository = productTypeRepository;
     }
 
-    @GetMapping("/id")
-    public ResponseEntity<ProductType> getProduct(@RequestParam long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductType> getProduct(@PathVariable long id) {
         Optional<ProductType> statusOptional = productTypeRepository.findById(id);
 
         if (statusOptional.isPresent()) {
