@@ -4,10 +4,11 @@ import {Device} from "./device.js";
 const device = new Device(
     document.getElementById("products")
 );
+
 let amount;
 try {
     console.log("Product amount")
-    const response = await fetch("/product/count");
+    const response = await fetch("/product/amount");
     console.log("Product amount: response is ok? " + response.ok + "Status code " + response.status);
 
     const json = await response.json();
@@ -19,6 +20,6 @@ catch (ex) {
 }
 
 for (let i = 0; i < amount; i++) {
-    await device.fetch();
+    await device.fetch(i + 1); //id's in db start at 1
     device.render()
 }

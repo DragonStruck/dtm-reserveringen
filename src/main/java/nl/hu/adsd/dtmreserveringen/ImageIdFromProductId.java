@@ -19,8 +19,14 @@ public class ImageIdFromProductId {
         this.productId = productId;
     }
 
-    public String getImageId() {
-        return imageId;
+    public int[] getImageId() {
+        String[] idStrings = imageId.split(",");
+        int count = -1;
+        int[] idInts = new int[idStrings.length];
+        for (String idString : idStrings) {
+            idInts[++count] = Integer.parseInt(idString);
+        }
+        return idInts;
     }
 
     public void setImageID(String imageId) {
