@@ -37,13 +37,13 @@ public class ProductController {
 
         if (productOptional.isEmpty()) {
             logger.info("product is not present with index value of {}", id);
-            return ResponseEntity.notFound().build(); // Return a 404 response
+            return ResponseEntity.notFound().build(); //sends the status report
         } else {
             logger.info("product found, id: {}", id);
             Product product = productOptional.get();
 
-            product.setTypeString(getProductType(id));
-            product.setTypeString(getProductStatus(id));
+            product.setTypeString(getProductType((long) product.getTypeId()));
+            product.setStatusString(getProductStatus((long) product.getStatusId()));
 
             product.setImageIds(getImageIdFromProductId(id));
             String[] imagePaths = new String[product.getImageIds().length];
