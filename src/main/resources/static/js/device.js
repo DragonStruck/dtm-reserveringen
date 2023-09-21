@@ -9,8 +9,8 @@ export class Device {
         this.description = "";
         this.details = "";
         this.contents = "";
-        this.imageId = [];
-        this.imagePath = [];
+        this.imageIds = [];
+        this.imagePaths = [];
 
         // bind html elements
         this.outputElement = outputElement;
@@ -21,10 +21,10 @@ export class Device {
             console.log("----")
             console.log("product" + index)
             const responseProduct = await fetch("/product/" + index);
-            console.log("Product: response is ok? " + responseProduct.ok + "Status code " + responseProduct.status);
+            console.log("Product; response is ok? " + responseProduct.ok + "Status code " + responseProduct.status);
 
             const jsonProduct = await responseProduct.json();
-            console.log("Product: got a json response; " + JSON.stringify(jsonProduct));
+            console.log("Product; got a json response; " + JSON.stringify(jsonProduct));
 
             //retrieve data for the product from other tables using id's
             if (responseProduct.ok) {
@@ -35,13 +35,24 @@ export class Device {
                 this.contents = jsonProduct.contents;
                 this.type = jsonProduct.typeString;
                 this.status = jsonProduct.statusString;
-                this.imageId = jsonProduct.imageIds;
-                this.imagePath = jsonProduct.imagePaths;
+                this.imageIds = jsonProduct.imageIds;
+                this.imagePaths = jsonProduct.imagePaths;
+                console.log("Id: " + this.id +
+                    "\nName: " + this.name +
+                    "\nDescription: " + this.description +
+                    "\nDetails: " +this.details +
+                    "\nContents: " + this.contents +
+                    "\nType: " + this.type +
+                    "\nStatus: " + this.status +
+                    "\nImageId: " + this.imageIds +
+                    "\nImagePath: " + this.imagePaths
+                );
+
             } else {
-                console.log("Product: error retrieving from database" + responseProduct.status);
+                console.log("Product; error retrieving from database" + responseProduct.status);
             }
         } catch (ex) {
-            console.log("Something went wrong retrieving in fetch() Device.js . Exception message is '" + ex.message + "'");
+            console.log("Something went wrong retrieving in fetch() Device.js . Exception message: '" + ex.message + "'");
         }
     }
 
@@ -69,7 +80,7 @@ export class Device {
 
         const image = document.createElement("img");
         image.classList.add("product-image");
-        image.src = this.imagePath[0];
+        image.src = this.imagePaths[0];
         tile.appendChild(image);
 
 

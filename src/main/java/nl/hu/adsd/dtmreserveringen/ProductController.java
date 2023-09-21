@@ -31,8 +31,6 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable Long id) {
-
-        logger.info(String.valueOf(id));
         Optional<Product> productOptional = productRepository.findById(id);
 
         if (productOptional.isEmpty()) {
