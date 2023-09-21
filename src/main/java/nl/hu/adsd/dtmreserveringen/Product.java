@@ -2,13 +2,15 @@ package nl.hu.adsd.dtmreserveringen;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
+@Table(name="product")
 public class Product {
 
     @Id
     private int id;
-
     private int typeId;
     private int statusId;
 
@@ -17,8 +19,47 @@ public class Product {
     private String details;
     private String contents;
 
-    public Product() {
-        //currently no need for constructor
+    //Transient means there is no corresponding column in the db
+    @Transient
+    String typeString;
+    @Transient
+    String statusString;
+    @Transient
+    int[] imageIds;
+    @Transient
+    String[] imagePaths;
+
+
+    public String getStatusString() {
+        return statusString;
+    }
+
+    public void setStatusString(String statusString) {
+        this.statusString = statusString;
+    }
+
+    public int[] getImageIds() {
+        return imageIds;
+    }
+
+    public void setImageIds(int[] imageIds) {
+        this.imageIds = imageIds;
+    }
+
+    public String[] getImagePaths() {
+        return imagePaths;
+    }
+
+    public void setImagePaths(String[] imagePath) {
+        this.imagePaths = imagePath;
+    }
+
+    public String getTypeString() {
+        return typeString;
+    }
+
+    public void setTypeString(String typeString) {
+        this.typeString = typeString;
     }
 
     public int getId() {
@@ -42,9 +83,8 @@ public class Product {
     }
 
     public int getStatusId() {
-        return (statusId);
+        return statusId;
     }
-
 
     public String getName() {
         return name;

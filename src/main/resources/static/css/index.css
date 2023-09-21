@@ -63,7 +63,8 @@ main .content-container .products-container .products {
     border-top-left-radius: var(--border-radius);
     border-top-right-radius: var(--border-radius);
     width: 100%;
-    height: 300px;
+    min-height: 200px;
+    max-height: 200px;
     object-fit: cover;
     object-position: center;
 }
@@ -114,7 +115,7 @@ main .content-container .products-container .products {
     height: 34px;
     border-radius: var(--border-radius);
     background: var(--card-background);
-    mix-blend-mode: multiply;
+    opacity: 0.8;
     z-index: 10;
 }
 
