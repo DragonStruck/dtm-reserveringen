@@ -63,7 +63,7 @@ main .content-container .products-container .products {
     border-top-left-radius: var(--border-radius);
     border-top-right-radius: var(--border-radius);
     width: 100%;
-    height: 150px;
+    height: 300px;
     object-fit: cover;
     object-position: center;
 }
@@ -86,7 +86,7 @@ main .content-container .products-container .products {
     padding-right: var(--default-padding);
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
