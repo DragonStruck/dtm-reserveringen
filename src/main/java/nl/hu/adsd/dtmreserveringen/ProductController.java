@@ -45,11 +45,14 @@ public class ProductController {
 
             product.setImageIds(getImageIdFromProductId(id));
             String[] imagePaths = new String[product.getImageIds().length];
+            String[] imageAltTexts = new String[product.getImageIds().length];
             int count = -1;
             for (int imageId : product.getImageIds()) {
                 imagePaths[++count] = getImagePathFromImageId((long) imageId);
+                imageAltTexts[count] = getImageAltTextFromImageId((long) imageId);
             }
             product.setImagePaths(imagePaths);
+            product.setImageAltTexts(imageAltTexts);
 
             return ResponseEntity.ok(product);
         }
@@ -102,6 +105,19 @@ public class ProductController {
 
         } else {
             logger.info("product image path is not present, id: {}",  id);
+            return "";
+        }
+    }
+
+    private String getImageAltTextFromImageId(Long id) {
+        Optional<ImagePathFromId> optional = imagePathFromIdRepository.findById(id);
+
+        if (optional.isPresent()) {
+            logger.info("product image alt text selected");
+            return optional.get().getAltText();
+
+        } else {
+            logger.info("product image alt text is not present, id: {}",  id);
             return "";
         }
     }

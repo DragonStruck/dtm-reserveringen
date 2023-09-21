@@ -1,9 +1,23 @@
 import {Device} from "./device.js";
 
-// bind the greeter to the input name and output element
+function findGetParameter(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+            tmp = item.split("=");
+            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+    return result;
+}
+
 const device = new Device(
-    document.getElementById('products')
+    document.getElementById('product')
 );
 
-await device.fetch(38);
-device.render();
+const product = findGetParameter('product')
+
+await device.fetch(product);
+device.renderInfo();

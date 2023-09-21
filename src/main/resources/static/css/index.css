@@ -39,6 +39,7 @@ main .content-container .products-container .products {
     transition: transform .2s;
     position: relative;
     user-select: none;
+    text-decoration: none;
 }
 
 .product::after{
@@ -84,6 +85,7 @@ main .content-container .products-container .products {
 }
 
 .product .product-text p {
+    color: black;
     padding-right: var(--default-padding);
     overflow: hidden;
     display: -webkit-box;

@@ -28,6 +28,8 @@ public class Product {
     int[] imageIds;
     @Transient
     String[] imagePaths;
+    @Transient
+    String[] imageAltTexts;
 
 
     public String getStatusString() {
@@ -52,6 +54,14 @@ public class Product {
 
     public void setImagePaths(String[] imagePath) {
         this.imagePaths = imagePath;
+    }
+
+    public String[] getImageAltTexts() {
+        return imageAltTexts;
+    }
+
+    public void setImageAltTexts(String[] imageAltTexts) {
+        this.imageAltTexts = imageAltTexts;
     }
 
     public String getTypeString() {

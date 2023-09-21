@@ -11,6 +11,7 @@ export class Device {
         this.contents = "";
         this.imageIds = [];
         this.imagePaths = [];
+        this.imageAltTexts = [];
 
         // bind html elements
         this.outputElement = outputElement;
@@ -37,6 +38,7 @@ export class Device {
                 this.status = jsonProduct.statusString;
                 this.imageIds = jsonProduct.imageIds;
                 this.imagePaths = jsonProduct.imagePaths;
+                this.imageAltTexts = jsonProduct.imageAltTexts;
                 console.log("Id: " + this.id +
                     "\nName: " + this.name +
                     "\nDescription: " + this.description +
@@ -45,7 +47,8 @@ export class Device {
                     "\nType: " + this.type +
                     "\nStatus: " + this.status +
                     "\nImageId: " + this.imageIds +
-                    "\nImagePath: " + this.imagePaths
+                    "\nImagePaths: " + this.imagePaths +
+                    "\nImageAltTexts: " + this.imageAltTexts
                 );
 
             } else {
@@ -57,7 +60,8 @@ export class Device {
     }
 
     renderTile() {
-        const tile = document.createElement("div");
+        const tile = document.createElement("a");
+        tile.href = "/info.html?product="+this.id;
         tile.classList.add("product");
 
         switch(this.status) {
@@ -114,9 +118,34 @@ export class Device {
         this.outputElement.appendChild(tile);
     }
 
-    async renderPage() {
-        const product_info = document.createElement("div");
+    async renderInfo() {
+        document.getElementById('product-title').textContent = this.name;
 
-        this.outputElement.appendChild(product_info);
+        const slides = document.getElementById('slides-container');
+        const thumbnails = document.getElementById('thumbnail-container');
+
+        for (let i = 0; i < this.imagePaths.length; i++) {
+            const slide = document.createElement("div");
+            slide.classList.add("slides");
+            if (i == 0) {slide.style = "display: block;";}
+
+            const slide_image = document.createElement("img");
+            slide_image.src = this.imagePaths[i];
+            slide_image.alt = this.imageAltTexts[i];
+            slide.appendChild(slide_image);
+            slides.appendChild(slide);
+
+            const thumbnail = document.createElement('div');
+            thumbnail.classList.add('column');
+            thumbnail.classList.add('cursor');
+            thumbnail.addEventListener('click', () => {currentSlide(i+1)});
+
+            const thumbnail_image = document.createElement('img');
+            thumbnail_image.classList.add('thumbnail');
+            thumbnail_image.src = this.imagePaths[i];
+            thumbnail_image.alt = this.imageAltTexts[i];
+            thumbnail.appendChild(thumbnail_image);
+            thumbnails.appendChild(thumbnail);
+        }
     }
 }
