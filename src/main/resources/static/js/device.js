@@ -147,5 +147,9 @@ export class Device {
             thumbnail.appendChild(thumbnail_image);
             thumbnails.appendChild(thumbnail);
         }
+
+        document.getElementById('description-text').textContent = this.description;
+        document.getElementById('details-text').textContent = this.details;
+        document.getElementById('contents-text').textContent = this.contents;
     }
 }

@@ -32,8 +32,8 @@
                         </form>
                     </div>
                     <div class="account">
-                        <a href="./info.html?product=2">product</a>
-                        <a href="./admin.html">hier admin account link ofzo</a>
+                        <!-- <a href="./info.html?product=2">product</a>
+                        <a href="./admin.html">hier admin account link ofzo</a> -->
                     </div>
                 </div>
             </div>
@@ -46,24 +46,29 @@
                     <div id="product" class="product">
                         <div class="product-info-left">
                             <h1 id="product-title"></h1>
-
                             <div class="slideshow-container">
-                                <div id="slides-container" class="slides-container">
-
-                                </div>
-
-
+                                <div id="slides-container" class="slides-container"></div>
                                 <a class="prev" onclick="plusSlides(-1)">❮</a>
                                 <a class="next" onclick="plusSlides(1)">❯</a>
-
-                                <div id="thumbnail-container" class="row">
-
-                                </div>
+                                <div id="thumbnail-container" class="row"></div>
                             </div>
-
+                            <div class="product-info-description">
+                                <h2>Product omschrijving</h2>
+                                <p id="description-text"></p>
+                            </div>
                         </div>
                         <div class="product-info-right">
-
+                            <div class="product-details">
+                                <h2>Product details</h2>
+                                <p id="details-text"></p>
+                            </div>
+                            <div class="product-contents">
+                                <h2>Product inhoud</h2>
+                                <p id="contents-text"></p>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-button">Toevoegen aan mandje</button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -39,11 +39,64 @@ main .content-container .product-container {
     padding: 5px var(--default-padding);
 }
 
+.product .product-info-left .product-info-description {
+    padding: var(--default-padding);
+}
+
 /* Product info right */
 
 .product .product-info-right {
+    padding-top: 59px;
     min-width: var(--info-width);
+    max-width: var(--info-width);
 }
+
+.product .product-info-right .product-details {
+    padding: var(--default-padding);
+}
+
+.product .product-info-right .product-contents {
+    padding: var(--default-padding);
+}
+
+/* Product text */
+
+
+.product .product-info-left .product-info-description h2,
+.product .product-info-right .product-details h2,
+.product .product-info-right .product-contents h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.product .product-info-left .product-info-description p,
+.product .product-info-right .product-details p,
+.product .product-info-right .product-contents p  {
+    margin-top: 4px;
+}
+
+/* Add to cart */
+
+
+.product .product-info-right .add-to-cart {
+    padding: var(--default-padding);
+}
+
+.product .product-info-right .add-to-cart .add-to-cart-button {
+    color: #fff;
+    border: none;
+    background-color: #00a1e1;
+    border-radius: var(--border-radius);
+    padding: 8px var(--default-padding);
+    font-weight: bold;
+}
+
+.product .product-info-right .add-to-cart .add-to-cart-button:hover {
+    color: #fff;
+    border-color: #0081b4;
+    background-color: #0081b4;
+}
+
 
 /* Slideshow */
 
