@@ -121,6 +121,28 @@ export class Device {
     async renderInfo() {
         document.getElementById('product-title').textContent = this.name;
 
+        const product = document.getElementById('product');
+
+        switch(this.status) {
+            case "Op voorraad":
+                product.classList.add("available");
+                break;
+            case "In verwerking":
+                product.classList.add("processing");
+                break;
+            case "Goedgekeurd":
+                product.classList.add("processing");
+               break;
+            case "Uitgeleend":
+                product.classList.add("unavailable");
+                break;
+            case "Kwijt":
+                product.classList.add("unavailable");
+                break;
+        }
+
+        document.getElementById('status-text').textContent = this.status;
+
         const slides = document.getElementById('slides-container');
         const thumbnails = document.getElementById('thumbnail-container');
 

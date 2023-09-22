@@ -43,6 +43,58 @@ main .content-container .product-container {
     padding: var(--default-padding);
 }
 
+/* Product Status */
+
+.product .product-info-left .title-container {
+    display: flex;
+    position: relative;
+}
+
+.product .product-info-left .status {
+    position: absolute;
+    top: 5px;
+    right: var(--default-padding);
+    padding: 8px var(--default-padding);
+    border-radius: var(--border-radius);
+    text-align: center;
+    min-width: 100px;
+}
+
+.product .product-info-left .status-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 8px var(--default-padding);
+    text-align: center;
+    min-width: 100px;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    height: 34px;
+    border-radius: var(--border-radius);
+    background: var(--card-background);
+    opacity: 0.8;
+    z-index: 10;
+}
+
+.product .product-info-left .status-text {
+    font-weight: bold;
+    color: white;
+    z-index: 10;
+    position: relative;
+}
+
+.product.available .product-info-left .status-background {
+    background: rgb(43, 230, 43) !important;
+}
+
+.product.processing .product-info-left .status-background {
+    background: rgb(230, 202, 43) !important;
+}
+
+.product.unavailable .product-info-left .status-background {
+    background: rgb(230, 48, 43) !important;
+}
+
 /* Product info right */
 
 .product .product-info-right {
