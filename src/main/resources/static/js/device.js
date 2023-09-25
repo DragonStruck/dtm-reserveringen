@@ -61,7 +61,7 @@ export class Device {
 
     renderTile() {
         const tile = document.createElement("a");
-        tile.href = "/info.html?product="+this.id;
+        tile.href = "/product?id="+this.id;
         tile.classList.add("product");
 
         switch(this.status) {

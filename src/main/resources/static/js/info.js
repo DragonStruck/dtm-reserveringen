@@ -17,7 +17,7 @@ const device = new Device(
     document.getElementById('product')
 );
 
-const product = findGetParameter('product')
+const product = findGetParameter('id')
 
 await device.fetch(product);
 device.renderInfo();
