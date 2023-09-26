@@ -12,7 +12,6 @@ public class Product {
     @Id
     private int id;
     private int typeId;
-    private int statusId;
 
     private String name;
     private String description;
@@ -20,25 +19,11 @@ public class Product {
     private String contents;
 
     //Transient means there is no corresponding column in the db
-    @Transient
-    String typeString;
-    @Transient
-    String statusString;
-    @Transient
-    int[] imageIds;
-    @Transient
-    String[] imagePaths;
-    @Transient
-    String[] imageAltTexts;
+    @Transient private String typeString;
+    @Transient private int[] imageIds;
+    @Transient private String[] imagePaths;
+    @Transient private String[] imageAltTexts;
 
-
-    public String getStatusString() {
-        return statusString;
-    }
-
-    public void setStatusString(String statusString) {
-        this.statusString = statusString;
-    }
 
     public int[] getImageIds() {
         return imageIds;
@@ -86,14 +71,6 @@ public class Product {
 
     public void setTypeId(int typeId) {
         this.typeId = typeId;
-    }
-
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
-    }
-
-    public int getStatusId() {
-        return statusId;
     }
 
     public String getName() {
