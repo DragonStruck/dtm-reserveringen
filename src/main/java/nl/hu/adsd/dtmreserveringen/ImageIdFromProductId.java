@@ -21,11 +21,13 @@ public class ImageIdFromProductId {
 
     public int[] getImageId() {
         String[] idStrings = imageId.split(",");
-        int count = -1;
         int[] idInts = new int[idStrings.length];
+
+        int count = -1;
         for (String idString : idStrings) {
             idInts[++count] = Integer.parseInt(idString);
         }
+
         return idInts;
     }
 
