@@ -110,6 +110,15 @@ public class ProductController {
         }
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+        logger.info("");
+        logger.info(product.toString());
+        logger.info("");
+        productRepository.save(product);
+        return ResponseEntity.ok(product);
+    }
+
     @GetMapping("/amount")
     public ResponseEntity<Long> getAmountOfProducts() {
         return ResponseEntity.ok(itemRepository.count());
