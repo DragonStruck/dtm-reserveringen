@@ -1,16 +1,5 @@
 const newProduct = document.getElementById("form-new-product");
 
-
-function isNotEmpty(element) {
-    if (element.text === "") {
-        return 1;
-    }
-    return -1;
-}
-
-
-
-
 newProduct.addEventListener("submit", (e) => {
     e.preventDefault();
     let correctForm = true;
