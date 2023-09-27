@@ -22,6 +22,16 @@ public class WebController {
         return "login.html";
     }
 
+    @RequestMapping("/cart")
+    public String cart() {
+        return "cart.html";
+    }
+
+    @RequestMapping("/checkout")
+    public String checkout() {
+        return "checkout.html";
+    }
+
     @RequestMapping("/admin")
     public String admin() {
         return "admin.html";

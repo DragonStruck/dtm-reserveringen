@@ -31,7 +31,6 @@
 
 html,
 body {
-    height: 100vh;
     background-color: var(--background);
 }
 
@@ -54,6 +53,10 @@ header {
     border-bottom: 1px solid #bbb;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .14);
     overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: white;
 }
 
 header .topbar-container {
@@ -75,8 +78,6 @@ header .topbar-logo-container .topbar-logo-link {
     width: min-content;
 }
 
-
-
 header .topbar-logo-container .topbar-logo-link .topbar-logo {
     height: 44px;
     min-width: 180px;
@@ -86,11 +87,11 @@ header .topbar-nav {
     height: 48px;
     width: calc(100% - var(--sidebar-width));
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 0 var(--default-padding) 0 0;
 }
 
-header .topbar-nav .search-bar-container {
+/* header .topbar-nav .search-bar-container {
     height: 48px;
     display: flex;
     align-items: center;
@@ -145,7 +146,7 @@ header .topbar-nav .search-bar-container form .search-button {
     line-height: 1.5;
     font-weight: bold;
     padding: 0 10px;
-}
+} */
 
 header .topbar-nav .search-bar-container form .search-button:hover {
     color: #333;
@@ -153,16 +154,16 @@ header .topbar-nav .search-bar-container form .search-button:hover {
     background-color: #b1b1b1;
 }
 
-header .topbar-nav .account {
+header .topbar-nav .nav-right {
     display: flex;
     align-items: center;
     height: 48px;
 }
 
-header .topbar-nav .account .cart-header img {
-height: 35px;
-width: 35px;
-margin-right: 10px;
+header .topbar-nav .nav-right .cart-header img {
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
 }
 
 /* main */
@@ -176,4 +177,10 @@ main .content-container {
     display: flex;
     flex-direction: row;
     padding: 0 var(--default-padding);
+}
+
+main .content-container .products-container,
+main .content-container .product-container {
+    padding-bottom: var(--default-padding);
+    width: 100%;
 }

@@ -1,39 +1,18 @@
-
-/* main .content-container .sidebar-nav {
-    min-width: var(--sidebar-width);
-    padding: var(--default-padding);
-    padding-top: 0;
-} */
-
-main .content-container .products-container {
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
-    border: 2px solid var(--border-color);
-    border-bottom: none;
-    padding: var(--default-padding);
-    height: calc(100vh - var(--header-height) - 16px);
-    width: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
 main .content-container .products-container .products {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
     gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 /* product card */
 
 .product {
     background-color: var(--card-background);
-    min-width: 250px;
-    max-width: 277px;
+    min-width: 300px;
     height: 300px;
     border-radius: var(--border-radius);
     cursor: pointer;
-    flex: 1;
     display: flex;
     flex-direction: column;
     transition: transform .2s;

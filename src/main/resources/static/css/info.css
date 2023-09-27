@@ -2,7 +2,7 @@
     --info-width: 400px;
 }
 
-main .content-container {
+/* main .content-container {
     height: calc(100vh - var(--header-height) - 16px);
 }
 
@@ -16,7 +16,7 @@ main .content-container .product-container {
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-}
+} */
 
 .product {
     display: flex;
