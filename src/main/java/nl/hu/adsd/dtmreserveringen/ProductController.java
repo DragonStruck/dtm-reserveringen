@@ -110,7 +110,6 @@ public class ProductController {
         }
     }
 
-
     @GetMapping("/amount")
     public ResponseEntity<Long> getAmountOfProducts() {
         return ResponseEntity.ok(itemRepository.count());
