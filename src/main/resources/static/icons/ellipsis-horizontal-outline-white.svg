@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="416" height="96" viewBox="0 0 416 96">
+  <g id="ellipsis-horizontal-outline" transform="translate(-48 -208)">
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="32" cy="32" r="32" transform="translate(224 224)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="32"/>
+    <circle id="Ellipse_2" data-name="Ellipse 2" cx="32" cy="32" r="32" transform="translate(384 224)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="32"/>
+    <circle id="Ellipse_3" data-name="Ellipse 3" cx="32" cy="32" r="32" transform="translate(64 224)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="32"/>
+  </g>
+</svg>

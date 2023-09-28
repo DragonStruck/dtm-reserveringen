@@ -1,16 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <title>Admin | DTM Reserveringen</title>
+    <title>Title</title>
 
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/main.css">
+    <script type="module" src="./js/new-product.js"></script>
 </head>
 <body>
 <header>
@@ -39,5 +35,28 @@
         </div>
     </div>
 </header>
+
+<main>
+    <div class="container">
+        <form id="form-new-product" class="form-container">
+            <label for="name">Naam</label><br>
+            <input type="text" name="name" id="name"><br><br>
+
+            <label for="description">Beschrijving</label><br>
+            <textarea id="description" name="description"></textarea><br><br>
+
+            <label for="contents">Inhoud</label><br>
+            <textarea id="contents" name="contents"></textarea><br><br>
+
+            <label for="details">Details</label><br>
+            <textarea id="details" name="details"></textarea><br><br>
+
+            <label for="picture">Foto's</label><br>
+            <input type="text" id="picture" name="picture"><br><br>
+
+            <input type="submit" id="add-new-product" value="Add new product">
+        </form>
+    </div>
+</main>
 </body>
 </html>

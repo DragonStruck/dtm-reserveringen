@@ -4,7 +4,6 @@ export class Device {
         //values of product
         this.id = "";
         this.type = "";
-        this.status = "";
         this.name = "";
         this.description = "";
         this.details = "";
@@ -35,7 +34,6 @@ export class Device {
                 this.details = jsonProduct.details;
                 this.contents = jsonProduct.contents;
                 this.type = jsonProduct.typeString;
-                this.status = jsonProduct.statusString;
                 this.imageIds = jsonProduct.imageIds;
                 this.imagePaths = jsonProduct.imagePaths;
                 this.imageAltTexts = jsonProduct.imageAltTexts;
@@ -45,7 +43,6 @@ export class Device {
                     "\nDetails: " +this.details +
                     "\nContents: " + this.contents +
                     "\nType: " + this.type +
-                    "\nStatus: " + this.status +
                     "\nImageId: " + this.imageIds +
                     "\nImagePaths: " + this.imagePaths +
                     "\nImageAltTexts: " + this.imageAltTexts
@@ -61,26 +58,9 @@ export class Device {
 
     renderTile() {
         const tile = document.createElement("a");
-        tile.href = "/info.html?product="+this.id;
+        tile.href = "/product?id=" + this.id;
         tile.classList.add("product");
 
-        switch(this.status) {
-            case "Op voorraad":
-                tile.classList.add("available");
-                break;
-            case "In verwerking":
-                tile.classList.add("processing");
-                break;
-            case "Goedgekeurd":
-                tile.classList.add("processing");
-               break;
-            case "Uitgeleend":
-                tile.classList.add("unavailable");
-                break;
-            case "Kwijt":
-                tile.classList.add("unavailable");
-                break;
-        }
 
         const image = document.createElement("img");
         image.classList.add("product-image");
@@ -91,29 +71,19 @@ export class Device {
         const product_details = document.createElement("div");
         product_details.classList.add("product-text");
 
+
         const product_details_h1 = document.createElement("h1");
         product_details_h1.textContent = this.name;
         product_details.appendChild(product_details_h1);
+
 
         const product_details_p = document.createElement("p");
         product_details_p.textContent = this.description;
         product_details.appendChild(product_details_p);
 
+
         tile.appendChild(product_details);
 
-        const status = document.createElement("div");
-        status.classList.add("status");
-
-        const status_background = document.createElement("div");
-        status_background.classList.add("status-background");
-        status.appendChild(status_background);
-
-        const status_text = document.createElement("span");
-        status_text.classList.add("status-text");
-        status_text.textContent = this.status;
-        status.appendChild(status_text);
-
-        tile.appendChild(status);
 
         this.outputElement.appendChild(tile);
     }
@@ -123,33 +93,13 @@ export class Device {
 
         const product = document.getElementById('product');
 
-        switch(this.status) {
-            case "Op voorraad":
-                product.classList.add("available");
-                break;
-            case "In verwerking":
-                product.classList.add("processing");
-                break;
-            case "Goedgekeurd":
-                product.classList.add("processing");
-               break;
-            case "Uitgeleend":
-                product.classList.add("unavailable");
-                break;
-            case "Kwijt":
-                product.classList.add("unavailable");
-                break;
-        }
-
-        document.getElementById('status-text').textContent = this.status;
-
         const slides = document.getElementById('slides-container');
         const thumbnails = document.getElementById('thumbnail-container');
 
         for (let i = 0; i < this.imagePaths.length; i++) {
             const slide = document.createElement("div");
             slide.classList.add("slides");
-            if (i == 0) {slide.style = "display: block;";}
+            if (i === 0) {slide.style = "display: block;";}
 
             const slide_image = document.createElement("img");
             slide_image.src = this.imagePaths[i];
@@ -160,7 +110,9 @@ export class Device {
             const thumbnail = document.createElement('div');
             thumbnail.classList.add('column');
             thumbnail.classList.add('cursor');
-            thumbnail.addEventListener('click', () => {currentSlide(i+1)});
+            thumbnail.addEventListener('click', () => {
+                currentSlide(i+1)}
+            );
 
             const thumbnail_image = document.createElement('img');
             thumbnail_image.classList.add('thumbnail');

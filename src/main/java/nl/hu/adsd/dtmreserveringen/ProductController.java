@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.Optional;
 
 @CrossOrigin(originPatterns = "http://localhost:[*]")
@@ -13,19 +14,19 @@ import java.util.Optional;
 public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
-    private final ProductRepository productRepository;
-    private final ProductStatusRepository productStatusRepository;
+    private final ItemRepository itemRepository;
     private final ProductTypeRepository productTypeRepository;
     private final ImageIdFromProductIdRepository imageIdFromProductIdRepository;
     private final ImagePathFromIdRepository imagePathFromIdRepository;
+    private final ProductRepository productRepository;
 
 
-    public ProductController(ProductRepository productRepository, ProductTypeRepository productTypeRepository, ImageIdFromProductIdRepository imageIdFromProductIdRepository, ImagePathFromIdRepository imagePathFromIdRepository, ProductStatusRepository productStatusRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ItemRepository itemRepository, ProductTypeRepository productTypeRepository, ImageIdFromProductIdRepository imageIdFromProductIdRepository, ImagePathFromIdRepository imagePathFromIdRepository, ProductRepository productRepository) {
+        this.itemRepository = itemRepository;
         this.productTypeRepository = productTypeRepository;
         this.imageIdFromProductIdRepository = imageIdFromProductIdRepository;
         this.imagePathFromIdRepository = imagePathFromIdRepository;
-        this.productStatusRepository = productStatusRepository;
+        this.productRepository = productRepository;
     }
 
 
@@ -41,14 +42,14 @@ public class ProductController {
             Product product = productOptional.get();
 
             product.setTypeString(getProductType((long) product.getTypeId()));
-            product.setStatusString(getProductStatus((long) product.getStatusId()));
 
             product.setImageIds(getImageIdFromProductId(id));
             String[] imagePaths = new String[product.getImageIds().length];
             String[] imageAltTexts = new String[product.getImageIds().length];
             int count = -1;
             for (int imageId : product.getImageIds()) {
-                imagePaths[++count] = getImagePathFromImageId((long) imageId);
+                ++count;
+                imagePaths[count] = getImagePathFromImageId((long) imageId);
                 imageAltTexts[count] = getImageAltTextFromImageId((long) imageId);
             }
             product.setImagePaths(imagePaths);
@@ -68,18 +69,6 @@ public class ProductController {
         } else {
             logger.info("product type is not present, id: {}",  id);
             return "";
-        }
-    }
-
-
-    private String getProductStatus(Long id) {
-        Optional<ProductStatus> statusOptional = productStatusRepository.findById(id);
-        if (statusOptional.isPresent()) {
-            logger.info("product status selected");
-            return statusOptional.get().getName();
-        } else {
-            logger.info("product status is not present, id: {}",  id);
-            return"";
         }
     }
 
@@ -122,10 +111,18 @@ public class ProductController {
         }
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+        logger.info("");
+        logger.info(product.toString());
+        logger.info("");
+        productRepository.save(product);
+        return ResponseEntity.ok(product);
+    }
 
     @GetMapping("/amount")
     public ResponseEntity<Long> getAmountOfProducts() {
-        return ResponseEntity.ok(productRepository.count());
+        return ResponseEntity.ok(itemRepository.count());
     }
 }
 
