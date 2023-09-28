@@ -5,12 +5,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="productImagePath")
+@Table(name="productImage")
 public class ImagePathFromId {
     @Id
     private int id;
-    private String imagePath;
     private String altText;
+    private String imagePath;
 
     public String getAltText() {
         return altText;

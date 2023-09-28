@@ -15,16 +15,12 @@ public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     private final ItemRepository itemRepository;
-    private final ProductTypeRepository productTypeRepository;
-    private final ImageIdFromProductIdRepository imageIdFromProductIdRepository;
     private final ImagePathFromIdRepository imagePathFromIdRepository;
     private final ProductRepository productRepository;
 
 
-    public ProductController(ItemRepository itemRepository, ProductTypeRepository productTypeRepository, ImageIdFromProductIdRepository imageIdFromProductIdRepository, ImagePathFromIdRepository imagePathFromIdRepository, ProductRepository productRepository) {
+    public ProductController(ItemRepository itemRepository, ImagePathFromIdRepository imagePathFromIdRepository, ProductRepository productRepository) {
         this.itemRepository = itemRepository;
-        this.productTypeRepository = productTypeRepository;
-        this.imageIdFromProductIdRepository = imageIdFromProductIdRepository;
         this.imagePathFromIdRepository = imagePathFromIdRepository;
         this.productRepository = productRepository;
     }
@@ -41,9 +37,6 @@ public class ProductController {
             logger.info("product found, id: {}", id);
             Product product = productOptional.get();
 
-            product.setTypeString(getProductType((long) product.getTypeId()));
-
-            product.setImageIds(getImageIdFromProductId(id));
             String[] imagePaths = new String[product.getImageIds().length];
             String[] imageAltTexts = new String[product.getImageIds().length];
             int count = -1;
@@ -56,31 +49,6 @@ public class ProductController {
             product.setImageAltTexts(imageAltTexts);
 
             return ResponseEntity.ok(product);
-        }
-    }
-
-
-    private String getProductType(Long id) {
-        Optional<ProductType> typeOptional = productTypeRepository.findById(id);
-
-        if (typeOptional.isPresent()) {
-            logger.info("product type selected");
-            return typeOptional.get().getName();
-        } else {
-            logger.info("product type is not present, id: {}",  id);
-            return "";
-        }
-    }
-
-
-    private int[] getImageIdFromProductId(Long id) {
-        Optional<ImageIdFromProductId> optional = imageIdFromProductIdRepository.findById(id);
-        if (optional.isPresent()) {
-            logger.info("product id selected");
-            return optional.get().getImageId();
-        } else {
-            logger.info("product id is not present, id: {}",  id);
-            return new int[0];
         }
     }
 
@@ -98,6 +66,7 @@ public class ProductController {
         }
     }
 
+
     private String getImageAltTextFromImageId(Long id) {
         Optional<ImagePathFromId> optional = imagePathFromIdRepository.findById(id);
 
@@ -111,6 +80,7 @@ public class ProductController {
         }
     }
 
+
     @PostMapping("/add")
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
         logger.info("");
@@ -119,6 +89,7 @@ public class ProductController {
         productRepository.save(product);
         return ResponseEntity.ok(product);
     }
+
 
     @GetMapping("/amount")
     public ResponseEntity<Long> getAmountOfProducts() {

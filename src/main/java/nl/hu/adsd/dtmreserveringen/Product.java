@@ -1,10 +1,7 @@
 package nl.hu.adsd.dtmreserveringen;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import jakarta.persistence.*;
 import java.util.Arrays;
 
 @Entity
@@ -13,36 +10,19 @@ public class Product {
 
     @Id
     private int id;
-    private int typeId;
 
     private String name;
     private String description;
     private String details;
     private String contents;
+    private Js
 
     //Transient means there is no corresponding column in the db
-    @Transient
-    private String typeString;
-    @Transient
-    private int[] imageIds;
     @Transient
     private String[] imagePaths;
     @Transient
     private String[] imageAltTexts;
 
-    public Product() {
-
-    }
-
-    public Product(String name, String description, String details, String contents, String typeString, String[] imagePaths, String[] imageAltTexts) {
-        this.name = name;
-        this.description = description;
-        this.details = details;
-        this.contents = contents;
-        this.typeString = typeString;
-        this.imagePaths = imagePaths;
-        this.imageAltTexts = imageAltTexts;
-    }
 
     public int getId() {
         return id;
@@ -50,14 +30,6 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
     }
 
     public String getName() {
@@ -92,14 +64,6 @@ public class Product {
         this.contents = contents;
     }
 
-    public String getTypeString() {
-        return typeString;
-    }
-
-    public void setTypeString(String typeString) {
-        this.typeString = typeString;
-    }
-
     public int[] getImageIds() {
         return imageIds;
     }
@@ -128,12 +92,10 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", typeId=" + typeId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", details='" + details + '\'' +
                 ", contents='" + contents + '\'' +
-                ", typeString='" + typeString + '\'' +
                 ", imageIds=" + Arrays.toString(imageIds) +
                 ", imagePaths=" + Arrays.toString(imagePaths) +
                 ", imageAltTexts=" + Arrays.toString(imageAltTexts) +
