@@ -75,6 +75,8 @@ header .topbar-logo-container .topbar-logo-link {
     width: min-content;
 }
 
+
+
 header .topbar-logo-container .topbar-logo-link .topbar-logo {
     height: 44px;
     min-width: 180px;
@@ -155,6 +157,12 @@ header .topbar-nav .account {
     display: flex;
     align-items: center;
     height: 48px;
+}
+
+header .topbar-nav .account .cart-header img {
+height: 35px;
+width: 35px;
+margin-right: 10px;
 }
 
 /* main */
