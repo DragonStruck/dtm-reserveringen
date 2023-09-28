@@ -1,4 +1,4 @@
-package nl.hu.adsd.dtmreserveringen;
+package nl.hu.adsd.dtmreserveringen.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

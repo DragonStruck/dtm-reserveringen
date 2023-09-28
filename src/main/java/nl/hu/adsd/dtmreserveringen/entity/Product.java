@@ -1,8 +1,10 @@
-package nl.hu.adsd.dtmreserveringen;
+package nl.hu.adsd.dtmreserveringen.entity;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import jakarta.persistence.*;
-import java.util.Arrays;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -15,14 +17,29 @@ public class Product {
     private String description;
     private String details;
     private String contents;
-    private Js
+    private String imageIds;
 
     //Transient means there is no corresponding column in the db
     @Transient
-    private String[] imagePaths;
+    private List<String> imagePaths;
     @Transient
-    private String[] imageAltTexts;
+    private List<String> imageAltTexts;
 
+    @OneToMany
+    @JoinColumn(name = "productId")
+    private List<Item> items;
+    public Product() {
+
+    }
+
+    public Product(int id, String name, String description, String details, String contents, String imageIds) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.details = details;
+        this.contents = contents;
+        this.imageIds = imageIds;
+    }
 
     public int getId() {
         return id;
@@ -64,27 +81,35 @@ public class Product {
         this.contents = contents;
     }
 
-    public int[] getImageIds() {
-        return imageIds;
+    public List<Integer> getImageIds() {
+        JSONObject imageIdsJson = new JSONObject(imageIds);
+        String ids = imageIdsJson.getString("ids");
+        String[] idsArray = ids.split(",");
+
+        List<Integer> idsList = new ArrayList<>(idsArray.length);
+        for (String idString : idsArray) {
+            idsList.add(Integer.parseInt(idString));
+        }
+        return idsList;
     }
 
-    public void setImageIds(int[] imageIds) {
+    public void setImageIds(String imageIds) {
         this.imageIds = imageIds;
     }
 
-    public String[] getImagePaths() {
+    public List<String> getImagePaths() {
         return imagePaths;
     }
 
-    public void setImagePaths(String[] imagePaths) {
+    public void setImagePaths(List<String> imagePaths) {
         this.imagePaths = imagePaths;
     }
 
-    public String[] getImageAltTexts() {
+    public List<String> getImageAltTexts() {
         return imageAltTexts;
     }
 
-    public void setImageAltTexts(String[] imageAltTexts) {
+    public void setImageAltTexts(List<String> imageAltTexts) {
         this.imageAltTexts = imageAltTexts;
     }
 
@@ -96,9 +121,10 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", details='" + details + '\'' +
                 ", contents='" + contents + '\'' +
-                ", imageIds=" + Arrays.toString(imageIds) +
-                ", imagePaths=" + Arrays.toString(imagePaths) +
-                ", imageAltTexts=" + Arrays.toString(imageAltTexts) +
+                ", imageIds='" + imageIds + '\'' +
+                ", imagePaths=" + imagePaths + '\'' +
+                ", imageAltTexts=" + imageAltTexts +
                 '}';
     }
 }
+

@@ -1,4 +1,4 @@
-package nl.hu.adsd.dtmreserveringen;
+package nl.hu.adsd.dtmreserveringen.entity;
 
 import jakarta.persistence.*;
 
@@ -9,6 +9,9 @@ public class Item {
     @Id
     private long id;
     private int productId;
+
+    @ManyToOne
+    Item item;
 
     public long getId() {
         return id;
@@ -24,5 +27,13 @@ public class Item {
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

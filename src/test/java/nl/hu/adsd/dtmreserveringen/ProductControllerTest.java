@@ -1,5 +1,6 @@
 package nl.hu.adsd.dtmreserveringen;
 
+import nl.hu.adsd.dtmreserveringen.entity.Product;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,9 +24,9 @@ class ProductControllerTest {
 
     @Test
     void getProduct() {
-        String url = "http://localhost:" + port + "/product/";
+        String url = "http://localhost:" + port + "/product/1";
 
-        ResponseEntity<Product> productResponseEntity = restTemplate.getForEntity(url + "1", Product.class);
+        ResponseEntity<Product> productResponseEntity = restTemplate.getForEntity(url, Product.class);
 
         Assertions.assertEquals(HttpStatus.OK, productResponseEntity.getStatusCode());
         Product product = productResponseEntity.getBody();
@@ -35,3 +36,27 @@ class ProductControllerTest {
 
 
 }
+
+//not relevant for this sprint
+//    @Mock
+//    ProductRepository productRepository;
+//    @Mock
+//    ProductController productController;
+//    @Test
+//    void addProductTest() {
+//        ProductDto testProduct = new ProductDto(1, "name", "description", "details", "contents", "{\"ids\": \"1,2,3\"}");
+//
+//        doReturn(testProduct).when(productRepository).save(Mockito.any(Product.class));
+//
+//        ResponseEntity<Product> responseEntity = productController.addProduct(testProduct);
+//
+//        verify(productRepository, times(1)).save(testProduct);
+//
+//        assertAll(() -> {
+//            assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+//
+//            assertEquals(testProduct, responseEntity.getBody());
+//        });
+//
+//    }
+

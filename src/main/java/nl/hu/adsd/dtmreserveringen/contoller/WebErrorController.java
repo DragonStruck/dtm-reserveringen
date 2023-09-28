@@ -1,4 +1,4 @@
-package nl.hu.adsd.dtmreserveringen;
+package nl.hu.adsd.dtmreserveringen.contoller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
