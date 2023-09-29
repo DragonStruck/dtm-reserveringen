@@ -184,3 +184,20 @@ main .content-container .product-container {
     padding-bottom: var(--default-padding);
     width: 100%;
 }
+
+/* Buttons */
+
+button {
+    color: #fff;
+    border: none;
+    background-color: #00a1e1;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    color: #fff;
+    border-color: #0081b4;
+    background-color: #0081b4;
+}
