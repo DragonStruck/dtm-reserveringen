@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/cart.css">
 </head>
 <body>
     <header>
@@ -23,9 +24,10 @@
                 </div>
                 <div class="topbar-nav">
                     <div class="nav-right">
-                        <div class="cart-header">
-                            <a href="./cart">
+                        <div class="top-menu">
+                            <a class="" href="./cart">
                                 <img src="./icons/cart-outline.svg" alt="Cart Icon">
+                                <span id="cart-amount" class="button-badge">0</span>
                             </a>
                             <a href="./admin">
                                 <img src="./icons/person-outline.svg" alt="Admin Icon">
@@ -40,6 +42,38 @@
 <main>
     <div class="container">
         <div class="content-container">
+            <div class="products-container">
+                <div class="products">
+
+                    <div class="product">
+                        <img src="./images/EW.png" alt="">
+                        <div class="about">
+                            <h1>Naam</h1>
+                            <p>beschrijving</p>
+                        </div>
+                        <div class="actions">
+                            <button><img src="./icons/trash-outline-white.svg" alt="Delete Icon"> Verwijder</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product">
+                        <img src="./images/EW.png" alt="">
+                        <div class="about">
+                            <h1>Naam</h1>
+                            <p>beschrijving</p>
+                        </div>
+                        <div class="actions">
+                            <button><img src="./icons/trash-outline-white.svg" alt="Delete Icon"> Verwijder</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="checkout">
+                    <a href="./checkout">
+                        <button type="button"><img src="./icons/calendar-outline-white.svg" alt="Calender Icon"> Reserveren</button>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </main>
