@@ -21,7 +21,6 @@ class ProductControllerTest {
     private final RestTemplate restTemplate = new RestTemplate();
 
 
-
     @Test
     void getProduct() {
         String url = "http://localhost:" + port + "/product/1";

@@ -11,13 +11,13 @@ import java.util.List;
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
     private String description;
     private String details;
     private String contents;
-    private String imageIds;
 
     //Transient means there is no corresponding column in the db
     @Transient
@@ -25,10 +25,14 @@ public class Product {
     @Transient
     private List<String> imageAltTexts;
 
-    @OneToMany
-    @JoinColumn(name = "productId")
+
+    @OneToMany(mappedBy = "product")
     private List<Item> items;
-    public Product() {
+
+    @OneToMany(mappedBy = "product")
+    private List<ImagePathFromId> imagePathFromIds;
+
+    protected Product() {
 
     }
 
@@ -38,7 +42,6 @@ public class Product {
         this.description = description;
         this.details = details;
         this.contents = contents;
-        this.imageIds = imageIds;
     }
 
     public int getId() {
@@ -81,21 +84,21 @@ public class Product {
         this.contents = contents;
     }
 
-    public List<Integer> getImageIds() {
-        JSONObject imageIdsJson = new JSONObject(imageIds);
-        String ids = imageIdsJson.getString("ids");
-        String[] idsArray = ids.split(",");
+//    public List<Integer> getImageIds() {
+//        JSONObject imageIdsJson = new JSONObject(imageIds);
+//        String ids = imageIdsJson.getString("ids");
+//        String[] idsArray = ids.split(",");
+//
+//        List<Integer> idsList = new ArrayList<>(idsArray.length);
+//        for (String idString : idsArray) {
+//            idsList.add(Integer.parseInt(idString));
+//        }
+//        return idsList;
+//    }
 
-        List<Integer> idsList = new ArrayList<>(idsArray.length);
-        for (String idString : idsArray) {
-            idsList.add(Integer.parseInt(idString));
-        }
-        return idsList;
-    }
-
-    public void setImageIds(String imageIds) {
-        this.imageIds = imageIds;
-    }
+//    //public void setImageIds(String imageIds) {
+//        this.imageIds = imageIds;
+//    }
 
     public List<String> getImagePaths() {
         return imagePaths;
@@ -121,7 +124,6 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", details='" + details + '\'' +
                 ", contents='" + contents + '\'' +
-                ", imageIds='" + imageIds + '\'' +
                 ", imagePaths=" + imagePaths + '\'' +
                 ", imageAltTexts=" + imageAltTexts +
                 '}';

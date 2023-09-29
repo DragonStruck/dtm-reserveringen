@@ -1,18 +1,22 @@
 package nl.hu.adsd.dtmreserveringen.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "account")
 public class Account {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String email;
     private String password;
     private int admin;
+
+    @OneToMany(mappedBy = "account")
+    private List<Reservation> reservations;
 
     public int getId() {
         return id;

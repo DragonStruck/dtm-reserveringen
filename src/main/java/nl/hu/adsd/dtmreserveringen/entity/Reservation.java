@@ -1,15 +1,23 @@
 package nl.hu.adsd.dtmreserveringen.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "reservation")
 public class Reservation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int accountId;
+
+    @OneToMany(mappedBy = "reservation")
+    private List<ItemReservation> itemReservations;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
+
 
     public int getId() {
         return id;
@@ -17,13 +25,5 @@ public class Reservation {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
     }
 }

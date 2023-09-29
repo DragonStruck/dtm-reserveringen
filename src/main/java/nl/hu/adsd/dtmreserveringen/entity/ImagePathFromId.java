@@ -1,24 +1,23 @@
 package nl.hu.adsd.dtmreserveringen.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="productImage")
+@Table(name = "productImageIds")
 public class ImagePathFromId {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String altText;
-    private String imagePath;
 
-    public String getAltText() {
-        return altText;
-    }
+    private int imageId;
 
-    public void setAltText(String altText) {
-        this.altText = altText;
-    }
+    @ManyToOne
+    @JoinColumn(name = "iamge_id")
+
+    private Product product;
+
+    @OneToOne(mappedBy = "imagePathFromId")
+    private ProductImage productImage;
 
     public int getId() {
         return id;
@@ -28,11 +27,11 @@ public class ImagePathFromId {
         this.id = id;
     }
 
-    public String getImagePath() {
-        return "images/" + imagePath;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 }

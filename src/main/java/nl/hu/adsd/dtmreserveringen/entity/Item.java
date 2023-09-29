@@ -2,16 +2,21 @@ package nl.hu.adsd.dtmreserveringen.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="item")
 public class Item {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int productId;
 
     @ManyToOne
-    Item item;
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @OneToMany(mappedBy = "item")
+    private List<ItemReservation> itemReservations;
 
     public long getId() {
         return id;
@@ -21,19 +26,4 @@ public class Item {
         this.id = id;
     }
 
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
 }

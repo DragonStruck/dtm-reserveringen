@@ -1,21 +1,27 @@
 package nl.hu.adsd.dtmreserveringen.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
 @Table(name = "ItemReservation")
 public class ItemReservation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDate localDate;
     private int reservationPeriod;
-    private int reservationId;
-    private int itemId;
+
+    @ManyToOne
+    @JoinColumn(name = "item_reservation_id")
+    private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
 
     public int getId() {
         return id;
@@ -41,19 +47,4 @@ public class ItemReservation {
         this.reservationPeriod = reservationPeriod;
     }
 
-    public int getReservationId() {
-        return reservationId;
-    }
-
-    public void setReservationId(int reservationId) {
-        this.reservationId = reservationId;
-    }
-
-    public int getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
-    }
 }

@@ -30,60 +30,60 @@ public class ProductController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
-        Optional<Product> productOptional = productRepository.findById(id);
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
+//        Optional<Product> productOptional = productRepository.findById(id);
+//
+//        if (productOptional.isEmpty()) {
+//            logger.info("product is not present with index value of {}", id);
+//            return ResponseEntity.notFound().build(); //sends the status report
+//        } else {
+//            logger.info("product found, id: {}", id);
+//            Product product = productOptional.get();
+//
+//            int imageIdSize = product.getImageIds().size();
+//            List<String> imagePaths = new ArrayList<>(imageIdSize);
+//            List<String> imageAltTexts = new ArrayList<>(imageIdSize);
+//
+//            for (Integer imageId : product.getImageIds()) {
+////                imagePaths.add(getImagePathFromImageId((long) imageId));
+////                imageAltTexts.add(getImageAltTextFromImageId((long) imageId));
+//            }
+//
+//            product.setImagePaths(imagePaths);
+//            product.setImageAltTexts(imageAltTexts);
+//
+//            return ResponseEntity.ok(product);
+//        }
+//    }
 
-        if (productOptional.isEmpty()) {
-            logger.info("product is not present with index value of {}", id);
-            return ResponseEntity.notFound().build(); //sends the status report
-        } else {
-            logger.info("product found, id: {}", id);
-            Product product = productOptional.get();
-
-            int imageIdSize = product.getImageIds().size();
-            List<String> imagePaths = new ArrayList<>(imageIdSize);
-            List<String> imageAltTexts = new ArrayList<>(imageIdSize);
-
-            for (Integer imageId : product.getImageIds()) {
-                imagePaths.add(getImagePathFromImageId((long) imageId));
-                imageAltTexts.add(getImageAltTextFromImageId((long) imageId));
-            }
-
-            product.setImagePaths(imagePaths);
-            product.setImageAltTexts(imageAltTexts);
-
-            return ResponseEntity.ok(product);
-        }
-    }
-
-
-    private String getImagePathFromImageId(Long id) {
-        Optional<ImagePathFromId> optional = imagePathFromIdRepository.findById(id);
-
-        if (optional.isPresent()) {
-            logger.info("product image path selected");
-            return optional.get().getImagePath();
-
-        } else {
-            logger.info("product image path is not present, id: {}",  id);
-            return "";
-        }
-    }
-
-
-    private String getImageAltTextFromImageId(Long id) {
-        Optional<ImagePathFromId> optional = imagePathFromIdRepository.findById(id);
-
-        if (optional.isPresent()) {
-            logger.info("product image alt text selected");
-            return optional.get().getAltText();
-
-        } else {
-            logger.info("product image alt text is not present, id: {}",  id);
-            return "";
-        }
-    }
+//commented out for stting up db
+//    private String getImagePathFromImageId(Long id) {
+//        Optional<ImagePathFromId> optional = imagePathFromIdRepository.findById(id);
+//
+//        if (optional.isPresent()) {
+//            logger.info("product image path selected");
+//            return optional.get().getImagePath();
+//
+//        } else {
+//            logger.info("product image path is not present, id: {}",  id);
+//            return "";
+//        }
+//    }
+//
+//
+//    private String getImageAltTextFromImageId(Long id) {
+//        Optional<ImagePathFromId> optional = imagePathFromIdRepository.findById(id);
+//
+//        if (optional.isPresent()) {
+//            logger.info("product image alt text selected");
+//            return optional.get().getAltText();
+//
+//        } else {
+//            logger.info("product image alt text is not present, id: {}",  id);
+//            return "";
+//        }
+//    }
 
 //started working on this, but it's not relevant for this user story
 //    @PostMapping("/add")

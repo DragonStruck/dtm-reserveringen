@@ -21,6 +21,4 @@ public class DtmReservationsConfig {
         loggingFilter.setMaxPayloadLength(64000);
         return loggingFilter;
     }
-
-
 }
