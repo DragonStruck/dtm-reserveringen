@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 <body>
     <header>
@@ -22,23 +23,44 @@
                     </a>
                 </div>
                 <div class="topbar-nav">
-                    <!-- <div class="search-bar-container">
-                        <form name="search">
-                            <input class="search-bar" placeholder="Zoek producten..." type="search">
-                            <button class="search-button" type="submit">Zoek</button>
-                        </form>
-                    </div> -->
                     <div class="nav-right">
                         <div class="cart-header">
                             <a href="./cart">
                                 <img src="./icons/cart-outline.svg" alt="Cart Icon">
                             </a>
+                            <a href="./admin">
+                                <img src="./icons/person-outline.svg" alt="Admin Icon">
+                            </a>
                         </div>
-                        <a href="./admin.html">admin account link</a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
+    
+
+    <div class="wrapper">
+        <div class="form-wrapper">
+        <form action="">
+            <h1>inloggen</h1>
+            <div class="input-box">
+                    <img src="./icons/person-outline.svg" alt="Admin Icon"></a>
+                <input type="text" placeholder="E-mail"
+                       required>
+            </div>
+            <div class="input-box">
+                <img src="./icons/person-outline.svg" alt="Admin Icon"></a>
+                <input type="password" placeholder="Wachtwoord"
+                       required>
+            </div>
+            <button type="submit" class="login">Inloggen</button>
+            <button type="button" class="register">Maak nieuw account aan</button>
+            <div class="remember-forgot">
+                <label><input type="checkbox">Onthoud mij</label>
+                <a href="#">Wachtwoord Vergeten?</a>
+            </div>
+        </form>
+        </div>
+    </div>
 </body>
 </html>
