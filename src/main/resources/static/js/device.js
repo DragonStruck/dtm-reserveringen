@@ -8,9 +8,9 @@ export class Device {
         this.description = "";
         this.details = "";
         this.contents = "";
-        this.imageIds = [];
+        this.items = [];
         this.imagePaths = [];
-        this.imageAltTexts = [];
+        this.altTexts = [];
 
         // bind html elements
         this.outputElement = outputElement;
@@ -33,19 +33,26 @@ export class Device {
                 this.description = jsonProduct.description;
                 this.details = jsonProduct.details;
                 this.contents = jsonProduct.contents;
-                this.type = jsonProduct.typeString;
-                this.imageIds = jsonProduct.imageIds;
-                this.imagePaths = jsonProduct.imagePaths;
-                this.imageAltTexts = jsonProduct.imageAltTexts;
+
+                let imagesArray = jsonProduct.images;
+                for (let i = 0; i < imagesArray.length; i++) {
+                    let imagePath = imagesArray[i].imagePath;
+                    if (imagePath === "") {
+                        this.imagePaths[i] = null;
+                        this.altTexts[i] = imagesArray[i].altText;
+                    } else {
+                        this.imagePaths[i] = imagePath;
+                        this.altTexts[i] = null;
+                    }
+                }
+
                 console.log("Id: " + this.id +
                     "\nName: " + this.name +
                     "\nDescription: " + this.description +
-                    "\nDetails: " +this.details +
+                    "\nDetails: " + this.details +
                     "\nContents: " + this.contents +
-                    "\nType: " + this.type +
-                    "\nImageId: " + this.imageIds +
-                    "\nImagePaths: " + this.imagePaths +
-                    "\nImageAltTexts: " + this.imageAltTexts
+                    "\nImage Paths: " + this.imagePaths +
+                    "\nAlt texts: " + this.altTexts
                 );
 
             } else {
@@ -61,12 +68,15 @@ export class Device {
         tile.href = "/product?id=" + this.id;
         tile.classList.add("product");
 
-
-        const image = document.createElement("img");
-        image.classList.add("product-image");
-        image.src = this.imagePaths[0];
-        tile.appendChild(image);
-
+        if (this.imagePaths[0] != null) {
+            const image = document.createElement("img");
+            image.classList.add("product-image");
+            image.src = "/images/" + this.imagePaths[0];
+            tile.appendChild(image);
+        } else {
+            const altText = document.createElement("p");
+            altText.textContent = this.altTexts[0];
+        }
 
         const product_details = document.createElement("div");
         product_details.classList.add("product-text");
@@ -103,7 +113,7 @@ export class Device {
 
             const slide_image = document.createElement("img");
             slide_image.src = this.imagePaths[i];
-            slide_image.alt = this.imageAltTexts[i];
+            slide_image.alt = this.altTexts[i];
             slide.appendChild(slide_image);
             slides.appendChild(slide);
 
@@ -117,7 +127,7 @@ export class Device {
             const thumbnail_image = document.createElement('img');
             thumbnail_image.classList.add('thumbnail');
             thumbnail_image.src = this.imagePaths[i];
-            thumbnail_image.alt = this.imageAltTexts[i];
+            thumbnail_image.alt = this.altTexts[i];
             thumbnail.appendChild(thumbnail_image);
             thumbnails.appendChild(thumbnail);
         }
