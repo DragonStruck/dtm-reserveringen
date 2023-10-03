@@ -49,19 +49,29 @@ let generateProducts =()=>{
     return (productsContainer.innerHTML = products.map((product)=>{
         return `
         <a href="/product?id=${product.id}" class="product">
-            <img class="product-image" src="${product.imagePaths[0]}" alt="${product.imageAltTexts[0]}">
-            <div class="product-text">
-                <h1>${product.name}</h1>
-                <p>${product.description}</p>
-            </div>
-            <div class="status">
-                <!--<div class="status-background"></div>
-                <span class="status-text">${product.status}</span>-->
-            </div>
+        <img class="product-image" src="${product.imagePaths[0]}" alt="${product.imageAltTexts[0]}">
+        <div class="product-text">
+            <h1>${product.name}</h1>
+            <p>${product.description}</p>
+        </div>
+        <div class="status">
+            <!--<div class="status-background"></div>
+            <span class="status-text">${product.status}</span>-->
+        </div>
+        <div class="product-button">
+            <button type="direct" class="cartDirectButton">
+                <img src="./icons/cart-outline.svg" class="cartDirectImg" alt="Cart Icon">
+             </button>
+        </div>
         </a>
         `;
     }).join(""));
 }
+
+
+{/* jeff */}
+
+
 
 if (products.length > 0) {
     generateProducts();
