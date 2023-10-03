@@ -65,6 +65,7 @@ let generateProducts =()=>{
 
 if (products.length > 0) {
     generateProducts();
+    document.getElementById('loader').style.display = "none";
 } else {
     console.log("No products found");
 }
