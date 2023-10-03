@@ -35,8 +35,11 @@ if (sessionStorage.getItem("products") != null) {
     try {
         for (let i = 0; i < amount; i++) {
             let device = new Device();
-            products.push(await device.fetch(i + 1));
+            await device.fetch(i + 1);
+            products.push(device);
         }
+        console.log("print print print print")
+        console.log(products[0]);
         sessionStorage.setItem("products", JSON.stringify(products));
     } catch (ex) {
         console.log("Something went wrong retrieving in fetch() amount . Exception message is '" + ex.message + "'");
