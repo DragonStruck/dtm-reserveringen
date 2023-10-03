@@ -58,11 +58,9 @@ let generateProducts =()=>{
             <!--<div class="status-background"></div>
             <span class="status-text">${product.status}</span>-->
         </div>
-        <div class="product-button">
-            <button type="direct" class="cartDirectButton">
-                <img src="./icons/cart-outline.svg" class="cartDirectImg" alt="Cart Icon">
-             </button>
-        </div>
+        <button onclick="addToCart(${product.id})" class="cartDirectButton">
+            <img src="./icons/cart-outline.svg" class="cartDirectImg" alt="Cart Icon">
+        </button>
         </a>
         `;
     }).join(""));
@@ -75,6 +73,14 @@ let generateProducts =()=>{
 
 if (products.length > 0) {
     generateProducts();
+
+    let buttons = document.querySelectorAll('.cartDirectButton');
+    buttons.forEach(cartButton => {
+        cartButton.addEventListener('click', (e) => {
+            e.preventDefault();
+        })
+    });
+
     document.getElementById('loader').style.display = "none";
 } else {
     console.log("No products found");
