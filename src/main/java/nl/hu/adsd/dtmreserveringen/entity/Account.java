@@ -15,7 +15,7 @@ public class Account {
     private String password;
     private int admin;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private List<Reservation> reservations;
 
     public int getId() {
