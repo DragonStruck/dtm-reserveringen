@@ -1,13 +1,13 @@
 let cartAmountElement = document.getElementById('cart-amount');
 let cartLocalStorage;
 
-if (localStorage.getItem('cart') == null) {
-    localStorage.setItem('cart', '{"items":[]}');
-} else {
-    cartLocalStorage = JSON.parse(localStorage.getItem('cart'));
-}
+// if (localStorage.getItem('cart') == null) {
+//     localStorage.setItem('cart', '{"items":[]}');
+// }
 
-updateCartNumber()
+cartLocalStorage = JSON.parse(localStorage.getItem('cart'));
+
+updateCartNumber();
 
 function addToCart(i) {
     if (!inArray(i, cartLocalStorage.items)) {

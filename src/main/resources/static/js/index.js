@@ -66,11 +66,6 @@ let generateProducts =()=>{
     }).join(""));
 }
 
-
-{/* jeff */}
-
-
-
 if (products.length > 0) {
     generateProducts();
 

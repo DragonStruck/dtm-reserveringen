@@ -38,7 +38,7 @@ if (cart.length > 0) {
     generateCart();
     document.getElementById('loader').style.display = "none";
 } else {
-    alert("No products in cart");
+    // alert("No products in cart");
     document.getElementById('loader').style.display = "none";
     console.log("No products found");
 }
