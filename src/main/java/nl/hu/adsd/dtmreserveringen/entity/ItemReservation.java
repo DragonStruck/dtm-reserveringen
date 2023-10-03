@@ -3,11 +3,10 @@ package nl.hu.adsd.dtmreserveringen.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 
 @Entity
-@Table(name = "ItemReservation")
+@Table(name = "item_reservation")
 public class ItemReservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +15,7 @@ public class ItemReservation {
     private int reservationPeriod;
 
     @ManyToOne
-    @JoinColumn(name = "item_reservation_id")
+    @JoinColumn(name = "item_id")
     private Item item;
 
     @ManyToOne

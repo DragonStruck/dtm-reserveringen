@@ -11,7 +11,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(mappedBy = "reservation", fetch = FetchType.LAZY)
     private List<ItemReservation> itemReservations;
 
     @ManyToOne
