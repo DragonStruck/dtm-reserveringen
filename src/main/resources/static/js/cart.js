@@ -27,7 +27,7 @@ let generateCart =()=>{
                 <p>${product.description}</p>
             </div>
             <div class="actions">
-                <button id="delete${product.id}"><img src="./icons/trash-outline-white.svg" alt="Delete Icon"> Verwijder</button>
+                <button onclick="removeFromCart(${product.id})"><img src="./icons/trash-outline-white.svg" alt="Delete Icon"> Verwijder</button>
             </div>
         </div>
         `;

@@ -1,9 +1,9 @@
 let cartAmountElement = document.getElementById('cart-amount');
 let cartLocalStorage;
 
-// if (localStorage.getItem('cart') == null) {
-//     localStorage.setItem('cart', '{"items":[]}');
-// }
+if (localStorage.getItem('cart') == null) {
+    localStorage.setItem('cart', '{"items":[]}');
+}
 
 cartLocalStorage = JSON.parse(localStorage.getItem('cart'));
 
@@ -29,7 +29,8 @@ function removeFromCart(i) {
         cartLocalStorage.items.splice(cartItem, 1);
         localStorage.setItem('cart', JSON.stringify(cartLocalStorage));
         console.log(cartLocalStorage.items);
-        updateCartNumber();
+        // updateCartNumber();
+        location.reload();
         return true;
     } else {
         console.log("item not in cart");
@@ -58,7 +59,7 @@ function inArray(item, array) {
 
 
 console.log(JSON.parse(localStorage.getItem('cart')));
-emptyCart();
+// emptyCart();
 // addToCart(1);
 // addToCart(6);
 // addToCart(8);
