@@ -59,7 +59,7 @@ let generateProduct =()=>{
                     <p id="contents-text">${productData.contents}</p>
                 </div>
                 <div class="add-to-cart">
-                    <button class="add-to-cart-button"><img src="./icons/cart-outline-white.svg" alt="Calender Icon"> Toevoegen aan mandje</button>
+                    <button onclick="addToCart(${productData.id})" class="add-to-cart-button"><img src="./icons/cart-outline-white.svg" alt="Calender Icon"> Toevoegen aan mandje</button>
                 </div>
             </div>
         </div>
