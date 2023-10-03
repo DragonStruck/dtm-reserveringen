@@ -1,4 +1,4 @@
-import {Device} from "./device.js";
+import {Device} from "../classes/device.js";
 
 let productsContainer = document.getElementById("products");
 
