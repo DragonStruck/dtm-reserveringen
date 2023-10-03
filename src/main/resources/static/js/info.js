@@ -70,6 +70,7 @@ if (productData != null) {
 
     // Generate product
     generateProduct();
+    document.getElementById('loader').style.display = "none";
 
     // Add product images
     const slides = document.getElementById('slides-container');
