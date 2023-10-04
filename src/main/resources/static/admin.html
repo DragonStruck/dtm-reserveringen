@@ -4,14 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>Admin | DTM Reserveringen</title>
 
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/admin.css">
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -38,12 +40,14 @@
         </div>
     </header>
 
-<main>
-    <div class="container">
-        <div class="content-container">
+    <main>
+        <div class="container">
+            <table id="reservation-table">
+            </table>
         </div>
-    </div>
-</main>
+    </main>
+
+    <script src="/js/admin.js" type="module"></script>
 </body>
 
 </html>

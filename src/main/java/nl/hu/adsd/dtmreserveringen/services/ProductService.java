@@ -16,6 +16,10 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
+    public Iterable<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
     public Long getAmountOfProducts() {
         return productRepository.count();
     }

@@ -1,4 +1,4 @@
-import {Device} from "./device.js";
+import {Device} from "../classes/device.js";
 
 let productContainer = document.getElementById("product-container");
 
@@ -61,7 +61,7 @@ let generateProduct =()=>{
                     <p id="contents-text">${productData.contents}</p>
                 </div>
                 <div class="add-to-cart">
-                    <button class="add-to-cart-button"><img src="./icons/cart-outline-white.svg" alt="Calender Icon"> Toevoegen aan mandje</button>
+                    <button onclick="addToCart(${productData.id})" class="add-to-cart-button"><img src="./icons/cart-outline-white.svg" alt="Calender Icon"> Toevoegen aan mandje</button>
                 </div>
             </div>
         </div>
@@ -72,6 +72,7 @@ if (productData != null) {
 
     // Generate product
     generateProduct();
+    document.getElementById('loader').style.display = "none";
 
     // Add product images
     const slides = document.getElementById('slides-container');
@@ -125,67 +126,3 @@ if (productData != null) {
 } else {
     console.log("No product found");
 }
-
-
-// if (productData != null) {
-
-
-
-
-
-    
-//     document.getElementById('product-title').textContent = productData.name;
-
-//     const product = document.getElementById('product');
-
-//     switch(productData.status) {
-//         case "Op voorraad":
-//             product.classList.add("available");
-//             break;
-//         case "In verwerking":
-//             product.classList.add("processing");
-//             break;
-//         case "Goedgekeurd":
-//             product.classList.add("processing");
-//            break;
-//         case "Uitgeleend":
-//             product.classList.add("unavailable");
-//             break;
-//         case "Kwijt":
-//             product.classList.add("unavailable");
-//             break;
-//     }
-
-//     document.getElementById('status-text').textContent = productData.status;
-
-//     const slides = document.getElementById('slides-container');
-//     const thumbnails = document.getElementById('thumbnail-container');
-
-//     for (let i = 0; i < productData.imagePaths.length; i++) {
-//         const slide = document.createElement("div");
-//         slide.classList.add("slides");
-//         if (i == 0) {slide.style = "display: block;";}
-
-//         const slide_image = document.createElement("img");
-//         slide_image.src = productData.imagePaths[i];
-//         slide_image.alt = productData.imageAltTexts[i];
-//         slide.appendChild(slide_image);
-//         slides.appendChild(slide);
-
-//         const thumbnail = document.createElement('div');
-//         thumbnail.classList.add('column');
-//         thumbnail.classList.add('cursor');
-//         thumbnail.addEventListener('click', () => {currentSlide(i+1)});
-
-//         const thumbnail_image = document.createElement('img');
-//         thumbnail_image.classList.add('thumbnail');
-//         thumbnail_image.src = productData.imagePaths[i];
-//         thumbnail_image.alt = productData.imageAltTexts[i];
-//         thumbnail.appendChild(thumbnail_image);
-//         thumbnails.appendChild(thumbnail);
-//     }
-
-//     document.getElementById('description-text').textContent = productData.description;
-//     document.getElementById('details-text').textContent = productData.details;
-//     document.getElementById('contents-text').textContent = productData.contents;
-// }

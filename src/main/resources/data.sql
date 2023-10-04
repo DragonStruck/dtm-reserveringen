@@ -63,3 +63,17 @@ INSERT IGNORE INTO item (id, product_id) VALUES
     (37, 5),
     (38, 5);
 
+INSERT IGNORE INTO reservation(id, account_id) VALUES
+    (1,1),
+    (2,1);
+
+INSERT IGNORE INTO item_reservation(id, local_date, reservation_period, item_id, reservation_id)VALUES
+    (1, '2023-10-08', 3, 1, 1),
+    (2, '2023-10-08', 2, 2, 1),
+    (3, '2023-10-08', 1, 30, 1),
+    (4, '2023-10-08', 3, 2, 2),
+    (5, '2023-10-08', 2, 4, 2),
+    (6, '2023-10-08', 1, 31, 2);
+
+
+

@@ -15,7 +15,6 @@ public class Item {
     @JoinColumn(name = "product_id")
     private Product product;
 
-
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<ItemReservation> itemReservations;
 

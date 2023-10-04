@@ -11,7 +11,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "reservation", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "reservation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ItemReservation> itemReservations;
 
     @ManyToOne
@@ -25,5 +25,21 @@ public class Reservation {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<ItemReservation> getItemReservations() {
+        return itemReservations;
+    }
+
+    public void setItemReservations(List<ItemReservation> itemReservations) {
+        this.itemReservations = itemReservations;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

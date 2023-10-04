@@ -1,4 +1,4 @@
-import {Device} from "./device.js";
+import {Device} from "../classes/device.js";
 
 let productsContainer = document.getElementById("products");
 
@@ -52,15 +52,18 @@ let generateProducts =()=>{
     return (productsContainer.innerHTML = products.map((product)=>{
         return `
         <a href="/product?id=${product.id}" class="product">
-            <img class="product-image" src="${product.imagePaths[0]}" alt="${product.imageAltTexts[0]}">
-            <div class="product-text">
-                <h1>${product.name}</h1>
-                <p>${product.description}</p>
-            </div>
-            <div class="status">
-                <!--<div class="status-background"></div>
-                <span class="status-text">${product.status}</span>-->
-            </div>
+        <img class="product-image" src="${product.imagePaths[0]}" alt="${product.imageAltTexts[0]}">
+        <div class="product-text">
+            <h1>${product.name}</h1>
+            <p>${product.description}</p>
+        </div>
+        <div class="status">
+            <!--<div class="status-background"></div>
+            <span class="status-text">${product.status}</span>-->
+        </div>
+        <button onclick="addToCart(${product.id})" class="cartDirectButton">
+            <img src="./icons/cart-outline.svg" class="cartDirectImg" alt="Cart Icon">
+        </button>
         </a>
         `;
     }).join(""));
@@ -68,6 +71,14 @@ let generateProducts =()=>{
 
 if (products.length > 0) {
     generateProducts();
+
+    let buttons = document.querySelectorAll('.cartDirectButton');
+    buttons.forEach(cartButton => {
+        cartButton.addEventListener('click', (e) => {
+            e.preventDefault();
+        })
+    });
+
     document.getElementById('loader').style.display = "none";
 } else {
     console.log("No products found");
