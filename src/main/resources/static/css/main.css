@@ -172,10 +172,9 @@ button>img {
     background-color: #fa3e3e;
     border-radius: 2px;
     color: white;
-
     padding: 1px 3px;
     font-size: 10px;
-
+    font-weight: bold;
     position: absolute;
     top: 0;
     right: 0;
