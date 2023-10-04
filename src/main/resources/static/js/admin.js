@@ -10,8 +10,9 @@ try {
     }
 
     const json = await response.json();
-    console.log("All reservations: got a json response; " + JSON.stringify(json));
+    console.log("All reservations: got a json response");
 
+    JSON.stringify(json);
     const jsonValues = Object.values(json);
     jsonValues.forEach(data => {
         const reservation = new Reservation();
