@@ -48,7 +48,7 @@ export class Device {
                     "\nImage Paths: " + this.imagePaths +
                     "\nAlt texts: " + this.imageAltTexts
                 );
-
+                return this;
             } else {
                 console.log("Product; error retrieving from database" + responseProduct.status);
             }
