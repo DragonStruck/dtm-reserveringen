@@ -1,6 +1,6 @@
 import {Product} from "../classes/product.js";
 
-let cartContainer = document.getElementById("cart");
+const cartContainer = document.getElementById("cart");
 let cartLocalStorage;
 let cart = [];
 
@@ -8,16 +8,19 @@ try {
     cartLocalStorage = JSON.parse(localStorage.getItem("cart"));
 
     for (let i = 0; i < cartLocalStorage.items.length; i++) {
-        let device = new Product();
-        cart.push(await device.fetch(cartLocalStorage.items[i]));
+        let product = new Product();
+        await product.fetch(cartLocalStorage.items[i]);
+        cart.push(product);
     }
+
+    console.log(cart);
 } catch (ex) {
     console.log("Something went wrong retrieving in fetch() amount . Exception message is '" + ex.message + "'");
 }
 
 // Show Cart
 
-let generateCart =()=>{
+let generateCart =()=> {
     return (cartContainer.innerHTML = cart.map((product)=>{
         return `
         <div class="product">
