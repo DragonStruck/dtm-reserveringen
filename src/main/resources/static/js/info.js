@@ -1,4 +1,4 @@
-import {Device} from "../classes/device.js";
+import {Product} from "../classes/product.js";
 
 let productContainer = document.getElementById("product-container");
 
@@ -17,15 +17,14 @@ function findGetParameter(parameterName) {
     return result;
 }
 
-const device = new Device(
+const product = new Product(
     document.getElementById('product')
+
 );
 
-const product = findGetParameter('id')
+const productId = findGetParameter('id')
 
-let productData = await device.fetch(product);
-// device.renderInfo();
-
+let productData = await product.fetch(productId);
 
 // Show Products
 
