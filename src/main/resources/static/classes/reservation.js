@@ -2,6 +2,13 @@ export class Reservation {
 
     constructor(json) {
         //values of product
+        this.id = "";
+        this.itemReservations = [];
+        this.account = "";
+        this.email = "";
+    }
+
+    setValues(json) {
         this.id = json.id;
         this.itemReservations = [];
         for (let i = 0; i < json.itemReservations.length; i++) {
