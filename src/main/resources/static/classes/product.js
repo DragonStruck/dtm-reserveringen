@@ -1,6 +1,6 @@
-export class Device {
+export class Product {
 
-    constructor(outputElement) {
+    constructor() {
         //values of product
         this.id = "";
         this.type = "";
@@ -11,9 +11,26 @@ export class Device {
         this.items = [];
         this.imagePaths = [];
         this.imageAltTexts = [];
+    }
 
-        // bind html elements
-        this.outputElement = outputElement;
+    setValues(json) {
+        this.id = json.id;
+        this.type = json.type;
+        this.name = json.name;
+        this.description = json.description;
+        this.details = json.details;
+        this.contents = json.contents;
+
+        let itemValues = Object.values(json.items);
+        itemValues.map(item => {
+            this.items.push(item);
+        });
+
+        let imagesValues = Object.values(json.images);
+        imagesValues.map(image => {
+            this.imagePaths.push("/images/" + image.imagePath);
+            this.imageAltTexts.push(image.imageAltText);
+        });
     }
 
     async fetch(index) {
@@ -27,33 +44,25 @@ export class Device {
             console.log("Product; got a json response; " + JSON.stringify(jsonProduct));
 
             //retrieve data for the product from other tables using id's
-            if (responseProduct.ok) {
-                this.id = jsonProduct.id;
-                this.name = jsonProduct.name;
-                this.description = jsonProduct.description;
-                this.details = jsonProduct.details;
-                this.contents = jsonProduct.contents;
-
-                let imagesArray = jsonProduct.images;
-                for (let i = 0; i < imagesArray.length; i++) {
-                    this.imagePaths[i] = "/images/" + imagesArray[i].imagePath;
-                    this.imageAltTexts[i] = imagesArray[i].altText;
-                }
+            if (!responseProduct.ok) {
+                console.log("Product; error retrieving from database" + responseProduct.status);
+            } else {
+                this.setValues(jsonProduct);
 
                 console.log("Id: " + this.id +
                     "\nName: " + this.name +
                     "\nDescription: " + this.description +
                     "\nDetails: " + this.details +
                     "\nContents: " + this.contents +
+                    "\nItems: " + this.items +
                     "\nImage Paths: " + this.imagePaths +
                     "\nAlt texts: " + this.imageAltTexts
                 );
-                return this;
-            } else {
-                console.log("Product; error retrieving from database" + responseProduct.status);
             }
+
+            return this;
         } catch (ex) {
-            console.log("Something went wrong retrieving in fetch() Device.js . Exception message: '" + ex.message + "'");
+            console.log("Something went wrong retrieving in fetch() Product.js . Exception message: '" + ex.message + "'");
         }
     }
 }
