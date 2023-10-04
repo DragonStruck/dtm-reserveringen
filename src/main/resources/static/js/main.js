@@ -48,8 +48,8 @@ function updateCartNumber() {
 }
 
 function inArray(item, array) {
-    var count = array.length;
-    for (var i = 0; i < count; i++) {
+    let count = array.length;
+    for (let i = 0; i < count; i++) {
         if (array[i] === item) {
             return true;
         }
