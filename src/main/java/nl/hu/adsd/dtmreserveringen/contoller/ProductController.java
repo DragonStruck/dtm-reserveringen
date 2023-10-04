@@ -1,7 +1,6 @@
 package nl.hu.adsd.dtmreserveringen.contoller;
 
 import nl.hu.adsd.dtmreserveringen.entity.Product;
-import nl.hu.adsd.dtmreserveringen.entity.Reservation;
 import nl.hu.adsd.dtmreserveringen.services.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
