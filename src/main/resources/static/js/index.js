@@ -1,53 +1,36 @@
-import {Device} from "../classes/device.js";
+import {Product} from "../classes/product.js";
 
 let productsContainer = document.getElementById("products");
-
-// Get amount of products
-
-let amount;
-try {
-    console.log("Product amount")
-    const response = await fetch("/product/amount");
-    console.log("Product amount: response is ok? " + response.ok + " Status code " + response.status);
-
-    const json = await response.json();
-    console.log("Product amount: got a json response; " + JSON.stringify(json));
-    amount = json;
-}
-catch (ex) {
-    console.log("Something went wrong retrieving in fetch() amount . Exception message is '" + ex.message + "'");
-}
-
-// Get products
-
-// sessionStorage.removeItem("products");
-
 let products = [];
 
+console.log("Get all products")
 if (sessionStorage.getItem("products") != null) {
     console.log("products sessionStorage is not empty");
-
     products = JSON.parse(sessionStorage.getItem("products"));
-
 } else {
     console.log("products sessionStorage is empty, retrieving products from database");
 
     try {
-        for (let i = 0; i < amount; i++) {
-            let device = new Device();
-            await device.fetch(i + 1);
-            products.push(device);
+        const response = await fetch("/product/all");
+        if (!response.ok) {
+            console.log("All products: response is error; Status code: " + response.status);
         }
-        console.log("print print print print")
-        console.log(products[0]);
-        sessionStorage.setItem("products", JSON.stringify(products));
-    } catch (ex) {
-        console.log("Something went wrong retrieving in fetch() amount . Exception message is '" + ex.message + "'");
+
+        const json = await response.json();
+        console.log("All products: got a json response; " + JSON.stringify(json));
+
+        const jsonValues = Object.values(json);
+        jsonValues.forEach(data => {
+            const product = new Product();
+            product.setValues(data);
+            products.push(product)
+        });
+    } catch (error) {
+        console.error("Something went wrong retrieving all products:", error);
     }
 }
 
 // Show Products
-
 let generateProducts =()=>{
     return (productsContainer.innerHTML = products.map((product)=>{
         return `
