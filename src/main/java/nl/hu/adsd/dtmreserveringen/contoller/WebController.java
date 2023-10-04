@@ -14,7 +14,7 @@ public class WebController {
 
     @RequestMapping("/product")
     public String product() {
-        return "info.html";
+        return "info-page.html";
     }
 
     @RequestMapping("/login")
