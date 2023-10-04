@@ -1,0 +1,33 @@
+th {
+    text-align: center;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+table {
+    width: 100%;
+}
+
+button {
+    height: 30px;
+    width: 125px;
+    font-size: 16px;
+    padding: 0;
+    margin: 5px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#reject-button {
+    background-color: #b40000;
+}
+
+#see-reservation-button {
+    background-color: darkgoldenrod;
+}
