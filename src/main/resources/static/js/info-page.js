@@ -26,51 +26,9 @@ const productId = findGetParameter('id')
 
 let productData = await product.fetch(productId);
 
-// Show Products
-
-let generateProduct =()=>{
-    return productContainer.innerHTML = `
-        <div id="product" class="product">
-            <div class="product-info-left">
-                <div class="title-container">
-                    <h1 id="product-title">${productData.name}</h1>
-                    <div class="status">
-                        <div class="status-background"></div>
-                        <span id="status-text" class="status-text">${productData.status}</span>
-                    </div>
-                </div>
-                <div class="slideshow-container">
-                    <div id="slides-container" class="slides-container"></div>
-                    <a class="prev" onclick="plusSlides(-1)">❮</a>
-                    <a class="next" onclick="plusSlides(1)">❯</a>
-                    <div id="thumbnail-container" class="row"></div>
-                </div>
-                <div class="product-info-description">
-                    <h2>Product omschrijving</h2>
-                    <p id="description-text">${productData.description}</p>
-                </div>
-            </div>
-            <div class="product-info-right">
-                <div class="product-details">
-                    <h2>Product details</h2>
-                    <p id="details-text">${productData.details}</p>
-                </div>
-                <div class="product-contents">
-                    <h2>Product inhoud</h2>
-                    <p id="contents-text">${productData.contents}</p>
-                </div>
-                <div class="add-to-cart">
-                    <button onclick="addToCart(${productData.id})" class="add-to-cart-button"><img src="./icons/cart-outline-white.svg" alt="Calender Icon"> Toevoegen aan mandje</button>
-                </div>
-            </div>
-        </div>
-        `;
-}
-
 if (productData != null) {
-
     // Generate product
-    generateProduct();
+    productContainer.innerHTML = product.generateProductInfoPage();
     document.getElementById('loader').style.display = "none";
 
     // Add product images
