@@ -6,10 +6,16 @@ let products = [];
 console.log("Get all products")
 if (sessionStorage.getItem("products") != null) {
     console.log("products sessionStorage is not empty");
-    products = JSON.parse(sessionStorage.getItem("products"));
+    const productJson = sessionStorage.getItem("products");
+
+    JSON.parse(productJson).forEach(productData => {
+        const product = new Product();
+        product.setValuesFromObject(productData);
+        products.push(product);
+
+    });
 } else {
     console.log("products sessionStorage is empty, retrieving products from database");
-
     try {
         const response = await fetch("/product/all");
         if (!response.ok) {
@@ -17,43 +23,26 @@ if (sessionStorage.getItem("products") != null) {
         }
 
         const json = await response.json();
-        console.log("All products: got a json response; " + JSON.stringify(json));
+        console.log("All products: got a json response");
+        JSON.stringify(json)
 
-        const jsonValues = Object.values(json);
-        jsonValues.forEach(data => {
+        Object.values(json).forEach(data => {
             const product = new Product();
-            product.setValues(data);
+            product.setValuesFromJson(data);
             products.push(product)
         });
+
+        sessionStorage.setItem("products", JSON.stringify(products));
     } catch (error) {
         console.error("Something went wrong retrieving all products:", error);
     }
 }
 
-// Show Products
-let generateProducts =()=>{
-    return (productsContainer.innerHTML = products.map((product)=>{
-        return `
-        <a href="/product?id=${product.id}" class="product">
-        <img class="product-image" src="${product.imagePaths[0]}" alt="${product.imageAltTexts[0]}">
-        <div class="product-text">
-            <h1>${product.name}</h1>
-            <p>${product.description}</p>
-        </div>
-        <div class="status">
-            <!--<div class="status-background"></div>
-            <span class="status-text">${product.status}</span>-->
-        </div>
-        <button onclick="addToCart(${product.id})" class="cartDirectButton">
-            <img src="./icons/cart-outline.svg" class="cartDirectImg" alt="Cart Icon">
-        </button>
-        </a>
-        `;
-    }).join(""));
-}
-
+//display all the product tiles on the home page
 if (products.length > 0) {
-    generateProducts();
+    products.forEach(product => {
+        productsContainer.innerHTML += product.generateProductTile();
+    });
 
     let buttons = document.querySelectorAll('.cartDirectButton');
     buttons.forEach(cartButton => {
