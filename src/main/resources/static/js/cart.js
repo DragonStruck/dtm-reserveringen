@@ -1,4 +1,4 @@
-import {Device} from "../classes/device.js";
+import {Product} from "../classes/product.js";
 
 let cartContainer = document.getElementById("cart");
 let cartLocalStorage;
@@ -8,7 +8,7 @@ try {
     cartLocalStorage = JSON.parse(localStorage.getItem("cart"));
 
     for (let i = 0; i < cartLocalStorage.items.length; i++) {
-        let device = new Device();
+        let device = new Product();
         cart.push(await device.fetch(cartLocalStorage.items[i]));
     }
 } catch (ex) {
