@@ -9,7 +9,7 @@ try {
 
     for (let i = 0; i < cartLocalStorage.items.length; i++) {
         let product = new Product();
-        await product.fetch(cartLocalStorage.items[i]);
+        await product.setValuesUsingFetchRequest(cartLocalStorage.items[i]);
         cart.push(product);
     }
 

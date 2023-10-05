@@ -20,7 +20,7 @@ function findGetParameter(parameterName) {
 try {
     const product = new Product();
     const productId = findGetParameter('id');
-    await product.fetch(productId);
+    await product.setValuesUsingFetchRequest(productId);
 
     productContainer.innerHTML = product.generateProductInfoPage();
     document.getElementById('loader').style.display = "none";

@@ -53,7 +53,7 @@ export class Product {
         this.printValues();
     }
 
-    async fetch(index) {
+    async setValuesUsingFetchRequest(index) {
         try {
             console.log("----")
             console.log("product" + index)
