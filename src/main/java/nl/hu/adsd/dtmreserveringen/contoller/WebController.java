@@ -1,4 +1,4 @@
-package nl.hu.adsd.dtmreserveringen;
+package nl.hu.adsd.dtmreserveringen.contoller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ public class WebController {
 
     @RequestMapping("/product")
     public String product() {
-        return "info.html";
+        return "info-page.html";
     }
 
     @RequestMapping("/login")
