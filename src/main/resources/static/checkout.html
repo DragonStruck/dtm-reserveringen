@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/checkout.css">
+    <script src="./js/script.js" defer></script>
 </head>
 <body>
     <header>
@@ -39,7 +41,40 @@
 
 <main>
     <div class="container">
-        <div class="content-container">
+        <div class="wrapper">
+            <div class="form-wrapper">
+                <h1>Mijn Reserveerlijst:</h1>
+            </div>
+            <div class="item-box">
+                <h1>Borg ofzo</h1>
+            </div>
+            <button class="afrond-button" type="button">&check; Afronden</button>
+
+            <div class="calender-box">
+                <header>
+                    <p class="current-date"></p>
+                        <div class="icons">
+                            <span id="prev" class="pointer">&#8592;</span>
+                            <span id="next" class="pointer">&#8594;</span>
+                        </div>
+                </header>
+                <div class="calender">
+                    <ul class="weekdays">
+                        <li>Su</li>
+                        <li>Mo</li>
+                        <li>Tu</li>
+                        <li>We</li>
+                        <li>Th</li>
+                        <li>Fr</li>
+                        <li>Sa</li>
+                    </ul>
+                    <ul class="days"></ul>
+                </div>
+            </div>
+            <div class="popup" onclick="myFunction()">Lol
+                <span class="bonk" id="mypopup">textss</span>
+            </div>
+
         </div>
     </div>
 </main>
