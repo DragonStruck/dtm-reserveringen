@@ -35,7 +35,7 @@ main .content-container .product-container {
     color: var(--secondary);
     font-weight: 700;
     font-size: 30px;
-    margin-bottom: var(--default-padding);
+    margin-bottom: 5px;
     padding: 5px var(--default-padding);
 }
 
