@@ -63,6 +63,10 @@ INSERT IGNORE INTO item (id, product_id) VALUES
     (37, 5),
     (38, 5);
 
+INSERT IGNORE INTO account (id, admin, email, password) VALUES
+    (1, 1, 'admin.admin@hu.nl', 'admin1');
+
+
 INSERT IGNORE INTO reservation(id, account_id) VALUES
     (1,1),
     (2,1);
