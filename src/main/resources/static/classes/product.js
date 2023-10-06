@@ -87,7 +87,7 @@ export class Product {
                 <p>${this.description}</p>
             </div>
             <button onclick="addToCart(${this.id})" class="cartDirectButton">
-                <img src="./icons/cart-outline.svg" class="cartDirectImg" alt="Cart Icon">
+                <img src="./icons/cart-outline-white.svg" class="cartDirectImg" alt="Cart Icon">
             </button>
             </a>
         `;
