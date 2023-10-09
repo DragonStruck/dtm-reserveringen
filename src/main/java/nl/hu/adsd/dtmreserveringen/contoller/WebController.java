@@ -37,4 +37,9 @@ public class WebController {
         return "admin.html";
     }
 
+
+    @RequestMapping("/test")
+    public String test() {
+        return "calendar-test.html";
+    }
 }
