@@ -7,17 +7,48 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>DTM Reserveringen</title>
+    <title>Admin | DTM Reserveringen</title>
 
-    <script defer type="module" src="js/main.js"></script>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/admin.css">
 </head>
 
 <body>
-    <a class="topbar-logo-link" href="./">
-        <img class="topbar-logo" src="./icons/HU_logo_small.png" alt="HU logo">
-    </a>
+    <header>
+        <div class="container">
+            <div class="topbar-container">
+                <div class="topbar-logo-container">
+                    <a class="topbar-logo-link" href="./">
+                        <img class="topbar-logo" src="./icons/HU_logo_big.svg" alt="HU logo">
+                    </a>
+                </div>
+                <div class="topbar-nav">
+                    <div class="nav-right">
+                        <div class="top-menu">
+                            <a class="" href="./cart">
+                                <img src="./icons/cart-outline.svg" alt="Cart Icon">
+                                <span id="cart-amount" class="button-badge">0</span>
+                            </a>
+                            <a href="./login">
+                                <img src="./icons/person-outline.svg" alt="Admin Icon">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <table id="reservation-table">
+            </table>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/admin.js" type="module"></script>
 </body>
 
 </html>

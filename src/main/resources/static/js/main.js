@@ -1,24 +1,69 @@
-import {Device} from "./device.js";
+let cartAmountElement = document.getElementById('cart-amount');
+let cartLocalStorage;
 
-const device = new Device(
-    document.getElementById("products")
-);
-
-let amount;
-try {
-    console.log("Product amount")
-    const response = await fetch("/product/amount");
-    console.log("Product amount: response is ok? " + response.ok + "Status code " + response.status);
-
-    const json = await response.json();
-    console.log("Product amount: got a json response; " + JSON.stringify(json));
-    amount = json;
-}
-catch (ex) {
-    console.log("Something went wrong retrieving in fetch() amount . Exception message is '" + ex.message + "'");
+if (localStorage.getItem('cart') == null) {
+    localStorage.setItem('cart', '{"items":[]}');
 }
 
-for (let i = 0; i < amount; i++) {
-    await device.fetch(i + 1);
-    device.renderTile();
+cartLocalStorage = JSON.parse(localStorage.getItem('cart'));
+
+updateCartNumber();
+
+function addToCart(i) {
+    if (!inArray(i, cartLocalStorage.items)) {
+        cartLocalStorage.items.push(i);
+        localStorage.setItem('cart', JSON.stringify(cartLocalStorage));
+        console.log(cartLocalStorage.items);
+        updateCartNumber();
+        return true;
+    } else {
+        console.log("item already in cart");
+        updateCartNumber();
+        return false;
+    }
 }
+
+function removeFromCart(i) {
+    const cartItem = cartLocalStorage.items.indexOf(i);
+    if (cartItem > -1) {
+        cartLocalStorage.items.splice(cartItem, 1);
+        localStorage.setItem('cart', JSON.stringify(cartLocalStorage));
+        console.log(cartLocalStorage.items);
+        // updateCartNumber();
+        location.reload();
+        return true;
+    } else {
+        console.log("item not in cart");
+        updateCartNumber();
+        return false;
+    }
+}
+
+function emptyCart() {
+    localStorage.setItem('cart', '{"items":[]}');
+}
+
+function updateCartNumber() {
+    cartAmountElement.textContent = cartLocalStorage.items.length;
+}
+
+function inArray(item, array) {
+    let count = array.length;
+    for (let i = 0; i < count; i++) {
+        if (array[i] === item) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+console.log(JSON.parse(localStorage.getItem('cart')));
+// emptyCart();
+// addToCart(1);
+// addToCart(6);
+// addToCart(8);
+// removeFromCart(6);
+// addToCart(16);
+// removeFromCart(1);
+// removeFromCart(99);

@@ -1,0 +1,26 @@
+main {
+    background-color: var(--secondary);
+}
+
+.error {
+    padding: var(--default-padding);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    flex-direction: column;
+}
+
+h1, h2 {
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+} 
+
+h2 {
+    font-size: 24px;
+} 
