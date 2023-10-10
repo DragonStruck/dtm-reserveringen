@@ -37,4 +37,9 @@ public class WebController {
         return "admin.html";
     }
 
+    @RequestMapping("/register")
+    public String register() {
+        return "register.html";
+    }
+
 }

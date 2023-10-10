@@ -49,4 +49,16 @@ public class Account {
     public void setAdmin(int admin) {
         this.admin = admin;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", admin=" + admin +
+                ", reservations=" + reservations +
+                '}';
+    }
 }
+
