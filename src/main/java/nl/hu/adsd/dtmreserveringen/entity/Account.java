@@ -15,6 +15,7 @@ public class Account {
     private String password;
     private int admin;
 
+
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private List<Reservation> reservations;
 
@@ -49,4 +50,17 @@ public class Account {
     public void setAdmin(int admin) {
         this.admin = admin;
     }
+
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", admin=" + admin +
+                ", reservations=" + reservations +
+                '}';
+    }
 }
+

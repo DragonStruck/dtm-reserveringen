@@ -22,6 +22,11 @@ public class WebController {
         return "login.html";
     }
 
+    @RequestMapping("/register")
+    public String register() {
+        return "register.html";
+    }
+
     @RequestMapping("/cart")
     public String cart() {
         return "cart.html";
@@ -37,9 +42,9 @@ public class WebController {
         return "admin.html";
     }
 
-
     @RequestMapping("/test")
     public String test() {
         return "calendar-test.html";
     }
+
 }
