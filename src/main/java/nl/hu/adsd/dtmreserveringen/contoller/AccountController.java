@@ -17,8 +17,7 @@ public class AccountController {
 
     @PostMapping("/add")
     public void addAccount(@RequestBody Account account) {
-        accountRepository.save
-                (account);
+        accountRepository.save(account);
 
     }
 }
