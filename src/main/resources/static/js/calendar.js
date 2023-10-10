@@ -14,7 +14,7 @@ calendar.setNonSelectableDates(nonSelectableDates);
 
 calendar.addNonSelectableDate(new Date(2023, 10, 25));
 
-calendar.setMaxSelectableDays(5);
+calendar.setMaxSelectableDays(3);
 
 const dayOverrides = ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"];
 calendar.overrideDayNames(dayOverrides);
