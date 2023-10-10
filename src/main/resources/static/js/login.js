@@ -1,23 +1,36 @@
 const registrationButton = document.getElementById("register-button");
 const registerEmail = document.getElementById("login-email");
 const registerPassword = document.getElementById("login-password");
-//const registerRepeatPassword = document.getElementById("repeat-password");
+const registerRepeatPassword = document.getElementById("repeat-password");
 
 
 registrationButton.addEventListener("click", e => {
     e.preventDefault();
-    console.log("ik was hier");
-
         let email = registerEmail.value;
         let password = registerPassword.value;
+        let confirmPassword = registerRepeatPassword.value;
         let admin = 1;
+
+            if (!validateEmail(email)) {
+                alert("Voer een geldig e-mailadres in.");
+                return;
+            }
+
+            if (!validatePassword(password)) {
+                alert("Voer een wachtwoord in van minimaal 8 tekens + een cijfer.");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Wachtwoorden komen niet overeen.");
+                return;
+            }
 
          let accountData = {
                 email: email,
                 password: password,
                 admin: admin
             };
-
 
         console.log(JSON.stringify(accountData));
         fetch("/account/add", {
@@ -41,5 +54,14 @@ registrationButton.addEventListener("click", e => {
                     console.error('Error:', error);
                 });
 
-
 });
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+}
+
+function validatePassword(password) {
+    const re = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+    return re.test(password);
+    }
