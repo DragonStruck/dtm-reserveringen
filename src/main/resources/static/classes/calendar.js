@@ -23,6 +23,15 @@ export class SelectableRangeCalendar {
         this.initializeCalendar();
     }
 
+    // Get Dates
+    getSelectedStartDate() {
+        return this.selectedStartDate;
+    }
+
+    getSelectedEndDate() {
+        return this.selectedEndDate;
+    }
+
     // Non selectable dates
     setNonSelectableDates(nonSelectableDates) {
         this.nonSelectableDates = nonSelectableDates;
@@ -38,7 +47,6 @@ export class SelectableRangeCalendar {
     }
 
     // Overrides
-
     overrideMonthNames(monthNames) {
         this.months = monthNames;
         this.updateCalendar();

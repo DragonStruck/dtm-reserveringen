@@ -25,3 +25,12 @@ const MonthOverrides = [
     "September", "Oktober", "November", "December"
 ];
 calendar.overrideMonthNames(MonthOverrides);
+
+
+document.getElementById('getSelectedStartDate').addEventListener('click', () => {
+    alert(calendar.getSelectedStartDate());
+})
+
+document.getElementById('getSelectedEndDate').addEventListener('click', () => {
+    alert(calendar.getSelectedEndDate());
+})
