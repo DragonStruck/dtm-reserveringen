@@ -165,6 +165,10 @@ main .content-container .product-container {
     height: 400px;
 }
 
+.slideshow-container .slides img {
+    border-radius: var(--border-radius);
+}
+
 .slideshow-container .cursor {
     cursor: pointer;
 }

@@ -108,6 +108,11 @@
     font-weight: bold;
 }
 
+.calendar-day.empty:hover {
+    cursor: default;
+    background-color: white !important;
+}
+
 .calendar-day:not(.day-name, .non-selectable):hover {
     background-color: rgb(207, 228, 236);
 }
