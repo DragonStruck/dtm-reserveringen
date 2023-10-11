@@ -9,7 +9,6 @@ export class Product {
         this.details = "";
         this.contents = "";
 
-
         this.items = [];
         this.imagePaths = [];
         this.imageAltTexts = [];

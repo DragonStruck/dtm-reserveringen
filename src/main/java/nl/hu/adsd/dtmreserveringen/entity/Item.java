@@ -1,29 +1,27 @@
 package nl.hu.adsd.dtmreserveringen.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
-@Table(name="item")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonBackReference(value = "Product -> Items")
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "Item -> ItemReservations")
+    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ItemReservation> itemReservations;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
 }

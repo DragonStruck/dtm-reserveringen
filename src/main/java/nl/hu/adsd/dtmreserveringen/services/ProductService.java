@@ -4,6 +4,8 @@ import nl.hu.adsd.dtmreserveringen.entity.Product;
 import nl.hu.adsd.dtmreserveringen.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProductService {
 
@@ -12,8 +14,8 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product getProductWithImages(Long id) {
-        return productRepository.findById(id).orElse(null);
+    public Optional<Product> getProduct(Long id) {
+        return productRepository.findById(id);
     }
 
     public Iterable<Product> getAllProducts() {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(originPatterns = "http://localhost:[*]")
 @RestController
@@ -24,14 +25,14 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable Long id) {
-        Product product = productService.getProductWithImages(id);
+        Optional<Product> productOptional = productService.getProduct(id);
 
-        if (product == null) {
+        if (productOptional.isEmpty()) {
             logger.info("product is not present with index value of {}", id);
             return ResponseEntity.notFound().build();
         } else {
             logger.info("product found, id: {}", id);
-            return ResponseEntity.ok(product);
+            return ResponseEntity.ok(productOptional.get());
         }
     }
 
