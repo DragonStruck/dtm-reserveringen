@@ -32,8 +32,6 @@ export class Product {
             this.imagePaths.push("/images/" + image.imagePath);
             this.imageAltTexts.push(image.imageAltText);
         });
-
-        this.printValues();
     }
 
     setValuesFromObject(data) {
@@ -48,8 +46,6 @@ export class Product {
         this.items = data.items || [];
         this.imagePaths = data.imagePaths || [];
         this.imageAltTexts = data.imageAltTexts || [];
-
-        this.printValues();
     }
 
     async setValuesUsingFetchRequest(index) {
@@ -67,7 +63,6 @@ export class Product {
             //retrieve data for the product from other tables using id's
             if (responseProduct.ok) {
                 this.setValuesFromJson(jsonProduct);
-                this.printValues();
             } else {
                 console.log("Product; error retrieving from database" + responseProduct.status);
                 console.log("JSON: " + jsonProduct);

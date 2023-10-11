@@ -7,11 +7,15 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Admin | DTM Reserveringen</title>
+    <title>Product Info | DTM Reserveringen</title>
 
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/admin.css">
+    <script defer type="module" src="../js/info-page.js"></script>
+    <script type="module" src="../js/main.js"></script>
+    <script src="../js/slideshow.js"></script>
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/info-page.css">
 </head>
 
 <body>
@@ -19,19 +23,19 @@
         <div class="container">
             <div class="topbar-container">
                 <div class="topbar-logo-container">
-                    <a class="topbar-logo-link" href="./">
-                        <img class="topbar-logo" src="./icons/HU_logo_big.svg" alt="HU logo">
+                    <a class="topbar-logo-link" href="./index.html">
+                        <img class="topbar-logo" src="../icons/HU_logo_big.svg" alt="HU logo">
                     </a>
                 </div>
                 <div class="topbar-nav">
                     <div class="nav-right">
                         <div class="top-menu">
                             <a class="" href="./cart">
-                                <img src="./icons/cart-outline.svg" alt="Cart Icon">
+                                <img src="../icons/cart-outline.svg" alt="Cart Icon">
                                 <span id="cart-amount" class="button-badge">0</span>
                             </a>
                             <a href="./login">
-                                <img src="./icons/person-outline.svg" alt="Admin Icon">
+                                <img src="../icons/person-outline.svg" alt="Admin Icon">
                             </a>
                         </div>
                     </div>
@@ -42,13 +46,18 @@
 
     <main>
         <div class="container">
-            <table id="reservation-table">
-            </table>
+            <div class="content-container">
+                <div id="product-container" class="product-container">
+
+                </div>
+            </div>
+        </div>
+        <div id="loader" class="loader-background">
+            <div class="spinner"></div>
         </div>
     </main>
 
-    <script src="js/main.js"></script>
-    <script src="js/admin.js" type="module"></script>
+
 </body>
 
 </html>

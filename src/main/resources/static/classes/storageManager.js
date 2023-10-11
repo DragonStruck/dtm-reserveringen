@@ -1,37 +1,33 @@
+import {StorageKeys} from "../ENUM/storageKeys.js";
+import {Product} from "./product.js";
+
 export class StorageManager {
-    static storageType = {};
+    static async getProductsFromStorage() {
+        if (sessionStorage.getItem(StorageKeys.PRODUCTS) === null) {
+            try {
+                const response = await fetch("/product/all");
 
-    constructor(storage) {
-        this.storage = storage;
-        this.accountKey = "account";
-        this.productKey = "product";
-    }
+                if (!response.ok) {
+                    console.log("All products: response is error; Status code: " + response.status);
+                } else {
+                    const json = await response.json();
+                    console.log("All products: got a json response");
+                    JSON.stringify(json)
 
-    static getInstance(storage) {
-        //checks for typeof, if we pass a storage that is already instantiated but altered. it would make a new one
-        console.log(typeof StorageManager.storageType[storage]);
-        if (!StorageManager.storageType[storage]) {
-            console.log(`no ${storage} defined`);
-            StorageManager.storageType[storage] = new StorageManager(storage);
-        } else {
-            console.log(`${storage} already defined`);
+                    const products = Object.values(json).map(data => {
+                        const product = new Product();
+                        product.setValuesFromJson(data);
+                        console.log(product);
+                        return product;
+                    });
+                    console.log(products)
+                    sessionStorage.setItem(StorageKeys.PRODUCTS, JSON.stringify(products));
+                }
+            } catch (error) {
+                console.error("Something went wrong retrieving all products; Error:", error);
+            }
         }
-        return StorageManager.storageType[storage];
-    }
-
-    getAccount() {
-        return this.storage.getItem(this.accountKey);
-    }
-
-    setAccount(account) {
-        this.storage.setItem(this.accountKey, account);
-    }
-
-    getProducts() {
-        return this.storage.getItem(this.productKey);
-    }
-
-    setProducts(products) {
-        this.storage.setItem(this.productKey, products);
+        console.log("StorageManger returning products")
+        return sessionStorage.getItem(StorageKeys.PRODUCTS);
     }
 }

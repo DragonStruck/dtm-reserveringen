@@ -1,5 +1,4 @@
 // SelectableRangeCalendar by DragonStruck
-
 export class SelectableRangeCalendar {
     constructor() {
         this.calendarDays = document.getElementById("calendarDays");
