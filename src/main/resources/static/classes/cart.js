@@ -1,49 +1,26 @@
 import {StorageKeys} from "../ENUM/storageKeys.js";
-import {StorageManager} from "./storageManager.js";
 
 export class Cart {
     getCartFromStorage() {
-        //this wil set all the product amount in the cart to 0
-        for (let i = 0; i < this.products.length; i++) {
-            this.itemCount[i + 1] = 0;
-        }
-
         if (localStorage.getItem(StorageKeys.CART) === null) {
-            localStorage.setItem(StorageKeys.CART, JSON.stringify(this.itemCount));
+            localStorage.setItem(StorageKeys.CART, JSON.stringify({}));
         }
     }
 
-    populateCart() {
-        //sets the items in the cart, so we can later increment these values
-        const itemStorage = JSON.parse(localStorage.getItem(StorageKeys.CART));
-        console.log(itemStorage);
-        this.itemCount = JSON.stringify(itemStorage);
-        console.log(this.itemCount);
-    }
+    constructor() {
+        console.log("Creating a new cart instance");
+        this.getCartFromStorage();
 
-    constructor(outputElement) {
-        if (Cart.instance) {
-            console.log("returning instance")
-            return Cart.instance;
-        }
-        //using items as a dictionary
-        this.itemCount = {};
-        this.outputElemnt = outputElement;
-        this.products = {}
-        StorageManager.getProductsFromStorage().then(productsData => {
-            this.products = JSON.parse(productsData);
-            this.getCartFromStorage();
-            this.populateCart();
-            Cart.instance = this;
-        });
-        console.log(this.products);
+        this.cart = JSON.parse(localStorage.getItem(StorageKeys.CART));
+        this.outputElement = document.getElementById("cart");
+
+        // Assuming StorageManager.getProductsFromStorage returns a promise
     }
 
     generateCartDisplay() {
-        console.log(Object.keys(this.itemCount));
-        return (this.outputElemnt.innerHTML = Object.keys(this.itemCount).map(productId => {
-            if (productId >= 1) {
-                const product = this.products.at(Number.parseInt(productId) - 1);
+        console.log(Object.keys(this.cart));
+        return (this.outputElement.innerHTML = Object.keys(this.cart).map(productId => {
+            const product = this.cart.at(Number.parseInt(productId) - 1);
                 return `
                 <div class="product">
                     <img src="${product.imagePaths[0]}" alt="${product.imageAltTexts[0]}">
@@ -56,24 +33,50 @@ export class Cart {
                     </div>
                 </div>
             `;
-            }
         }).join(""));
     }
 
+    generateProductTile(product) {
+        return `
+            <a href="/product?id=${product.id}" class="product">
+                <img class="product-image" src="${product.imagePaths[0]}" alt="${product.imageAltTexts[0]}">
+                <div class="product-text">
+                    <h1>${product.name}</h1>
+                    <p>${product.description}</p>
+                </div>
+                <button id="addToCartButton${product.id}" class="cartDirectButton">
+                    <img src="./icons/cart-outline-white.svg" class="cartDirectImg" alt="Cart Icon">
+                </button>
+            </a>
+        `;
+    }
+
+    addButtonEvent(product) {
+        const buttonAddToCart = document.getElementById("addToCartButton" + product.id.toString());
+        buttonAddToCart.addEventListener("click", e => {
+            e.preventDefault();
+            console.log("added to cart " + product.id);
+            this.addToCart(product.id);
+        });
+    }
+
+
     addToCart(index) {
-        this.itemCount[index]++;
+        //if there is no previous entry of index, then set itemCount[index] to 1
+        this.cart[index] = this.cart[index]++ || 1;
+        console.log(this.cart);
+        localStorage.setItem(StorageKeys.CART, JSON.stringify(this.cart));
     }
 
     removeProductFromCart(index) {
-        this.itemCount[index] = 0;
+        this.cart[index] = 0;
     }
 
     removeItemFromCart(index) {
-        if (this.itemCount[index] > 0) {
-            this.itemCount[index]--;
+        if (this.cart[index] > 0) {
+            this.cart[index]--;
         }
     }
-
 
     emptyCart() {
     }

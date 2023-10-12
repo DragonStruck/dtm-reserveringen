@@ -1,6 +1,6 @@
 import {Cart} from "../classes/cart.js";
 
-const cart = new Cart(document.getElementById("cart"));
+const cart = new Cart();
 
 //loads the cartPage page html lines
 //TODO: if there are no items make a nice display

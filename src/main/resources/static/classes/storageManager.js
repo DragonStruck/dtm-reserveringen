@@ -20,7 +20,6 @@ export class StorageManager {
                         console.log(product);
                         return product;
                     });
-                    console.log(products)
                     sessionStorage.setItem(StorageKeys.PRODUCTS, JSON.stringify(products));
                 }
             } catch (error) {

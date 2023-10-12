@@ -1,3 +1,5 @@
+import {Cart} from "./cart.js"
+
 export class Product {
 
     constructor() {
@@ -72,20 +74,6 @@ export class Product {
         }
     }
 
-    generateProductTile () {
-        return `
-            <a href="/product?id=${this.id}" class="product">
-                <img class="product-image" src="${this.imagePaths[0]}" alt="${this.imageAltTexts[0]}">
-                <div class="product-text">
-                    <h1>${this.name}</h1>
-                    <p>${this.description}</p>
-                </div>
-                <button onclick="addToCart(${this.id})" class="cartDirectButton">
-                    <img src="./icons/cart-outline-white.svg" class="cartDirectImg" alt="Cart Icon">
-                </button>
-            </a>
-        `;
-    }
 
     generateProductInfoPage(){
         return `
