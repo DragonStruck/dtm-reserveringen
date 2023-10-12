@@ -43,7 +43,7 @@ class ProductControllerTest {
 //    ProductController productController;
 //    @Test
 //    void addProductTest() {
-//        ProductDto testProduct = new ProductDto(1, "name", "description", "details", "contents", "{\"ids\": \"1,2,3\"}");
+//        ProductDTO testProduct = new ProductDTO(1, "name", "description", "details", "contents", "{\"ids\": \"1,2,3\"}");
 //
 //        doReturn(testProduct).when(productRepository).save(Mockito.any(Product.class));
 //

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>kalender test | DTM Reserveringen</title>
+
+    <script defer type="module" src="../js/calendar.js" ></script>
+    <script type="module" src="../js/main.js"></script>
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/cart.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="topbar-container">
+                <div class="topbar-logo-container">
+                    <a class="topbar-logo-link" href="./index.html">
+                        <img class="topbar-logo" src="../icons/HU_logo_big.svg" alt="HU logo">
+                    </a>
+                </div>
+                <div class="topbar-nav">
+                    <div class="nav-right">
+                        <div class="top-menu">
+                            <a class="" href="./cart">
+                                <img src="../icons/cart-outline.svg" alt="Cart Icon">
+                                <span id="cart-amount" class="button-badge">0</span>
+                            </a>
+                            <a href="./login">
+                                <img src="../icons/person-outline.svg" alt="Admin Icon">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="calendar">
+            <div class="calendar-header">
+                <button id="prevMonth">❮</button>
+                <span id="currentMonth"></span>
+                <button id="nextMonth">❯</button>
+            </div>
+            <div class="calendar-days" id="calendarDays"></div>
+        </div>
+
+        <button id="getSelectedStartDate">getStartDate</button>
+        <button id="getSelectedEndDate">getEndDate</button>
+    </main>
+
+
+
+</body>
+
+</html>

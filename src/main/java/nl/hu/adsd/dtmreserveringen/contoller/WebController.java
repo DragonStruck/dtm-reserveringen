@@ -2,39 +2,53 @@ package nl.hu.adsd.dtmreserveringen.contoller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class WebController {
 
     @RequestMapping("/")
     public String index() {
-        return "index.html";
+        return "html/index.html";
     }
 
     @RequestMapping("/product")
     public String product() {
-        return "info-page.html";
+        return "html/info-page.html";
     }
 
     @RequestMapping("/login")
     public String login() {
-        return "login.html";
+        return "html/login.html";
+    }
+
+    @RequestMapping("/register")
+    public String register() {
+        return "html/register.html";
     }
 
     @RequestMapping("/cart")
     public String cart() {
-        return "cart.html";
+        return "html/cart.html";
     }
 
     @RequestMapping("/checkout")
     public String checkout() {
-        return "checkout.html";
+        return "html/checkout.html";
     }
 
     @RequestMapping("/admin")
     public String admin() {
-        return "admin.html";
+        return "html/admin.html";
+    }
+
+    @RequestMapping("/test")
+    public String test() {
+        return "html/calendar-test.html";
+    }
+
+    @RequestMapping("/favicon.ico")
+    public String favIcon() {
+        return "icons/favicon.ico";
     }
 
 }

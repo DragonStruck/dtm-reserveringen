@@ -2,10 +2,9 @@ export class Reservation {
 
     constructor(json) {
         //values of product
-        this.id = "";
+        this.id = -1;
         this.itemReservations = [];
-        this.account = "";
-        this.email = "";
+        this.accountId = "";
     }
 
     setValues(json) {
@@ -14,7 +13,7 @@ export class Reservation {
         for (let i = 0; i < json.itemReservations.length; i++) {
             this.itemReservations[i] = json.itemReservations[i];
         }
-        this.account = json.account;
+        this.accountId = json.account.id;
         this.email = this.account.email;
     }
 
@@ -57,9 +56,10 @@ export class Reservation {
         return tableRow;
     }
 
+
     async deleteReservation() {
         let returnStatus = "";
-        await fetch('reservation/delete/' + this.id, {
+        await fetch('reservation/delete' + this.id, {
             method: 'DELETE',
         })
             .then(res => res.text()) // or res.json()

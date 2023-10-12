@@ -1,7 +1,9 @@
 :root {
     --background: rgb(255, 255, 255);
     --primary: rgb(230, 51, 45);
-    --secondary: rgb(0, 136, 200);
+    --primary-hover: rgb(180, 0, 0);
+    --secondary: rgb(0, 161, 225);
+    --secondary-hover: rgb(0, 136, 200);
 
     --text-color-primary: rgb(51, 51, 51);
     --text-color-secondary: ;
@@ -153,6 +155,7 @@ button {
     align-items: center;
     padding: 10px 20px;
     font-size: 20px;
+    width: max-content;
 }
 
 button:hover {

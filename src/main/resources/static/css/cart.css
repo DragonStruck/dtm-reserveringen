@@ -51,15 +51,87 @@
 }
 
 .products .product .actions button {
-    background-color: #e10000;
+    background-color: var(--primary);
 }
 
 .products .product .actions button:hover {
-    border-color: #b40000;
-    background-color: #b40000;
+    border-color: var(--primary-hover);
+    background-color: var(--primary-hover);
 }
 
 .checkout {
     display: flex;
     justify-content: flex-end;
+}
+
+/* Calendar */
+
+.calendar {
+    font-family: Arial, sans-serif;
+    max-width: 350px;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.calendar-header button {
+    padding: 5px 10px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    border: 2px solid #333;
+    border-top: none;
+    gap: 4px;
+    padding: 4px;
+}
+
+.calendar-day {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    user-select: none;
+    font-weight: bold;
+}
+
+.calendar-day.empty:hover {
+    cursor: default;
+    background-color: white !important;
+}
+
+.calendar-day:not(.day-name, .non-selectable):hover {
+    background-color: rgb(207, 228, 236);
+}
+
+.calendar-day.day-name {
+    cursor: default;
+    font-weight: normal;
+}
+
+.calendar-day.non-selectable {
+    background-color: #e7e7e7;
+    cursor: not-allowed;
+}
+
+.calendar-day.selected {
+    background-color: var(--secondary);
+    color: #fff;
+}
+
+.calendar-day.selected:hover {
+    background-color: var(--secondary-hover);
 }

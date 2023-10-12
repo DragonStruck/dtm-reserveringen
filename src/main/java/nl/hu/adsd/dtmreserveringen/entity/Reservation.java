@@ -1,45 +1,32 @@
 package nl.hu.adsd.dtmreserveringen.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "reservation")
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
+
+    @JsonManagedReference(value = "Reservation -> ItemReservations")
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "reservation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ItemReservation> itemReservations;
 
+
+    @JsonBackReference(value = "Account -> Reservations")
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<ItemReservation> getItemReservations() {
-        return itemReservations;
-    }
-
-    public void setItemReservations(List<ItemReservation> itemReservations) {
-        this.itemReservations = itemReservations;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
 }
