@@ -74,6 +74,20 @@ export class Product {
         }
     }
 
+    generateProductTile() {
+        return `
+            <a href="/product?id=${this.id}" class="product">
+                <img class="product-image" src="${this.imagePaths[0]}" alt="${this.imageAltTexts[0]}">
+                <div class="product-text">
+                    <h1>${this.name}</h1>
+                    <p>${this.description}</p>
+                </div>
+                <button class="cartDirectButton">
+                    <img src="./icons/cart-outline-white.svg" class="cartDirectImg" alt="Cart Icon">
+                </button>
+            </a>
+        `;
+    }
 
     generateProductInfoPage(){
         return `
@@ -106,7 +120,7 @@ export class Product {
                         <p id="contents-text">${this.contents}</p>
                     </div>
                     <div class="product-section">
-                        <button onclick="addToCart(${this.id})" class="add-to-cart-button"><img src="./icons/cart-outline-white.svg" alt="Calender Icon"> Toevoegen</button>
+                        <button id="info-page-add-to-cart-button" class="add-to-cart-button"><img src="./icons/cart-outline-white.svg" alt="Calender Icon"> Toevoegen</button>
                     </div>
                 </div>
             </div>

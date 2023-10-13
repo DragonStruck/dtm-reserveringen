@@ -4,20 +4,19 @@ const cart = new Cart();
 
 //loads the cartPage page html lines
 //TODO: if there are no items make a nice display
-cart.generateCartDisplay();
+// await cart.generateCartDisplay();
 document.getElementById('loader').style.display = "none";
 setReservationButtonFunctionality();
 
 
 function setReservationButtonFunctionality() {
-    const reservationButton = document.getElementById("reservation-button");
+    const reservationButton = document.getElementById("reservation-test");
     reservationButton.addEventListener("click", (e) => {
         e.preventDefault();
-        if (validateReservation()) {
-            placeReservation()
-                .then(cart.emptyCart())
-                .catch(rej => console.log("reservation failed" + rej));
-        }
+        console.log("in hier");
+
+        placeReservation().then(r => console.log(r)).catch(r => console.log(r));
+
     });
 }
 

@@ -20,14 +20,14 @@ const products = JSON.parse(productJson).map(productData => {
 //display all the product tiles on the home page
 if (products.length > 0) {
     products.forEach(product => {
-        productsContainer.innerHTML += cart.generateProductTile(product);
-
+        productsContainer.innerHTML += product.generateProductTile();
     });
-    products.forEach(i => cart.addButtonEvent(i));
+
     let buttons = document.querySelectorAll('.cartDirectButton');
-    buttons.forEach(cartButton => {
-        cartButton.addEventListener('click', (e) => {
+    buttons.forEach((cartButton, index) => {
+        cartButton.addEventListener('click', e => {
             e.preventDefault();
+            cart.addToCart(index + 1);
         })
     });
 

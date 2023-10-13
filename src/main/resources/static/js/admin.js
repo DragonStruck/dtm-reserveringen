@@ -14,6 +14,7 @@ try {
 
     JSON.stringify(json);
     const jsonValues = Object.values(json);
+    console.log(jsonValues);
     jsonValues.forEach(data => {
         const reservation = new Reservation();
         reservation.setValues(data);

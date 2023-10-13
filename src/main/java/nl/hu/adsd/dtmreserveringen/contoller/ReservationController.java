@@ -30,7 +30,10 @@ public class ReservationController {
 
         List<Reservation> reservationList = new ArrayList<>();
 
-        reservationIterable.forEach(reservationList::add);
+        for (Reservation reservation : reservationIterable) {
+            reservation.setAccount(reservation.getAccount());
+            reservationList.add(reservation);
+        }
 
         return ResponseEntity.ok(reservationList);
     }

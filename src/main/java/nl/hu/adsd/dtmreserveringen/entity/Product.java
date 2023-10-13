@@ -31,6 +31,7 @@ public class Product {
     @Column(columnDefinition = "LONGTEXT")
     private String contents;
 
+
     @JsonManagedReference(value = "Product -> Items")
     @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

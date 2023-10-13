@@ -56,7 +56,6 @@ public class ReservationService {
         }
     }
 
-
     @Transactional
     public HttpStatus addReservation(ReservationDTO reservationDTO) {
         try {
