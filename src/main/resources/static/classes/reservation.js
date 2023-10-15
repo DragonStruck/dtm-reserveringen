@@ -1,20 +1,22 @@
+import {Account} from "./account.js";
+
 export class Reservation {
 
-    constructor(json) {
+    constructor(id, itemReservations, account) {
         //values of product
         this.id = -1;
         this.itemReservations = [];
-        this.accountId = "";
+        this.account = account;
     }
 
     setValues(json) {
         this.id = json.id;
-        this.itemReservations = [];
         for (let i = 0; i < json.itemReservations.length; i++) {
             this.itemReservations[i] = json.itemReservations[i];
         }
-        this.accountId = json.account.id;
-        this.email = this.account.email;
+        const account = new Account();
+        account.setValues(json.account);
+        this.account = account;
     }
 
     setButtons(tableRow) {
@@ -42,7 +44,7 @@ export class Reservation {
         let tableRow = document.createElement("tr")
         tableRow.setAttribute("id", "table-row-reservations" + this.id)
         tableRow.innerHTML = `
-            <td>${this.email}</td>
+            <td>${this.account.email}</td>
             <td>${this.itemReservations.length}</td>
             <td>
                 <button id="accept-button">accepteer</button>
@@ -59,7 +61,7 @@ export class Reservation {
 
     async deleteReservation() {
         let returnStatus = "";
-        await fetch('reservation/delete' + this.id, {
+        await fetch('reservation/delete/' + this.id, {
             method: 'DELETE',
         })
             .then(res => res.text()) // or res.json()
