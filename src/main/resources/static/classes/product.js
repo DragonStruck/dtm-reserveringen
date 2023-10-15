@@ -5,7 +5,6 @@ export class Product {
     constructor() {
         //values of product
         this.id = "";
-        this.type = "";
         this.name = "";
         this.description = "";
         this.details = "";
@@ -16,9 +15,8 @@ export class Product {
         this.imageAltTexts = [];
     }
 
-    setValuesFromJson(json) {
+    setValuesFromBackEndJson(json) {
         this.id = json.id;
-        this.type = json.type;
         this.name = json.name;
         this.description = json.description;
         this.details = json.details;
@@ -38,7 +36,6 @@ export class Product {
 
     setValuesFromObject(data) {
         this.id = data.id;
-        this.type = data.type;
         this.name = data.name;
         this.description = data.description;
         this.details = data.details;
@@ -48,30 +45,6 @@ export class Product {
         this.items = data.items || [];
         this.imagePaths = data.imagePaths || [];
         this.imageAltTexts = data.imageAltTexts || [];
-    }
-
-    async setValuesUsingFetchRequest(index) {
-        try {
-            console.log("----")
-            console.log("product" + index)
-            const responseProduct = await fetch("/product/" + index);
-            console.log("Product; response is ok? " + responseProduct.ok + "Status code " + responseProduct.status);
-
-            const jsonProduct = await responseProduct.json();
-            console.log("Product; got a json response");
-            JSON.stringify(jsonProduct);
-
-
-            //retrieve data for the product from other tables using id's
-            if (responseProduct.ok) {
-                this.setValuesFromJson(jsonProduct);
-            } else {
-                console.log("Product; error retrieving from database" + responseProduct.status);
-                console.log("JSON: " + jsonProduct);
-            }
-        } catch (ex) {
-            console.log("Something went wrong retrieving in fetch() Product.js . Exception message: '" + ex.message + "'");
-        }
     }
 
     generateProductTile() {
