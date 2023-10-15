@@ -28,20 +28,14 @@ public class ReservationService {
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
 
     private final AccountRepository accountRepository;
-    private final ItemReservationRepository itemReservationRepository;
     private final ReservationRepository reservationRepository;
     private final ItemRepository itemRepository;
 
-    private final AccountService accountService;
-
-    public ReservationService(ItemRepository itemRepository, AccountRepository accountRepository, ItemReservationRepository itemReservationRepository, ReservationRepository reservationRepository, AccountService accountService) {
+    public ReservationService(AccountRepository accountRepository, ReservationRepository reservationRepository, ItemRepository itemRepository) {
         this.accountRepository = accountRepository;
-        this.itemReservationRepository = itemReservationRepository;
         this.reservationRepository = reservationRepository;
-        this.accountService = accountService;
         this.itemRepository = itemRepository;
     }
-
 
     public Iterable<Reservation> getAllReservations() {
         return reservationRepository.findAll();
