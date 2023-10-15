@@ -66,7 +66,7 @@ export class StorageManager {
         return Object.values(productsJson).map(data => {
             console.log(data);
             const product = new Product();
-            product.setValuesFromJson(data);
+            product.setValuesFromObject(data);
             return product;
         });
     }
