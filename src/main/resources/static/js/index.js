@@ -1,4 +1,3 @@
-import {Product} from "../classes/product.js";
 import {Account} from "../classes/account.js";
 import {StorageKeys} from "../ENUM/storageKeys.js";
 import {StorageManager} from "../classes/storageManager.js";
@@ -9,13 +8,7 @@ sessionStorage.setItem(StorageKeys.ACCOUNT, JSON.stringify(new Account(1, 1, "te
 const cart = new Cart();
 
 //get all products
-const productJson = await StorageManager.getProductsFromStorage();
-const products = JSON.parse(productJson).map(productData => {
-    const product = new Product();
-    product.setValuesFromObject(productData);
-    console.log(product);
-    return product;
-});
+const products = await StorageManager.getAllProducts();
 
 //display all the product tiles on the home page
 if (products.length > 0) {
@@ -25,9 +18,11 @@ if (products.length > 0) {
 
     let buttons = document.querySelectorAll('.cartDirectButton');
     buttons.forEach((cartButton, index) => {
+        //when a product is removed, the id's won't be ascending by the same amount, so need to use the productId
+        const productId = products[index].id;
         cartButton.addEventListener('click', e => {
             e.preventDefault();
-            cart.addToCart(index + 1);
+            cart.addToCart(productId);
         })
     });
 
