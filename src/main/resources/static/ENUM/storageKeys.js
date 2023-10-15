@@ -1,5 +1,6 @@
 export const StorageKeys = Object.freeze({
-    ACCOUNT: "account",
     PRODUCTS: "products",
+    RESERVATIONS: "reservations",
+    ACCOUNT: "account",
     CART: "cart"
 })
