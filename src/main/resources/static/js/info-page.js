@@ -1,5 +1,6 @@
 import {Product} from "../classes/product.js";
 import {Cart} from "../classes/cart.js";
+import {StorageManager} from "../classes/storageManager.js";
 
 let productContainer = document.getElementById("product-container");
 const cart = new Cart();
@@ -20,17 +21,19 @@ function findGetParameter(parameterName) {
 }
 
 try {
-    const product = new Product();
-    const productId = findGetParameter('id');
-    await product.setValuesUsingFetchRequest(productId);
+    const productId = Number.parseInt(findGetParameter('id'));
+    const product = await StorageManager.getProduct(productId);
+    console.log(product);
 
     productContainer.innerHTML = product.generateProductInfoPage();
+
     const cartButton = document.getElementById("info-page-add-to-cart-button");
     cartButton.addEventListener("click", e => {
         e.preventDefault();
         console.log("fired");
         cart.addToCart(productId);
     });
+
     document.getElementById('loader').style.display = "none";
 
     // Add product images
@@ -66,12 +69,4 @@ try {
     }
 } catch (error) {
     console.log("something went wrong when tring to display product info: " + error);
-}
-
-
-if (product == null) {
-    console.log("No product found");
-} else {
-    // Generate product
-
 }
