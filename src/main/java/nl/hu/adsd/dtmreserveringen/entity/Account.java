@@ -1,5 +1,6 @@
 package nl.hu.adsd.dtmreserveringen.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -31,7 +32,7 @@ public class Account {
     private int admin;
 
 
-    @JsonManagedReference(value = "Account -> Reservations")
+    @JsonBackReference(value = "Account -> Reservations")
     @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Reservation> reservations;

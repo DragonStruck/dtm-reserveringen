@@ -25,7 +25,7 @@ public class Reservation {
     private List<ItemReservation> itemReservations;
 
 
-    @JsonBackReference(value = "Account -> Reservations")
+    @JsonManagedReference(value = "Account -> Reservations")
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
