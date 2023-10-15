@@ -4,22 +4,17 @@ const cart = new Cart();
 
 //loads the cartPage page html lines
 //TODO: if there are no items make a nice display
-// await cart.generateCartDisplay();
 document.getElementById('loader').style.display = "none";
+cart.generateCartDisplay();
 setReservationButtonFunctionality();
 
-
 function setReservationButtonFunctionality() {
-    const reservationButton = document.getElementById("reservation-test");
+    const reservationButton = document.getElementById("reservation-button");
     reservationButton.addEventListener("click", (e) => {
         e.preventDefault();
-        console.log("in hier");
-
         placeReservation().then(r => console.log(r)).catch(r => console.log(r));
-
     });
 }
-
 
 const json2 =
     {
