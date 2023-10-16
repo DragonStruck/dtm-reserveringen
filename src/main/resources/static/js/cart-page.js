@@ -1,6 +1,9 @@
 import {Cart} from "../classes/cart.js";
+import {SelectableRangeCalendar} from "../classes/calendar";
 
+const calendar = new SelectableRangeCalendar();
 const cart = new Cart();
+cart.setCalender(calendar);
 
 //loads the cartPage page html lines
 //TODO: if there are no items make a nice display

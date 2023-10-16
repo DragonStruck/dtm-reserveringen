@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,10 @@ public class ItemReservationService {
             logger.warn("Item Reservation failed to save {}", e.toString());
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
+    }
+
+    public Iterable<ItemReservation> getAllItemReservations() {
+        return itemReservationRepository.findAll();
     }
 
     public Optional<ItemReservation> getItemReservation(Long id) {

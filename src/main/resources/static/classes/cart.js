@@ -18,6 +18,10 @@ export class Cart {
         return JSON.parse(localStorage.getItem(StorageKeys.CART));
     }
 
+    setCalender(calender) {
+        this.calender = calender;
+    }
+
     constructor() {
         this.createCartInLocalStorage();
 
@@ -28,6 +32,7 @@ export class Cart {
 
         this.outputElement = document.getElementById("cart");
         this.cartAmountElement = document.getElementById('cart-amount');
+        this.calender;
         this.updateCartCounter();
 
         // Assuming StorageManager.getProductsFromStorage returns a promise
@@ -67,6 +72,7 @@ export class Cart {
                 removeButton.addEventListener("click", e => {
                     e.preventDefault();
                     this.removeProductFromCart(productId);
+                    this.updateCalenderNonSelectableDates();
                 });
             }
         });
@@ -82,9 +88,10 @@ export class Cart {
     //make sure index is of type number
     removeProductFromCart(index) {
         this.cart[index] = 0;
-        this.afterActionInCart();
         this.disableTileOfProduct(index);
+        this.afterActionInCart();
     }
+
 
     //make sure index is of type number
     removeItemFromCart(index) {
@@ -121,5 +128,9 @@ export class Cart {
         const amountArray = this.getCartStorage();
         //reduce sums the amount of total items and displays it
         this.cartAmountElement.textContent = Object.values(amountArray).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    }
+
+    updateCalenderNonSelectableDates() {
+        this.calender.calculateNonSelectableDates();
     }
 }

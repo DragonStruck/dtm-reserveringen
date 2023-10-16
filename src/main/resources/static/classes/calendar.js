@@ -1,6 +1,6 @@
 // SelectableRangeCalendar by DragonStruck
 export class SelectableRangeCalendar {
-    constructor() {
+    constructor(cart) {
         this.calendarDays = document.getElementById("calendarDays");
         this.currentMonth = document.getElementById("currentMonth");
         this.prevMonthBtn = document.getElementById("prevMonth");
@@ -21,6 +21,7 @@ export class SelectableRangeCalendar {
 
         this.initializeCalendar();
     }
+
 
     // Get Dates
     getSelectedStartDate() {
@@ -60,6 +61,10 @@ export class SelectableRangeCalendar {
     initializeCalendar() {
         this.updateCalendar();
         this.attachEventListeners();
+    }
+
+    calculateNonSelectableDates() {
+        const nonSelectableDatesResponse = fetch("");
     }
 
     updateCalendar() {
