@@ -82,7 +82,7 @@ export class StorageManager {
         let product = new Product();
         Object.values(productsJson).forEach(data => {
             if (data.id === index) {
-                product.setValuesFromJson(data);
+                product.setValuesFromObject(data);
             }
         });
 
