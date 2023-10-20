@@ -1,6 +1,9 @@
 // SelectableRangeCalendar by DragonStruck
+import {ReservationChecker} from "./reservationChecker.js";
+
 export class SelectableRangeCalendar {
-    constructor(cart) {
+    constructor() {
+        this.nonSelectableDatesHelper = new ReservationChecker();
         this.calendarDays = document.getElementById("calendarDays");
         this.currentMonth = document.getElementById("currentMonth");
         this.prevMonthBtn = document.getElementById("prevMonth");
@@ -61,10 +64,6 @@ export class SelectableRangeCalendar {
     initializeCalendar() {
         this.updateCalendar();
         this.attachEventListeners();
-    }
-
-    calculateNonSelectableDates() {
-        const nonSelectableDatesResponse = fetch("");
     }
 
     updateCalendar() {
@@ -147,15 +146,15 @@ export class SelectableRangeCalendar {
             this.selectedEndDate = null;
         }
 
-        if (this.selectedEndDate && this.daysBetween(this.selectedStartDate, this.selectedEndDate) >= this.maxSelectableDays) {
-            this.selectedStartDate = clickedDate;
-            this.selectedEndDate = null;
-        }
-
-        if (this.areDatesBetweenNonSelectable(this.selectedStartDate, this.selectedEndDate)) {
-            this.selectedStartDate = clickedDate;
-            this.selectedEndDate = null;
-        }
+        // if (this.selectedEndDate && this.daysBetween(this.selectedStartDate, this.selectedEndDate) >= this.maxSelectableDays) {
+        //     this.selectedStartDate = clickedDate;
+        //     this.selectedEndDate = null;
+        // }
+        //
+        // if (this.areDatesBetweenNonSelectable(this.selectedStartDate, this.selectedEndDate)) {
+        //     this.selectedStartDate = clickedDate;
+        //     this.selectedEndDate = null;
+        // }
 
         this.updateCalendar();
     }

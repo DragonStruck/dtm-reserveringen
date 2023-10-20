@@ -21,7 +21,7 @@ public class Item {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @JsonManagedReference(value = "Item -> ItemReservations")
+    @JsonBackReference(value = "Item -> ItemReservations")
     @OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ItemReservation> itemReservations;
 }

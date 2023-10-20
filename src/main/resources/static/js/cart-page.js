@@ -1,12 +1,24 @@
 import {Cart} from "../classes/cart.js";
-import {SelectableRangeCalendar} from "../classes/calendar";
+import {SelectableRangeCalendar} from "../classes/calendar.js";
 
 const calendar = new SelectableRangeCalendar();
 const cart = new Cart();
-cart.setCalender(calendar);
+calendar.addNonSelectableDate(new Date(2023, 10, 25));
+
+calendar.setMaxSelectableDays(3);
+
+const dayOverrides = ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"];
+calendar.overrideDayNames(dayOverrides);
+
+const MonthOverrides = [
+    "Januari", "Februari", "Maart", "April",
+    "Mei", "Juni", "Juli", "Augustus",
+    "September", "Oktober", "November", "December"
+];
+calendar.overrideMonthNames(MonthOverrides);
+
 
 //loads the cartPage page html lines
-//TODO: if there are no items make a nice display
 document.getElementById('loader').style.display = "none";
 cart.generateCartDisplay();
 setReservationButtonFunctionality();
