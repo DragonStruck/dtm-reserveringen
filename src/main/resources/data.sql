@@ -67,9 +67,9 @@ INSERT IGNORE INTO account (id, admin, email, password) VALUES
     (1, 1, 'admin.admin@hu.nl', 'admin1');
 
 
-INSERT IGNORE INTO reservation(id, account_id) VALUES
-    (1,1),
-    (2,1);
+INSERT IGNORE INTO reservation(id, account_id, message) VALUES
+    (1, 1, "test message 1"),
+    (2, 1, "test message 2");
 
 INSERT IGNORE INTO item_reservation(id, reservation_date, reservation_period, item_id, reservation_id)VALUES
     (1, '2023-10-08', 3, 1, 1),

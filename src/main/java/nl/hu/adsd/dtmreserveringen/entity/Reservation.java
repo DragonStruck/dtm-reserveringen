@@ -29,4 +29,7 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String message;
 }

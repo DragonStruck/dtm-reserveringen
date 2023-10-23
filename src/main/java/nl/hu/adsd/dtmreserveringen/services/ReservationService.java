@@ -83,6 +83,7 @@ public class ReservationService {
                 itemReservations.add(itemReservation);
             }
             reservation.setItemReservations(itemReservations);
+            reservation.setMessage(reservationDTO.getMessage());
             logger.info(reservation.toString());
             reservationRepository.save(reservation);
         } catch (Exception e) {

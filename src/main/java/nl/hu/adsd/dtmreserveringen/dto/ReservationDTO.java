@@ -12,4 +12,5 @@ import java.util.List;
 public class ReservationDTO {
     private List<ItemReservationDTO> itemReservationDTOS;
     private AccountDTO accountDTO;
+    private String message;
 }
