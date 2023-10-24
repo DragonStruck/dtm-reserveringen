@@ -64,7 +64,6 @@ export class StorageManager {
         const productsJson = JSON.parse(sessionStorage.getItem(StorageKeys.PRODUCTS));
         console.log(productsJson);
         return Object.values(productsJson).map(data => {
-            console.log(data);
             const product = new Product();
             product.setValuesFromObject(data);
             return product;

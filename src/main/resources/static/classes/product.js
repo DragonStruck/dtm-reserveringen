@@ -2,17 +2,18 @@ import {Cart} from "./cart.js"
 
 export class Product {
 
-    constructor() {
+    constructor(id, items, name, description, details, contents, imagePaths, imageAltTexts) {
         //values of product
-        this.id = "";
-        this.name = "";
-        this.description = "";
-        this.details = "";
-        this.contents = "";
+        //pipes(||) makes it possible to create a product without all the parameters
+        this.id = id || 0;
+        this.name = name || "";
+        this.description = description || "";
+        this.details = details || "";
+        this.contents = contents || "";
 
-        this.items = [];
-        this.imagePaths = [];
-        this.imageAltTexts = [];
+        this.items = items || [];
+        this.imagePaths = imagePaths || [];
+        this.imageAltTexts = imageAltTexts || [];
     }
 
     setValuesFromBackEndJson(json) {

@@ -29,7 +29,7 @@ public class ItemReservation {
     private int reservationPeriod;
 
 
-    @JsonBackReference(value = "Item -> ItemReservations")
+    @JsonManagedReference(value = "Item -> ItemReservations")
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
