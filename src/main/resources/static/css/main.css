@@ -77,15 +77,11 @@ header .topbar-logo-container {
 }
 
 header .topbar-logo-container .topbar-logo-link {
-    height: 48px;
     display: flex;
-    align-items: center;
-    width: min-content;
 }
 
 header .topbar-logo-container .topbar-logo-link .topbar-logo {
     height: 44px;
-    min-width: 180px;
 }
 
 header .topbar-nav {
