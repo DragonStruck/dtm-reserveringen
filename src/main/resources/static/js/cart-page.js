@@ -1,6 +1,7 @@
 import {Cart} from "../classes/cart.js";
 import {SelectableRangeCalendar} from "../classes/calendar.js";
 import {ReservationHelper} from "../classes/reservationHelper.js";
+import {StorageManager} from "../classes/storageManager.js";
 
 const cart = new Cart();
 
@@ -91,6 +92,7 @@ async function placeReservation() {
 
         calendar.selectedStartDate = null;
         calendar.selectedEndDate = null;
+        await StorageManager.setReservationsInStorage();
     }
 }
 

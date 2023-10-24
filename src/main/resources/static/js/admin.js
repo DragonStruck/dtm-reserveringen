@@ -19,6 +19,7 @@ function getTableHeader() {
     tableHeader.innerHTML = `
         <th>Name</th>
         <th>Amount of products</th>
+        <th>Datum(s)</th>
         `;
     return tableHeader;
 }

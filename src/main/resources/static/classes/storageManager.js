@@ -45,6 +45,7 @@ export class StorageManager {
 
                 const reservations = Object.values(reservationsJson).map(data => {
                     const reservation = new Reservation();
+                    console.log(data);
                     reservation.setValues(data);
                     return reservation;
                 });
