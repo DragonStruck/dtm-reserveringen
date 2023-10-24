@@ -83,12 +83,12 @@ export class Product {
                         <h2>Product omschrijving</h2>
                         <p id="description-text">${this.description}</p>
                     </div>
-                </div>
-                <div class="product-info-right">
                     <div class="product-section">
                         <h2>Product details</h2>
                         <p id="details-text">${this.details}</p>
                     </div>
+                </div>
+                <div class="product-info-right">
                     <div class="product-section">
                         <h2>Product inhoud</h2>
                         <p id="contents-text">${this.contents}</p>
