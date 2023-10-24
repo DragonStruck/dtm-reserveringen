@@ -1,6 +1,5 @@
 package nl.hu.adsd.dtmreserveringen.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.hu.adsd.dtmreserveringen.dto.ItemReservationDTO;
 import nl.hu.adsd.dtmreserveringen.dto.ReservationDTO;
 import nl.hu.adsd.dtmreserveringen.entity.Account;
@@ -9,7 +8,6 @@ import nl.hu.adsd.dtmreserveringen.entity.ItemReservation;
 import nl.hu.adsd.dtmreserveringen.entity.Reservation;
 import nl.hu.adsd.dtmreserveringen.repository.AccountRepository;
 import nl.hu.adsd.dtmreserveringen.repository.ItemRepository;
-import nl.hu.adsd.dtmreserveringen.repository.ItemReservationRepository;
 import nl.hu.adsd.dtmreserveringen.repository.ReservationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
