@@ -5,10 +5,10 @@ import {Cart} from "../classes/cart.js";
 
 let productsContainer = document.getElementById("products");
 sessionStorage.setItem(StorageKeys.ACCOUNT, JSON.stringify(new Account(1, 1, "test@mail.com", "test1")));
-const cart = new Cart();
 
 //get all products
 const products = await StorageManager.getAllProducts();
+const cart = new Cart();
 
 //display all the product tiles on the home page
 if (products.length > 0) {
