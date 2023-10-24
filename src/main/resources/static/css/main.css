@@ -72,7 +72,7 @@ header .topbar-container {
 }
 
 header .topbar-logo-container {
-    width: var(--sidebar-width);
+    /* width: var(--sidebar-width); */
     padding: 0 var(--default-padding);
 }
 
@@ -81,7 +81,8 @@ header .topbar-logo-container .topbar-logo-link {
 }
 
 header .topbar-logo-container .topbar-logo-link .topbar-logo {
-    height: 44px;
+    width: 44px;
+    height: 38px;
 }
 
 header .topbar-nav {
