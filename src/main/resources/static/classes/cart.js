@@ -13,10 +13,8 @@ export class Cart {
     setCartStorage() {
         const cartForStorage = {};
         this.cart.forEach((amountOfItems, productId) => {
-            console.log(productId + " " + amountOfItems);
             cartForStorage[productId] = amountOfItems;
         });
-        console.log("setcartsotrate");
         console.log(cartForStorage);
         localStorage.setItem(StorageKeys.CART, JSON.stringify(cartForStorage));
     }
@@ -28,8 +26,6 @@ export class Cart {
 
         console.log(cartEntries);
         Object.entries(cartEntries).forEach(([productId, amountOfItems]) => {
-            console.log(productId + " product id");
-            console.log(amountOfItems + " amount of items");
             cartMap.set(Number.parseInt(productId), amountOfItems);
         });
 
@@ -68,7 +64,7 @@ export class Cart {
                         <p>${product.description}</p>
                     </div>
                     <div class="actions">
-                        <button id="remove-product-button-${productId}"""=><img src="./icons/trash-outline-white.svg" alt="Delete Icon">Verwijder</buttonid>
+                        <button id="remove-product-button-${productId}"<img src="./icons/trash-outline-white.svg" alt="Delete Icon">Verwijder</buttonid>
                     </div>
                 </div>
             `;
@@ -106,6 +102,7 @@ export class Cart {
 
 
     //make sure index is of type number
+    //if there are 0 after removing, make sure that the entry of that product is deleted
     removeItemFromCart(productId) {
         const items = this.cart.get(productId);
         if (items > 0) {
