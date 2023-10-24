@@ -5,6 +5,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 src/main/resources/data.sql
+node_modules
 
 ### STS ###
 .apt_generated
