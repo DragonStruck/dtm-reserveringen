@@ -1,8 +1,8 @@
 import {Product} from "../../main/resources/static/classes/product.js";
 import {ItemReservation} from "../../main/resources/static/classes/itemReservation.js";
 
-const nonSelectableDaysHelper = require("../../main/resources/static/classes/reservationChecker.js");
-const caller = nonSelectableDaysHelper.ReservationChecker.prototype;
+const nonSelectableDaysHelper = require("../../main/resources/static/classes/reservationHelper.js");
+const caller = nonSelectableDaysHelper.ReservationHelper.prototype;
 
 describe("checks if reservation is possible", () => {
     const product1 = new Product(1, [1,2], "naam", "des", "det", "con", ["a"], ["b"]);
@@ -88,17 +88,12 @@ describe("checks if reservation is possible", () => {
         const emptyItemReservationMap = caller.createItemReservationMap(cart, products);
         const itemReservationMap = caller.putItemReservationInMap(emptyItemReservationMap, itemReservations, products);
 
-        const resultMap = new Map([
+        const expectedMap = new Map([
             [1, 1],
             [2, 0]
         ]);
 
-        const product10 = new Product(1, [1,2], "naam", "des", "det", "con", ["a"], ["b"]);
-        const product11 = new Product(2, [4,5]);
-
-        const products2 = [product10, product11];
-
-        expect(caller.calculateNonAvailabilityOfItems(cart, products2, itemReservationMap, reservationDates)).toStrictEqual(resultMap);
+        expect(caller.calculateNonAvailabilityOfItems(cart, products, itemReservationMap, reservationDates)).toStrictEqual(expectedMap);
 
     });
 
