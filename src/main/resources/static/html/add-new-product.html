@@ -4,38 +4,36 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <script type="module" src="../js/new-product.js"></script>
+    <script type="module" src="/js/new-product.js"></script>
 
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<header>
-    <div class="container">
-        <div class="topbar-container">
-            <div class="topbar-logo-container">
-                <a class="topbar-logo-link" href="./">
-                    <img class="topbar-logo" src="../icons/HU_logo_big.svg" alt="HU logo">
-                </a>
-            </div>
-            <div class="topbar-nav">
-                <div class="search-bar-container">
-                    <form name="search">
-                        <input class="search-bar" placeholder="Zoek producten..." type="search">
-                        <button class="search-button" type="submit">Zoek</button>
-                    </form>
+    <header>
+        <div class="container">
+            <div class="topbar-container">
+                <div class="topbar-logo-container">
+                    <a class="topbar-logo-link" href="/">
+                        <img class="topbar-logo" src="/icons/HU_logo_big.svg" alt="HU logo">
+                    </a>
                 </div>
-                <div class="account">
-                    <div class="cart-header">
-                        <a href="info-page.html?product=2">
-                            <img src="../icons/cart-outline.svg" alt="Cart Icon"></a>
+                <div class="topbar-nav">
+                    <div class="nav-right">
+                        <div class="top-menu">
+                            <a class="" href="/cart">
+                                <img src="/icons/cart-outline.svg" alt="Cart Icon">
+                                <span id="cart-amount" class="button-badge">0</span>
+                            </a>
+                            <a href="/login">
+                                <img src="/icons/person-outline.svg" alt="Admin Icon">
+                            </a>
+                        </div>
                     </div>
-                    <a href="admin.html">hier admin account link ofzo</a>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
 <main>
     <div class="container">
