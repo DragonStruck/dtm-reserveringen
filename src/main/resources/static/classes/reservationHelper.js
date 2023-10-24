@@ -2,7 +2,12 @@ import {ItemReservation} from "./itemReservation.js";
 import {StorageManager} from "./storageManager.js";
 
 //needs to trigger when a reservation is added outside
-export class ReservationChecker {
+export class ReservationHelper {
+    constructor() {
+        this.itemAvailabilityMap = null;
+    }
+
+
     async getItemReservations() {
         const response = await fetch("/item-reservation/all");
         console.log(response);
@@ -46,35 +51,73 @@ export class ReservationChecker {
 
         //create a map for every item where the dates can be stored
         const emptyItemReservationMap = this.createItemReservationMap(cart, products);
+        console.log(emptyItemReservationMap);
+
         const itemReservationMap = this.putItemReservationInMap(emptyItemReservationMap, itemReservations, products); //populate that map
+        console.log(itemReservationMap);
 
-        //contains the amount of items NOT available for a given product
-        const productAvailabilityMap = this.calculateNonAvailabilityOfItems(cart, products, itemReservationMap, reservationDates);
+        //contains the amount of items NOT available for a given item
+        const itemAvailabilityMap = this.checkIfItemsAreAvailable(itemReservations, itemReservationMap, reservationDates);
+        console.log(itemAvailabilityMap);
+        this.itemAvailabilityMap = itemAvailabilityMap;
 
-        console.log(cart);
-        const isProductAvailableMap = this.checkWhetherEnoughItemsAreAvailable(cart, products, productAvailabilityMap);
+        const productAvailableMap = this.itemsPerProductAvailable(cart, products, itemAvailabilityMap);
+        console.log(productAvailableMap);
+
+        const isProductAvailableMap = this.enoughProductsAvailable(cart, productAvailableMap);
         console.log(isProductAvailableMap);
         //if there are any products not available (a value in availableAnswerMap is False), return false
         return [...isProductAvailableMap.values()].every(value => value === true);
     }
 
+    checkIfItemsAreAvailable(itemReservations, itemReservationMap, reservationDates) {
+        const itemAvailabilityMap = new Map([...itemReservationMap.keys()].map(itemId => [itemId, true]));
 
-    checkWhetherEnoughItemsAreAvailable(cart, products, productAvailabilityMap) {
-        console.log(cart);
-        const availableAnswerMap = new Map([...cart.keys()].map(productId => [productId, true]));
+        console.log(reservationDates, "reservation dates" );
 
-        console.log(availableAnswerMap);
-
-        //loop trough cart and check against availabilityMap if items can be reserved
-        [...cart.entries()].forEach(([productId, wantedItems]) => {
-            console.log(productId + " " + wantedItems);
-            const product = products.filter(product => product.id === productId);
-            if (wantedItems > (product[0].items.length - productAvailabilityMap.get(productId))) {
-                availableAnswerMap.set(productId, false);
+        [...itemReservationMap.entries()].forEach(([itemId, dates]) => {
+            console.log(dates, "dates");
+            const itemReservationsOfItem = itemReservations.filter(itemReservation => itemReservation.id === itemId)
+            for (const date of reservationDates) {
+                console.log(date, "date");
+                if (dates.includes(date)) {
+                    console.log("includes");
+                    itemAvailabilityMap.set(itemId, false);
+                    break
+                }
             }
         });
 
-        return availableAnswerMap;
+        return itemAvailabilityMap;
+    }
+
+    enoughProductsAvailable(cart, productAvailabilityMap) {
+        const isProductAvailableMap = new Map([...cart.keys()].map(productId => [productId, true]));
+
+        [...cart.entries()].forEach(([productId, wantedItems]) => {
+            if (wantedItems > productAvailabilityMap.get(productId)) {
+                isProductAvailableMap.set(productId, false);
+            }
+        });
+
+        return isProductAvailableMap;
+    }
+
+
+
+    itemsPerProductAvailable(cart, products, itemAvailability) {
+        const productAvailability = new Map([...cart.keys()].map(productId => [productId, 0]));
+
+        [...cart.keys()].forEach(productId => {
+            const product = products.filter(product => productId === product.id);
+            product[0].items.forEach(item => {
+                if (itemAvailability.get(item)) {
+                    productAvailability.set(productId, productAvailability.get(productId) + 1);
+                }
+            });
+        });
+
+        return productAvailability;
     }
 
     createItemReservationMap(cart, products) {
@@ -86,8 +129,8 @@ export class ReservationChecker {
         //only make a map for the needed products
         const productsToBePutInMap = products.filter(product => [...cart.keys()].includes(product.id))
 
-        productsToBePutInMap.map(productId => {
-            productId.items.forEach(item => {
+        productsToBePutInMap.map(product => {
+            product.items.forEach(item => {
                 itemMap.set(item, []);
             });
         });
@@ -113,9 +156,8 @@ export class ReservationChecker {
 
     calculateNonAvailabilityOfItems(cart, products, itemReservationMap, reservationDates) {
         const productAvailabilityMap = new Map([...cart.keys()].map(productId => [productId, 0]));
-        //loop over all cart entries and check for each product how many items are not available
 
-        console.log(itemReservationMap);
+        //loop over all cart entries and check for each product how many items are not available
         [...cart.keys()].forEach(productId => {
             const product = products.filter(product => product.id === productId);
 
@@ -150,6 +192,25 @@ export class ReservationChecker {
         }
 
         return dates;
+    }
+
+    async getItemsToBeReserved(cart) {
+        const products = await StorageManager.getAllProducts();
+        const itemAvailabilityMap = this.itemAvailabilityMap;
+
+        const itemsReturn = [];
+        [...cart.entries()].forEach(([productId, wantedItems]) => {
+            const product = products.filter(product => product.id === productId);
+
+            product[0].items.forEach(item => {
+                if (itemAvailabilityMap.get(item) && wantedItems > 0) {
+                    itemsReturn.push(item);
+                    wantedItems--;
+                }
+            });
+        });
+
+        return itemsReturn;
     }
 }
 
