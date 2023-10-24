@@ -7,7 +7,7 @@ export class ItemReservation {
     }
 
     setValues(data) {
-        this.reservationDate = data.reservationDate;
+        this.reservationDate = new Date(data.reservationDate);
         this.reservationPeriod = data.reservationPeriod;
         this.itemId = data.item.id;
     }
