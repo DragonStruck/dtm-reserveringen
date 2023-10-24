@@ -1,22 +1,13 @@
 import {Cart} from "../classes/cart.js";
 import {SelectableRangeCalendar} from "../classes/calendar.js";
+import {ReservationHelper} from "../classes/reservationHelper.js";
+
+const cart = new Cart();
+
+const reservationHelper = new ReservationHelper();
 
 const calendar = new SelectableRangeCalendar();
-const cart = new Cart();
-calendar.addNonSelectableDate(new Date(2023, 10, 25));
-
 calendar.setMaxSelectableDays(3);
-
-const dayOverrides = ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"];
-calendar.overrideDayNames(dayOverrides);
-
-const MonthOverrides = [
-    "Januari", "Februari", "Maart", "April",
-    "Mei", "Juni", "Juli", "Augustus",
-    "September", "Oktober", "November", "December"
-];
-calendar.overrideMonthNames(MonthOverrides);
-
 
 //loads the cartPage page html lines
 document.getElementById('loader').style.display = "none";
@@ -55,41 +46,66 @@ const json2 =
     }
 
 
-function createReservation() {
-    // const reservationTemplate = {
-    //     itemReservationDTOS: [],
-    //     accountDTO: sessionStorage.getItem(StorageKeys.ACCOUNT).id
-    // }
-    //
-    // for (let i = cartPage)
-    // const itemReservationDTO = {
-    //     reservationDate:
-    // }
-    //
-    // return reservationTemplate;
+async function createReservation() {
+    const reservationTemplate = {
+        itemReservationDTOS: [],
+        accountDTO: {
+            id: 1
+        },
+        message: "message"
+    }
+
+    const itemsToBeReserved = await reservationHelper.getItemsToBeReserved(cart.getCartStorage());
+    const reservationPeriodValue = calendar.daysBetween(calendar.selectedStartDate, calendar.selectedEndDate) + 1;
+    const reservationDateValue = calendar.selectedStartDate.toISOString().slice(0, 10);
+
+    itemsToBeReserved.forEach(item => {
+        reservationTemplate.itemReservationDTOS.push({
+                reservationDate: reservationDateValue,
+                reservationPeriod: reservationPeriodValue,
+                itemDTO: {
+                    id: item
+                }
+            }
+        )
+    });
+
+    return reservationTemplate;
 }
 
 
 async function placeReservation() {
-    //const reservationTemplate = createReservation();
-    const reservationTemplate = json2;
-    console.log(reservationTemplate);
+    if (await validReservation()) {
+        const reservationTemplate = await createReservation();
+        console.log(reservationTemplate);
 
-    await fetch('reservation/add', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(reservationTemplate)
-    }).then(response => console.log(response))
-        .catch(error => console.error('Error:', error));
+        await fetch('reservation/add', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reservationTemplate)
+        }).then(response => console.log(response))
+            .catch(error => console.error('Error:', error));
+
+        calendar.selectedStartDate = null;
+        calendar.selectedEndDate = null;
+    }
 }
 
-function validateReservation() {
-    //reserveringsperiode opgegeven
+async function validReservation() {
+    const cartInventory = cart.getCartStorage();
+    if (cartInventory.size === 0) {
+        alert("Doe eerst producten in je mandje");
+        return false
+    }
 
-    //items in cartPage
-
-    //moet ingelogd zijn
+    const startDate = calendar.selectedStartDate;
+    const endDate = calendar.selectedEndDate;
+    const validReservation = await reservationHelper.isValidReservation(cartInventory, startDate, calendar.daysBetween(startDate, endDate) + 1);
+    if (!validReservation) {
+        alert("De items zijn niet beschikbaar op deze datum(s), verander de reserveringsperiode of je producten");
+    }
+    return validReservation;
 }
