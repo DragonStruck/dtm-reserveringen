@@ -31,10 +31,15 @@ export class ReservationChecker {
     //update when a new reservation is added.
     //update when a reservation has been returned
     async isValidReservation(cart, reservationDate, reservationPeriod) {
+        console.log(cart);
+        console.log(reservationDate);
+        console.log(reservationPeriod);
         //idea:
         //we get all the item reservations, then for each item we check if there are enough available periods for the item.
         //we check by checking if every date available is in per item, or just check if the dates are not in itemReservation
 
+        //else we alter the Date start date in the calendar
+        reservationDate = new Date(reservationDate);
         const reservationDates = this.getAllDatesOfReservation(reservationDate, reservationPeriod);
         const itemReservations = await this.getItemReservations();
         const products = await StorageManager.getAllProducts();
@@ -46,16 +51,16 @@ export class ReservationChecker {
         //contains the amount of items NOT available for a given product
         const productAvailabilityMap = this.calculateNonAvailabilityOfItems(cart, products, itemReservationMap, reservationDates);
 
-        const availableAnswerMap = cart.keys().map(productId => [productId, true]);
-
-        const isProductAvailableMap = this.checkWhetherEnoughItemsAreAvailable();
-
+        console.log(cart);
+        const isProductAvailableMap = this.checkWhetherEnoughItemsAreAvailable(cart, products, productAvailabilityMap);
+        console.log(isProductAvailableMap);
         //if there are any products not available (a value in availableAnswerMap is False), return false
         return [...isProductAvailableMap.values()].every(value => value === true);
     }
 
 
     checkWhetherEnoughItemsAreAvailable(cart, products, productAvailabilityMap) {
+        console.log(cart);
         const availableAnswerMap = new Map([...cart.keys()].map(productId => [productId, true]));
 
         console.log(availableAnswerMap);
