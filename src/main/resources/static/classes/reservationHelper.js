@@ -18,14 +18,14 @@ export class ReservationHelper {
 
             console.log("All item reservations: got json response")
             JSON.stringify(itemReservationsJson);
-            console.log(itemReservationsJson);
+            console.log(itemReservationsJson, "item reservations json from db");
 
             const itemReservations = Object.values(itemReservationsJson).map(data => {
                 const itemReservation = new ItemReservation();
                 itemReservation.setValues(data);
                 return itemReservation;
             });
-            console.log(itemReservations);
+            console.log(itemReservations, "item reservations as objects");
 
             return itemReservations;
         }
@@ -36,9 +36,9 @@ export class ReservationHelper {
     //update when a new reservation is added.
     //update when a reservation has been returned
     async isValidReservation(cart, reservationDate, reservationPeriod) {
-        console.log(cart);
-        console.log(reservationDate);
-        console.log(reservationPeriod);
+        console.log(cart, "cart");
+        console.log(reservationDate, "reservation date");
+        console.log(reservationPeriod, "reservation period");
         //idea:
         //we get all the item reservations, then for each item we check if there are enough available periods for the item.
         //we check by checking if every date available is in per item, or just check if the dates are not in itemReservation
@@ -51,24 +51,77 @@ export class ReservationHelper {
 
         //create a map for every item where the dates can be stored
         const emptyItemReservationMap = this.createItemReservationMap(cart, products);
-        console.log(emptyItemReservationMap);
+        console.log(emptyItemReservationMap, "empty item reservation map");
 
         const itemReservationMap = this.putItemReservationInMap(emptyItemReservationMap, itemReservations, products); //populate that map
-        console.log(itemReservationMap);
+        console.log(itemReservationMap, "map with item reservations");
 
         //contains the amount of items NOT available for a given item
         const itemAvailabilityMap = this.checkIfItemsAreAvailable(itemReservations, itemReservationMap, reservationDates);
-        console.log(itemAvailabilityMap);
+        console.log(itemAvailabilityMap, "is item available map");
         this.itemAvailabilityMap = itemAvailabilityMap;
 
         const productAvailableMap = this.itemsPerProductAvailable(cart, products, itemAvailabilityMap);
-        console.log(productAvailableMap);
+        console.log(productAvailableMap, "how many of product are available map");
 
         const isProductAvailableMap = this.enoughProductsAvailable(cart, productAvailableMap);
-        console.log(isProductAvailableMap);
-        //if there are any products not available (a value in availableAnswerMap is False), return false
+        console.log(isProductAvailableMap, "is product available map");
+
         return [...isProductAvailableMap.values()].every(value => value === true);
     }
+
+    async getItemsToBeReserved(cart) {
+        const products = await StorageManager.getAllProducts();
+        const itemAvailabilityMap = this.itemAvailabilityMap;
+
+        const itemsReturn = [];
+        [...cart.entries()].forEach(([productId, wantedItems]) => {
+            const product = products.filter(product => product.id === productId);
+
+            product[0].items.forEach(item => {
+                if (itemAvailabilityMap.get(item) && wantedItems > 0) {
+                    itemsReturn.push(item);
+                    wantedItems--;
+                }
+            });
+        });
+
+        return itemsReturn;
+    }
+
+    createItemReservationMap(cart, products) {
+        //create a map for every item where the dates can be stored
+        //key: item id
+        //values: array with dates
+        const itemMap = new Map();
+
+        //only make a map for the needed products
+        const productsToBePutInMap = products.filter(product => [...cart.keys()].includes(product.id))
+
+        productsToBePutInMap.map(product => {
+            product.items.forEach(item => {
+                itemMap.set(item, []);
+            });
+        });
+
+        return itemMap;
+    }
+
+    //set all the item reservations per product in the map
+    putItemReservationInMap(itemReservationMap, itemReservations) {
+        const relevantItemReservations = itemReservations.filter(itemReservation => itemReservationMap.has(itemReservation.itemId))
+
+        relevantItemReservations.forEach(itemReservation => {
+            const dates = this.getAllDatesOfReservation(itemReservation.reservationDate, itemReservation.reservationPeriod);
+            const datesValues = itemReservationMap.get(itemReservation.itemId);
+            dates.forEach(date => {
+                datesValues.push(date);
+            });
+        });
+
+        return itemReservationMap;
+    }
+
 
     checkIfItemsAreAvailable(itemReservations, itemReservationMap, reservationDates) {
         const itemAvailabilityMap = new Map([...itemReservationMap.keys()].map(itemId => [itemId, true]));
@@ -104,7 +157,6 @@ export class ReservationHelper {
     }
 
 
-
     itemsPerProductAvailable(cart, products, itemAvailability) {
         const productAvailability = new Map([...cart.keys()].map(productId => [productId, 0]));
 
@@ -118,39 +170,6 @@ export class ReservationHelper {
         });
 
         return productAvailability;
-    }
-
-    createItemReservationMap(cart, products) {
-        //create a map for every item where the dates can be stored
-        //key: item id
-        //values: array with dates
-        const itemMap = new Map();
-
-        //only make a map for the needed products
-        const productsToBePutInMap = products.filter(product => [...cart.keys()].includes(product.id))
-
-        productsToBePutInMap.map(product => {
-            product.items.forEach(item => {
-                itemMap.set(item, []);
-            });
-        });
-
-        return itemMap;
-    }
-
-    //set all the item reservations per product in the map
-    putItemReservationInMap(itemReservationMap, itemReservations) {
-        const relevantItemReservations = itemReservations.filter(itemReservation => itemReservationMap.has(itemReservation.itemId))
-
-        relevantItemReservations.forEach(itemReservation => {
-            const dates = this.getAllDatesOfReservation(itemReservation.reservationDate, itemReservation.reservationPeriod);
-            const datesValues = itemReservationMap.get(itemReservation.itemId);
-            dates.forEach(date => {
-                datesValues.push(date);
-            });
-        });
-
-        return itemReservationMap;
     }
 
 
@@ -192,25 +211,6 @@ export class ReservationHelper {
         }
 
         return dates;
-    }
-
-    async getItemsToBeReserved(cart) {
-        const products = await StorageManager.getAllProducts();
-        const itemAvailabilityMap = this.itemAvailabilityMap;
-
-        const itemsReturn = [];
-        [...cart.entries()].forEach(([productId, wantedItems]) => {
-            const product = products.filter(product => product.id === productId);
-
-            product[0].items.forEach(item => {
-                if (itemAvailabilityMap.get(item) && wantedItems > 0) {
-                    itemsReturn.push(item);
-                    wantedItems--;
-                }
-            });
-        });
-
-        return itemsReturn;
     }
 }
 
