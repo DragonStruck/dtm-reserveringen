@@ -201,7 +201,6 @@ export class ReservationHelper {
     }
 
 
-    //firstDay is of object Date()
     //given the start date and the amount of days, return all the dates of these days in string "yyyy-mm-dd"
     getAllDatesOfReservation(date, amountOfDays) {
         const dates = [];
@@ -209,8 +208,6 @@ export class ReservationHelper {
         for (let i = 0; i < amountOfDays - 1; i++) {
             //increments the day by i
             date.setDate(date.getDate() + 1);
-            console.log(date, "date reservationHelper")
-            console.log(this.dateToString(date), "date reservationHelper string");
             //set date to string in format yyyy-mm-dd
             dates.push(this.dateToString(date));
         }
@@ -219,9 +216,9 @@ export class ReservationHelper {
     }
 
     dateToString(date) {
-        const offset = date.getTimezoneOffset()
-        date = new Date(date.getTime() - (offset*60*1000))
-        return date.toISOString().split('T')[0]
+        const offset = date.getTimezoneOffset();
+        date = new Date(date.getTime() - (offset*60*1000));
+        return date.toISOString().substring(0,10);
     }
 }
 
