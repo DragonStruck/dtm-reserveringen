@@ -17,7 +17,6 @@ export class StorageManager {
                 console.log(productsJson);
 
                 const products = Object.values(productsJson).map(data => {
-                    console.log(data);
                     const product = new Product();
                     product.setValuesFromBackEndJson(data);
                     return product;
@@ -45,7 +44,6 @@ export class StorageManager {
 
                 const reservations = Object.values(reservationsJson).map(data => {
                     const reservation = new Reservation();
-                    console.log(data);
                     reservation.setValues(data);
                     return reservation;
                 });
@@ -63,7 +61,6 @@ export class StorageManager {
         }
         console.log("StorageManger returning products");
         const productsJson = JSON.parse(sessionStorage.getItem(StorageKeys.PRODUCTS));
-        console.log(productsJson);
         return Object.values(productsJson).map(data => {
             const product = new Product();
             product.setValuesFromObject(data);
@@ -78,7 +75,6 @@ export class StorageManager {
         }
 
         const productsJson = JSON.parse(sessionStorage.getItem(StorageKeys.PRODUCTS));
-        console.log(productsJson);
         let product = new Product();
         Object.values(productsJson).forEach(data => {
             if (data.id === index) {
@@ -86,7 +82,6 @@ export class StorageManager {
             }
         });
 
-        console.log(product);
         return product;
     }
 
@@ -98,7 +93,6 @@ export class StorageManager {
         const reservationsJson = JSON.parse(sessionStorage.getItem(StorageKeys.RESERVATIONS));
 
         return Object.values(reservationsJson).map(data => {
-            console.log(data);
             const reservation = new Reservation();
             reservation.setValues(data);
             return reservation;
