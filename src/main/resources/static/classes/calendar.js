@@ -171,11 +171,9 @@ export class SelectableRangeCalendar {
             const dayDate = new Date(this.currentYear, this.currentMonthIndex, parseInt(day.textContent));
 
             if (this.isSameDay(dayDate, this.selectedStartDate)) {
-                console.log(dayDate, "first date");
                 day.classList.add("selected");
             } else if (this.selectedEndDate) {
                 if (this.isDateBetweenStartAndEndDate(dayDate)) {
-                    console.log(dayDate, "in between date");
                     day.classList.add("selected");
                 }
             }
