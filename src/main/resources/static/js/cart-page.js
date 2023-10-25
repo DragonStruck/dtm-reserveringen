@@ -55,7 +55,7 @@ async function createReservation() {
 async function placeReservation() {
     if (await validReservation()) {
         const reservationTemplate = await createReservation();
-        console.log(reservationTemplate);
+        console.log(reservationTemplate, "reservation template");
 
         await fetch('reservation/add', {
             method: 'POST',
@@ -69,6 +69,7 @@ async function placeReservation() {
 
         calendar.selectedStartDate = null;
         calendar.selectedEndDate = null;
+        calendar.highlightSelectedDates();
         await StorageManager.setReservationsInStorage();
     }
 }
