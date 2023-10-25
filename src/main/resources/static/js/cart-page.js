@@ -35,7 +35,10 @@ async function createReservation() {
 
     const itemsToBeReserved = await reservationHelper.getItemsToBeReserved(cart.getCartStorage());
     const reservationPeriodValue = calendar.amountOfDaysBetween(calendar.selectedStartDate, calendar.selectedEndDate) + 1;
-    const reservationDateValue = calendar.selectedStartDate.toISOString().slice(0, 10);
+    const date = calendar.selectedStartDate;
+    console.log(date, "date for tempaltte");
+    console.log(reservationHelper.dateToString(date), "date string");
+    const reservationDateValue = reservationHelper.dateToString(calendar.selectedStartDate);
 
     itemsToBeReserved.forEach(item => {
         reservationTemplate.itemReservationDTOS.push({

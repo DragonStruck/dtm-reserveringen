@@ -38,6 +38,7 @@ export class ReservationHelper {
     async isValidReservation(cart, reservationDate, reservationPeriod) {
         console.log(cart, "cart");
         console.log(reservationDate, "reservation date");
+        console.log(this.dateToString(reservationDate), "reservation date string")
         console.log(reservationPeriod, "reservation period");
         //idea:
         //we get all the item reservations, then for each item we check if there are enough available periods for the item.
@@ -45,6 +46,8 @@ export class ReservationHelper {
 
         //else we alter the Date start date in the calendar
         reservationDate = new Date(reservationDate);
+        console.log(reservationDate, "reservation DAte new object");
+        console.log(this.dateToString(reservationDate), "reservation DAte new object string");
         const reservationDates = this.getAllDatesOfReservation(reservationDate, reservationPeriod);
         const itemReservations = await this.getItemReservations();
         const products = await StorageManager.getAllProducts();
@@ -112,6 +115,7 @@ export class ReservationHelper {
         const relevantItemReservations = itemReservations.filter(itemReservation => itemReservationMap.has(itemReservation.itemId))
 
         relevantItemReservations.forEach(itemReservation => {
+            console.log(itemReservation.reservationDate, "itemreservation date")
             const dates = this.getAllDatesOfReservation(itemReservation.reservationDate, itemReservation.reservationPeriod);
             const datesValues = itemReservationMap.get(itemReservation.itemId);
             dates.forEach(date => {
@@ -198,19 +202,26 @@ export class ReservationHelper {
 
 
     //firstDay is of object Date()
-    //given the start date and the amount of days, return all the dates of these days
+    //given the start date and the amount of days, return all the dates of these days in string "yyyy-mm-dd"
     getAllDatesOfReservation(date, amountOfDays) {
         const dates = [];
-
-        for (let i = 0; i < amountOfDays; i++) {
+        dates.push(this.dateToString(date));
+        for (let i = 0; i < amountOfDays - 1; i++) {
             //increments the day by i
             date.setDate(date.getDate() + 1);
-
+            console.log(date, "date reservationHelper")
+            console.log(this.dateToString(date), "date reservationHelper string");
             //set date to string in format yyyy-mm-dd
-            dates.push(date.toISOString().slice(0, 10));
+            dates.push(this.dateToString(date));
         }
 
         return dates;
+    }
+
+    dateToString(date) {
+        const offset = date.getTimezoneOffset()
+        date = new Date(date.getTime() - (offset*60*1000))
+        return date.toISOString().split('T')[0]
     }
 }
 
