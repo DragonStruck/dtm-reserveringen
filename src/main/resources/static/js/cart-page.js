@@ -70,6 +70,7 @@ async function placeReservation() {
         calendar.selectedStartDate = null;
         calendar.selectedEndDate = null;
         calendar.highlightSelectedDates();
+        alert("Reservering is geslaagd");
         await StorageManager.setReservationsInStorage();
     }
 }
