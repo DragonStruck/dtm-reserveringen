@@ -57,7 +57,7 @@ async function createReservation() {
     }
 
     const itemsToBeReserved = await reservationHelper.getItemsToBeReserved(cart.getCartStorage());
-    const reservationPeriodValue = calendar.daysBetween(calendar.selectedStartDate, calendar.selectedEndDate) + 1;
+    const reservationPeriodValue = calendar.amountOfDaysBetween(calendar.selectedStartDate, calendar.selectedEndDate) + 1;
     const reservationDateValue = calendar.selectedStartDate.toISOString().slice(0, 10);
 
     itemsToBeReserved.forEach(item => {
@@ -105,7 +105,7 @@ async function validReservation() {
 
     const startDate = calendar.selectedStartDate;
     const endDate = calendar.selectedEndDate;
-    const validReservation = await reservationHelper.isValidReservation(cartInventory, startDate, calendar.daysBetween(startDate, endDate) + 1);
+    const validReservation = await reservationHelper.isValidReservation(cartInventory, startDate, calendar.amountOfDaysBetween(startDate, endDate) + 1);
     if (!validReservation) {
         alert("De items zijn niet beschikbaar op deze datum(s), verander de reserveringsperiode of je producten");
     }
