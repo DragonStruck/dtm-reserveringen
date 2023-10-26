@@ -159,7 +159,7 @@ export class SelectableRangeCalendar {
 
     highlightSelectedDates() {
         const calendarDays = this.calendarDays.querySelectorAll(".calendar-day");
-        const amountOfDaysBetween = this.daysBetween(this.selectedStartDate, this.selectedEndDate);
+        const amountOfDaysBetween = this.amountOfDaysBetween(this.selectedStartDate, this.selectedEndDate);
         calendarDays.forEach((day) => {
             day.classList.remove("selected");
 
@@ -168,7 +168,7 @@ export class SelectableRangeCalendar {
             if (this.isSameDay(dayDate, this.selectedStartDate)) {
                 day.classList.add("selected");
             } else if (this.selectedEndDate) {
-                if (this.daysBetween(dayDate, this.selectedStartDate) <= amountOfDaysBetween && dayDate > this.selectedStartDate) {
+                if (this.amountOfDaysBetween(dayDate, this.selectedStartDate) <= amountOfDaysBetween && dayDate > this.selectedStartDate) {
                     day.classList.add("selected");
                 }
             }
@@ -179,8 +179,14 @@ export class SelectableRangeCalendar {
         return this.nonSelectableDates.some(d => this.isSameDay(date, d)) || date < this.currentDate;
     }
 
-    daysBetween(date1, date2) {
-        if (date2 == null) {
+    isDateBetweenStartAndEndDate(date) {
+        const amountOfDaysBetween = this.amountOfDaysBetween(this.selectedStartDate, this.selectedEndDate);
+        return (this.amountOfDaysBetween(date, this.selectedStartDate) <= amountOfDaysBetween && date > this.selectedStartDate);
+    }
+
+    amountOfDaysBetween(date1, date2) {
+        //if date is null, return 0 instead of ~19536 which it else would
+        if (date1 == null || date2 == null) {
             return 0;
         }
         const oneDay = 24 * 60 * 60 * 1000;
