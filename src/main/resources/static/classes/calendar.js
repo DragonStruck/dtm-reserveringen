@@ -26,7 +26,6 @@ export class SelectableRangeCalendar {
     }
 
 
-    // Get Dates
     getSelectedStartDate() {
         return this.selectedStartDate;
     }
@@ -35,7 +34,6 @@ export class SelectableRangeCalendar {
         return this.selectedEndDate;
     }
 
-    // Non selectable dates
     setNonSelectableDates(nonSelectableDates) {
         this.nonSelectableDates = nonSelectableDates;
     }
@@ -44,12 +42,10 @@ export class SelectableRangeCalendar {
         this.nonSelectableDates.push(nonSelectableDate);
     }
 
-    // Max amount of selectable days
     setMaxSelectableDays(maxSelectableDays) {
         this.maxSelectableDays = maxSelectableDays;
     }
 
-    // Overrides
     overrideMonthNames(monthNames) {
         this.months = monthNames;
         this.updateCalendar();
@@ -60,11 +56,11 @@ export class SelectableRangeCalendar {
         this.updateCalendar();
     }
 
-    // Initialize
     initializeCalendar() {
         this.updateCalendar();
         this.attachEventListeners();
     }
+
 
     updateCalendar() {
         const firstDayOfMonth = new Date(this.currentYear, this.currentMonthIndex, 1);
@@ -163,8 +159,7 @@ export class SelectableRangeCalendar {
 
     highlightSelectedDates() {
         const calendarDays = this.calendarDays.querySelectorAll(".calendar-day");
-        console.log(this.selectedStartDate, "start");
-        console.log(this.selectedEndDate, "end");
+        const amountOfDaysBetween = this.amountOfDaysBetween(this.selectedStartDate, this.selectedEndDate);
         calendarDays.forEach((day) => {
             day.classList.remove("selected");
 
@@ -173,7 +168,7 @@ export class SelectableRangeCalendar {
             if (this.isSameDay(dayDate, this.selectedStartDate)) {
                 day.classList.add("selected");
             } else if (this.selectedEndDate) {
-                if (this.isDateBetweenStartAndEndDate(dayDate)) {
+                if (this.amountOfDaysBetween(dayDate, this.selectedStartDate) <= amountOfDaysBetween && dayDate > this.selectedStartDate) {
                     day.classList.add("selected");
                 }
             }
@@ -188,18 +183,6 @@ export class SelectableRangeCalendar {
         const amountOfDaysBetween = this.amountOfDaysBetween(this.selectedStartDate, this.selectedEndDate);
         return (this.amountOfDaysBetween(date, this.selectedStartDate) <= amountOfDaysBetween && date > this.selectedStartDate);
     }
-
-    // areDatesBetweenNonSelectable(startDate, endDate) {
-    //     const daysBetweenStartAndEnd = this.daysBetween(startDate, endDate);
-    //     for (let i = 1; i < daysBetweenStartAndEnd; i++) {
-    //         const dateToCheck = new Date(startDate);
-    //         dateToCheck.setDate(startDate.getDate() + i);
-    //         if (this.isDateNonSelectable(dateToCheck)) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
 
     amountOfDaysBetween(date1, date2) {
         //if date is null, return 0 instead of ~19536 which it else would
