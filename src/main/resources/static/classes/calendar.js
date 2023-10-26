@@ -26,7 +26,6 @@ export class SelectableRangeCalendar {
     }
 
 
-    // Get Dates
     getSelectedStartDate() {
         return this.selectedStartDate;
     }
@@ -35,7 +34,6 @@ export class SelectableRangeCalendar {
         return this.selectedEndDate;
     }
 
-    // Non selectable dates
     setNonSelectableDates(nonSelectableDates) {
         this.nonSelectableDates = nonSelectableDates;
     }
@@ -44,12 +42,10 @@ export class SelectableRangeCalendar {
         this.nonSelectableDates.push(nonSelectableDate);
     }
 
-    // Max amount of selectable days
     setMaxSelectableDays(maxSelectableDays) {
         this.maxSelectableDays = maxSelectableDays;
     }
 
-    // Overrides
     overrideMonthNames(monthNames) {
         this.months = monthNames;
         this.updateCalendar();
@@ -60,11 +56,11 @@ export class SelectableRangeCalendar {
         this.updateCalendar();
     }
 
-    // Initialize
     initializeCalendar() {
         this.updateCalendar();
         this.attachEventListeners();
     }
+
 
     updateCalendar() {
         const firstDayOfMonth = new Date(this.currentYear, this.currentMonthIndex, 1);
