@@ -130,33 +130,33 @@ export class SelectableRangeCalendar {
         const selectedDay = parseInt(event.target.textContent);
         const clickedDate = new Date(this.currentYear, this.currentMonthIndex, selectedDay);
 
-        // if (clickedDate < this.currentDate || this.nonSelectableDates.some(date => this.isSameDay(date, clickedDate))) {
-        //     return;
-        // }
-
-        if (this.isSameDay(this.selectedStartDate, clickedDate)) {
-            this.selectedStartDate = null;
-            this.selectedEndDate = null; 
-        } else {
-            if (!this.selectedStartDate) {
-                this.selectedStartDate = clickedDate;
-            } else if (!this.selectedEndDate) {
-                if (this.daysBetween(this.selectedStartDate, clickedDate) <= 2) {
-                    this.selectedEndDate = clickedDate;
-                    if (this.selectedStartDate > this.selectedEndDate) {
-                        [this.selectedStartDate, this.selectedEndDate] = [this.selectedEndDate, this.selectedStartDate];
-                    }
-                } else {
-                    alert(`Het maximale aantal dagen dat je mag reserveren is ${this.maxSelectableDays}`)
-                }
-            } else {
-                this.selectedStartDate = clickedDate;
-                this.selectedEndDate = null;
-            }
+        if (clickedDate < this.currentDate) {
+            return;
         }
 
-        console.log(this.selectedStartDate, "start");
-        console.log(this.selectedEndDate, "end");
+        if (this.isSameDay(this.selectedStartDate, clickedDate) || this.isSameDay(this.selectedEndDate, clickedDate) ||
+                this.isDateBetweenStartAndEndDate(clickedDate) && this.selectedStartDate && this.selectedEndDate) {
+            this.selectedStartDate = null;
+            this.selectedEndDate = null;
+            this.highlightSelectedDates();
+            return;
+        }
+
+        if (!this.selectedStartDate) {
+            this.selectedStartDate = clickedDate;
+        } else if (!this.selectedEndDate) {
+            if (!(this.amountOfDaysBetween(this.selectedStartDate, clickedDate) <= this.maxSelectableDays - 1)) {
+                alert(`Het maximale aantal dagen dat je mag reserveren is ${this.maxSelectableDays}`)
+            } else {
+                this.selectedEndDate = clickedDate;
+                if (this.selectedStartDate > this.selectedEndDate) {
+                    [this.selectedStartDate, this.selectedEndDate] = [this.selectedEndDate, this.selectedStartDate];
+                }
+            }
+        } else {
+            this.selectedStartDate = clickedDate;
+            this.selectedEndDate = null;
+        }
 
         this.highlightSelectedDates();
     }

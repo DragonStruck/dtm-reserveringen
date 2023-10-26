@@ -15,7 +15,7 @@ export class Cart {
         this.cart.forEach((amountOfItems, productId) => {
             cartForStorage[productId] = amountOfItems;
         });
-        console.log(cartForStorage);
+        console.log(cartForStorage, "cart object for in storage");
         localStorage.setItem(StorageKeys.CART, JSON.stringify(cartForStorage));
     }
 
@@ -24,7 +24,7 @@ export class Cart {
 
         const cartMap =  new Map();
 
-        console.log(cartEntries);
+        console.log(cartEntries, "cart map from storage");
         Object.entries(cartEntries).forEach(([productId, amountOfItems]) => {
             cartMap.set(Number.parseInt(productId), amountOfItems);
         });
@@ -39,7 +39,6 @@ export class Cart {
         //key: product id (number)
         //value: amount of items of product (number)
         this.cart = this.getCartStorage();
-        console.log(this.cart);
 
         this.outputElement = document.getElementById("cart");
         this.cartAmountElement = document.getElementById('cart-amount');
@@ -50,11 +49,10 @@ export class Cart {
     }
 
     async generateCartDisplay() {
-        console.log(this.cart);
+        console.log(this.cart, "cart");
         const products = await StorageManager.getAllProducts();
 
         this.outputElement.innerHTML = Array.from(this.cart.entries()).map(([productId, amountOfItems]) => {
-            console.log(amountOfItems);
             const product = products[productId - 1];
             return `
                 <div class="product" id="cart-product-tile-${productId}">
