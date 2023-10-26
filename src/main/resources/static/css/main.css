@@ -1,7 +1,9 @@
 :root {
     --background: rgb(255, 255, 255);
     --primary: rgb(230, 51, 45);
-    --secondary: rgb(0, 136, 200);
+    --primary-hover: rgb(180, 0, 0);
+    --secondary: rgb(0, 161, 225);
+    --secondary-hover: rgb(0, 136, 200);
 
     --text-color-primary: rgb(51, 51, 51);
     --text-color-secondary: ;
@@ -70,20 +72,16 @@ header .topbar-container {
 }
 
 header .topbar-logo-container {
-    width: var(--sidebar-width);
+    /* width: var(--sidebar-width); */
     padding: 0 var(--default-padding);
 }
 
 header .topbar-logo-container .topbar-logo-link {
-    height: 48px;
     display: flex;
-    align-items: center;
-    width: min-content;
 }
 
 header .topbar-logo-container .topbar-logo-link .topbar-logo {
-    height: 44px;
-    min-width: 180px;
+    height: 38px;
 }
 
 header .topbar-nav {
@@ -153,6 +151,7 @@ button {
     align-items: center;
     padding: 10px 20px;
     font-size: 20px;
+    width: max-content;
 }
 
 button:hover {

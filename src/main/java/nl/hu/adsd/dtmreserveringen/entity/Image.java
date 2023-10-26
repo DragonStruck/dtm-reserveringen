@@ -1,44 +1,25 @@
 package nl.hu.adsd.dtmreserveringen.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "image")
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     private String imagePath;
     private String altText;
 
-
+    @JsonBackReference(value = "Product -> Images")
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public String getAltText() {
-        return altText;
-    }
-
-    public void setAltText(String altText) {
-        this.altText = altText;
-    }
 }

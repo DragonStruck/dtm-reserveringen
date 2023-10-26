@@ -1,21 +1,25 @@
+import {Account} from "./account.js";
+import {ItemReservation} from "./itemReservation.js";
+
 export class Reservation {
 
-    constructor(json) {
+    constructor(id, itemReservations, account) {
         //values of product
-        this.id = "";
+        this.id = -1;
         this.itemReservations = [];
-        this.account = "";
-        this.email = "";
+        this.account = account;
     }
 
     setValues(json) {
         this.id = json.id;
-        this.itemReservations = [];
         for (let i = 0; i < json.itemReservations.length; i++) {
-            this.itemReservations[i] = json.itemReservations[i];
+            const itemReservation = new ItemReservation();
+            itemReservation.setValues(json.itemReservations[0]);
+            this.itemReservations[i] = itemReservation;
         }
-        this.account = json.account;
-        this.email = this.account.email;
+        const account = new Account();
+        account.setValues(json.account);
+        this.account = account;
     }
 
     setButtons(tableRow) {
@@ -40,11 +44,12 @@ export class Reservation {
     }
 
     getTableRow() {
-        let tableRow = document.createElement("tr")
-        tableRow.setAttribute("id", "table-row-reservations" + this.id)
+        let tableRow = document.createElement("tr");
+        tableRow.setAttribute("id", "table-row-reservations" + this.id);
         tableRow.innerHTML = `
-            <td>${this.email}</td>
+            <td>${this.account.email}</td>
             <td>${this.itemReservations.length}</td>
+            <td>${this.getDates()}</td>
             <td>
                 <button id="accept-button">accepteer</button>
                 <button id="reject-button">wijger</button>
@@ -56,6 +61,32 @@ export class Reservation {
 
         return tableRow;
     }
+
+    getDates() {
+        const dates = [];
+        const date = new Date(this.itemReservations[0].reservationDate);
+
+        for (let i = 0; i < this.itemReservations[0].reservationPeriod; i++) {
+            //increments the day by i
+            date.setDate(date.getDate() + 1);
+
+            //set date to string in format yyyy-mm-dd
+            dates.push(date.toISOString().slice(0, 10));
+        }
+
+        console.log(dates);
+        if (dates.length === 2) {
+            return [dates[0] + " - " + dates[1]];
+        }
+
+        if (dates.length > 2) {
+            console.log([dates[0] + " - " + dates[dates.length - 1]]);
+            return [dates[0] + " - " + dates[dates.length -1]];
+        }
+
+        return dates;
+    }
+
 
     async deleteReservation() {
         let returnStatus = "";

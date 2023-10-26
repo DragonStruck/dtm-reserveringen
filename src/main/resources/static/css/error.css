@@ -11,6 +11,15 @@ main {
     flex-direction: column;
 }
 
+.error a {
+    color: white;
+    text-decoration: underline;
+}
+
+.error a:hover {
+    color: rgb(226, 226, 226);
+}
+
 h1, h2 {
     width: 100%;
     text-align: center;

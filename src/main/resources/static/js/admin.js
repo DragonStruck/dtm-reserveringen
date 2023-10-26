@@ -1,31 +1,9 @@
-import {Reservation} from "../classes/reservation.js";
+import {StorageManager} from "../classes/storageManager.js";
 
-let reservations = [];
-
-console.log("Get all reservations")
-try {
-    const response = await fetch("/reservation/all");
-    if (!response.ok) {
-        console.log("All reservations: response is error; Status code: " + response.status);
-    }
-
-    const json = await response.json();
-    console.log("All reservations: got a json response");
-
-    JSON.stringify(json);
-    const jsonValues = Object.values(json);
-    jsonValues.forEach(data => {
-        const reservation = new Reservation();
-        reservation.setValues(data);
-        reservations.push(reservation);
-    });
-} catch (error) {
-    console.error("Something went wrong retrieving all reservations:", error);
-}
-
-getTable();
-
-function getTable() {
+const reservations = await StorageManager.getReservations();
+console.log(reservations);
+setReservationTable();
+function setReservationTable() {
     let table = document.getElementById("reservation-table");
     table.appendChild(getTableHeader());
 
@@ -33,8 +11,6 @@ function getTable() {
         const tableRow = reservation.getTableRow();
         table.appendChild(tableRow)
     });
-
-    console.log(table);
 }
 
 function getTableHeader() {
@@ -43,8 +19,8 @@ function getTableHeader() {
     tableHeader.innerHTML = `
         <th>Name</th>
         <th>Amount of products</th>
+        <th>Datum(s)</th>
         `;
-
     return tableHeader;
 }
 

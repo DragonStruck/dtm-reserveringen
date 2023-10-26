@@ -7,13 +7,15 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Cart | DTM Reserveringen</title>
+    <title>Product Info | DTM Reserveringen</title>
 
-    <script defer type="module" src="./js/cart.js"></script>
+    <script defer type="module" src="../js/info-page.js"></script>
+    <script type="module" src="../js/main.js"></script>
+    <script src="../js/slideshow.js"></script>
 
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/info-page.css">
 </head>
 
 <body>
@@ -21,19 +23,19 @@
         <div class="container">
             <div class="topbar-container">
                 <div class="topbar-logo-container">
-                    <a class="topbar-logo-link" href="./">
-                        <img class="topbar-logo" src="./icons/HU_logo_big.svg" alt="HU logo">
+                    <a class="topbar-logo-link" href="/">
+                        <img class="topbar-logo" src="/icons/HU_logo_small.svg" alt="HU logo">
                     </a>
                 </div>
                 <div class="topbar-nav">
                     <div class="nav-right">
                         <div class="top-menu">
-                            <a class="" href="./cart">
-                                <img src="./icons/cart-outline.svg" alt="Cart Icon">
+                            <a class="" href="/cart">
+                                <img src="/icons/cart-outline.svg" alt="Cart Icon">
                                 <span id="cart-amount" class="button-badge">0</span>
                             </a>
-                            <a href="./login">
-                                <img src="./icons/person-outline.svg" alt="Admin Icon">
+                            <a href="/login">
+                                <img src="/icons/person-outline.svg" alt="Admin Icon">
                             </a>
                         </div>
                     </div>
@@ -41,18 +43,11 @@
             </div>
         </div>
     </header>
-
     <main>
         <div class="container">
             <div class="content-container">
-                <div class="products-container">
-                    <div id="cart" class="products"></div>
-                    <div class="checkout">
-                        <a href="./checkout">
-                            <button type="button"><img src="./icons/calendar-outline-white.svg" alt="Calender Icon">
-                                Reserveren</button>
-                        </a>
-                    </div>
+                <div id="product-container" class="product-container">
+
                 </div>
             </div>
         </div>
@@ -61,7 +56,7 @@
         </div>
     </main>
 
-    <script src="js/main.js"></script>
+
 </body>
 
 </html>
