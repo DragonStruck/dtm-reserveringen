@@ -16,7 +16,7 @@ export class Product {
         this.imageAltTexts = imageAltTexts || [];
     }
 
-    setValuesFromBackEndJson(json) {
+    setValuesFromDbJson(json) {
         this.id = json.id;
         this.name = json.name;
         this.description = json.description;

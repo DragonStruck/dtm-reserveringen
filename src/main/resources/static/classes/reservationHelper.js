@@ -22,7 +22,7 @@ export class ReservationHelper {
 
             const itemReservations = Object.values(itemReservationsJson).map(data => {
                 const itemReservation = new ItemReservation();
-                itemReservation.setValues(data);
+                itemReservation.setValuesFromDbJson(data);
                 return itemReservation;
             });
             console.log(itemReservations, "item reservations as objects");
