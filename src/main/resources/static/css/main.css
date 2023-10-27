@@ -80,8 +80,10 @@ header .topbar-logo-container .topbar-logo-link {
     display: flex;
 }
 
-header .topbar-logo-container .topbar-logo-link .topbar-logo {
+header .topbar-logo-container .topbar-logo-link .topbar-logo h1 {
     height: 38px;
+    width: 50px;
+    font-size: 75px;
 }
 
 header .topbar-nav {
