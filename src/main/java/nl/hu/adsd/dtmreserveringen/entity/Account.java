@@ -1,66 +1,39 @@
 package nl.hu.adsd.dtmreserveringen.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
+@Getter
+@Setter
+@ToString
 @Entity
-@Table(name = "account")
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotNull
     private String email;
+    @NotNull
     private String password;
+
+    @NotNull
+    @Column(columnDefinition="Decimal(10) default '0'")
     private int admin;
 
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    @JsonBackReference(value = "Account -> Reservations")
+    @Fetch(FetchMode.JOIN)
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Reservation> reservations;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(int admin) {
-        this.admin = admin;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", admin=" + admin +
-                ", reservations=" + reservations +
-                '}';
-    }
 }
 

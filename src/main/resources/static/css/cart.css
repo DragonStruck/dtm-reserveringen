@@ -1,3 +1,11 @@
+.disabled-button {
+    opacity: 60%;
+}
+
+.enabled-button {
+    opacity: 100%;
+}
+
 .products {
     display: flex;
     flex-direction: column;

@@ -1,7 +1,9 @@
 // SelectableRangeCalendar by DragonStruck
+import {Cart} from "./cart.js";
 
 export class SelectableRangeCalendar {
     constructor() {
+        this.cart = new Cart();
         this.calendarDays = document.getElementById("calendarDays");
         this.currentMonth = document.getElementById("currentMonth");
         this.prevMonthBtn = document.getElementById("prevMonth");
@@ -23,7 +25,7 @@ export class SelectableRangeCalendar {
         this.initializeCalendar();
     }
 
-    // Get Dates
+
     getSelectedStartDate() {
         return this.selectedStartDate;
     }
@@ -32,21 +34,18 @@ export class SelectableRangeCalendar {
         return this.selectedEndDate;
     }
 
-    // Non selectable dates
     setNonSelectableDates(nonSelectableDates) {
         this.nonSelectableDates = nonSelectableDates;
     }
-    
+
     addNonSelectableDate(nonSelectableDate) {
         this.nonSelectableDates.push(nonSelectableDate);
     }
 
-    // Max amount of selectable days
     setMaxSelectableDays(maxSelectableDays) {
         this.maxSelectableDays = maxSelectableDays;
     }
 
-    // Overrides
     overrideMonthNames(monthNames) {
         this.months = monthNames;
         this.updateCalendar();
@@ -57,11 +56,11 @@ export class SelectableRangeCalendar {
         this.updateCalendar();
     }
 
-    // Initialize
     initializeCalendar() {
         this.updateCalendar();
         this.attachEventListeners();
     }
+
 
     updateCalendar() {
         const firstDayOfMonth = new Date(this.currentYear, this.currentMonthIndex, 1);
@@ -91,7 +90,7 @@ export class SelectableRangeCalendar {
             calendarDay.textContent = i;
             calendarDay.addEventListener("click", (event) => this.handleDayClick(event));
 
-            // Check if the date is non-selectable based on the nonSelectableDates list or dates before today
+            //Check if the date is non-selectable based on the nonSelectableDates list or dates before today
             const dateToCheck = new Date(this.currentYear, this.currentMonthIndex, i);
             if (this.isDateNonSelectable(dateToCheck)) {
                 calendarDay.classList.add("non-selectable");
@@ -123,51 +122,53 @@ export class SelectableRangeCalendar {
         });
     }
 
-    handleDayClick(event) {
+    async handleDayClick(event) {
         const selectedDay = parseInt(event.target.textContent);
         const clickedDate = new Date(this.currentYear, this.currentMonthIndex, selectedDay);
 
-        if (clickedDate < this.currentDate || this.nonSelectableDates.some(date => this.isSameDay(date, clickedDate))) {
+        if (clickedDate < this.currentDate) {
+            return;
+        }
+
+        if (this.isSameDay(this.selectedStartDate, clickedDate) || this.isSameDay(this.selectedEndDate, clickedDate) ||
+                this.isDateBetweenStartAndEndDate(clickedDate) && this.selectedStartDate && this.selectedEndDate) {
+            this.selectedStartDate = null;
+            this.selectedEndDate = null;
+            this.highlightSelectedDates();
             return;
         }
 
         if (!this.selectedStartDate) {
             this.selectedStartDate = clickedDate;
         } else if (!this.selectedEndDate) {
-            this.selectedEndDate = clickedDate;
-            if (this.selectedStartDate > this.selectedEndDate) {
-                [this.selectedStartDate, this.selectedEndDate] = [this.selectedEndDate, this.selectedStartDate];
+            if (!(this.amountOfDaysBetween(this.selectedStartDate, clickedDate) <= this.maxSelectableDays - 1)) {
+                alert(`Het maximale aantal dagen dat je mag reserveren is ${this.maxSelectableDays}`)
+            } else {
+                this.selectedEndDate = clickedDate;
+                if (this.selectedStartDate > this.selectedEndDate) {
+                    [this.selectedStartDate, this.selectedEndDate] = [this.selectedEndDate, this.selectedStartDate];
+                }
             }
         } else {
             this.selectedStartDate = clickedDate;
             this.selectedEndDate = null;
         }
 
-        if (this.selectedEndDate && this.daysBetween(this.selectedStartDate, this.selectedEndDate) >= this.maxSelectableDays) {
-            this.selectedStartDate = clickedDate;
-            this.selectedEndDate = null;
-        }
-
-        if (this.areDatesBetweenNonSelectable(this.selectedStartDate, this.selectedEndDate)) {
-            this.selectedStartDate = clickedDate;
-            this.selectedEndDate = null;
-        }
-
-        this.updateCalendar();
+        this.highlightSelectedDates();
     }
 
     highlightSelectedDates() {
         const calendarDays = this.calendarDays.querySelectorAll(".calendar-day");
+        const amountOfDaysBetween = this.amountOfDaysBetween(this.selectedStartDate, this.selectedEndDate);
         calendarDays.forEach((day) => {
             day.classList.remove("selected");
 
             const dayDate = new Date(this.currentYear, this.currentMonthIndex, parseInt(day.textContent));
 
-            if (this.selectedStartDate && this.daysBetween(dayDate, this.selectedStartDate) == 0 && !this.selectedEndDate) {
+            if (this.isSameDay(dayDate, this.selectedStartDate)) {
                 day.classList.add("selected");
             } else if (this.selectedEndDate) {
-                if (this.selectedStartDate && dayDate >= this.selectedStartDate && (!this.selectedEndDate || dayDate <=
-                    this.selectedEndDate)) {
+                if (this.amountOfDaysBetween(dayDate, this.selectedStartDate) <= amountOfDaysBetween && dayDate > this.selectedStartDate) {
                     day.classList.add("selected");
                 }
             }
@@ -178,26 +179,27 @@ export class SelectableRangeCalendar {
         return this.nonSelectableDates.some(d => this.isSameDay(date, d)) || date < this.currentDate;
     }
 
-    areDatesBetweenNonSelectable(startDate, endDate) {
-        const daysBetweenStartAndEnd = this.daysBetween(startDate, endDate);
-        for (let i = 1; i < daysBetweenStartAndEnd; i++) {
-            const dateToCheck = new Date(startDate);
-            dateToCheck.setDate(startDate.getDate() + i);
-            if (this.isDateNonSelectable(dateToCheck)) {
-                return true;
-            }
-        }
-        return false;
+    isDateBetweenStartAndEndDate(date) {
+        const amountOfDaysBetween = this.amountOfDaysBetween(this.selectedStartDate, this.selectedEndDate);
+        return (this.amountOfDaysBetween(date, this.selectedStartDate) <= amountOfDaysBetween && date > this.selectedStartDate);
     }
 
-    daysBetween(date1, date2) {
+    amountOfDaysBetween(date1, date2) {
+        //if date is null, return 0 instead of ~19536 which it else would
+        if (date1 == null || date2 == null) {
+            return 0;
+        }
         const oneDay = 24 * 60 * 60 * 1000;
         return Math.round(Math.abs((date1 - date2) / oneDay));
     }
 
     isSameDay(date1, date2) {
+        if (date1 === null || date2 === null) {
+            return false;
+        }
         return date1.getDate() === date2.getDate() &&
             date1.getMonth() === date2.getMonth() &&
             date1.getFullYear() === date2.getFullYear();
+
     }
 }
