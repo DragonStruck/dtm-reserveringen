@@ -72,6 +72,125 @@
     justify-content: flex-end;
 }
 
+.outerContainer {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+    max-width: var(--container-desktop);
+    height: 75vh;
+    margin: 0 auto;
+    gap: 1vh;
+}
+
+.itemsContainer {
+    /* background-color: orange; */
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    gap: 1vw;
+}
+
+.calendarContainer {
+    /* background-color: lime; */
+    display: flex;
+    width: 100%;
+    height: 45vh;
+    align-items: center;
+}
+
+.approveContainer {
+    /* background-color: lime; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 45vh;
+    gap: 1vh;
+}
+
+.cartContainer {
+    /* background-color: skyblue; */
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: var(--border-radius);
+    border: 2px solid #333;
+}
+
+.mailContainer {
+    /* background-color: skyblue; */
+    display: flex;
+    width: 100%;
+    height: 9vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius);
+    border: 2px solid #333;
+    padding-bottom: 2vh;
+}
+
+#enterMailTitle {
+    color: var(--secondary);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 5px var(--default-padding);
+    margin-top: 2px;
+}
+
+#insertEmail {
+    width: 20vw;
+    height: 3vh;
+}
+
+.buttonContainer {
+    /* background-color: skyblue; */
+    display: flex;
+    width: 100%;
+    height: 9vh;
+    align-items: center;
+    justify-content: center;
+}
+
+#reservation-button {
+    width: 17vw;
+    height: 7vh;
+    display: flex;
+    font-size: 2rem;
+    justify-content: center;
+}
+
+.textContainer {
+    /* background-color: orange; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 1vw;
+}
+
+.dataConfirmContainer {
+    /* background-color: magenta; */
+    display: flex;
+    width: 100%;
+    height: 30vh;
+    border-radius: var(--border-radius);
+    border: 2px solid #333;
+}
+
+#info-display {
+    width: 26.2vw;
+}
+
+.messageContainer {
+    /* background-color: magenta; */
+    display: flex;
+    width: 100%;
+    height: 30vh;
+}
+
+
 /* Calendar */
 
 .calendar {
@@ -131,7 +250,7 @@
 }
 
 .calendar-day.non-selectable {
-    background-color: #e7e7e7;
+    background-color: #c9c9c9;
     cursor: not-allowed;
 }
 
