@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,7 +9,6 @@
     <title>Register | DTM Reserveringen</title>
 
     <script defer type="module" src="../js/login.js"></script>
-    <script type="module" src="../js/main.js"></script>
 
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/main.css">
@@ -43,33 +41,31 @@
         </div>
     </header>
 
-
-<div class="wrapper">
-    <div class="form-wrapper">
-        <form action="">
-            <h1>Registreren</h1>
-            <div class="input-box">
-                <img src="../icons/person-outline.svg" alt="Admin Icon">
-                <input id="login-email" class="registerEmail"  type="email" placeholder="Example@student.hu.nl" required>
+    <main>
+        <div class="wrapper">
+            <div class="form-wrapper">
+                <form action="">
+                    <h1>Registreren</h1>
+                    <div class="input-box">
+                        <img src="../icons/person-outline.svg" alt="Admin Icon">
+                        <input id="login-email" class="registerEmail"  type="email" placeholder="Example@student.hu.nl" required>
+                    </div>
+                    <div class="input-box">
+                        <img src="../icons/person-outline.svg" alt="Admin Icon">
+                        <input id="login-password" class="registerPassword" type="password" placeholder="Wachtwoord" required>
+                    </div>
+                    <div class="input-box">
+                        <img src="../icons/person-outline.svg" alt="Admin Icon">
+                        <input id="repeat-password" class="registerPassword" type="password" placeholder="Herhaal Wachtwoord" required>
+                    </div>
+                    <button id="register-button" type="submit" class="register">Registreren</button>
+                    <div class="remember-forgot">
+                        <label></label>
+                        <a href="./login">Heb je al een account?</a>
+                    </div>
+                </form>
             </div>
-            <div class="input-box">
-                <img src="../icons/person-outline.svg" alt="Admin Icon">
-                <input id="login-password" class="registerPassword" type="password" placeholder="Wachtwoord" required>
-            </div>
-            <div class="input-box">
-                <img src="../icons/person-outline.svg" alt="Admin Icon">
-                <input id="repeat-password" class="registerPassword" type="password" placeholder="Herhaal Wachtwoord" required>
-            </div>
-            <button id="register-button" type="submit" class="register">Registreren</button>
-            <div class="remember-forgot">
-                <label></label>
-                <a href="./login">Heb je al een account?</a>
-            </div>
-        </form>
-    </div>
-</div>
-
-
+        </div>
+    </main>
 </body>
-
 </html>
