@@ -26,14 +26,14 @@ registrationButton.addEventListener("click", e => {
                 return;
             }
 
-         let accountData = {
-                email: email,
-                password: password,
-                admin: admin
-            };
+        let accountData = {
+            email: email,
+            password: password,
+            admin: admin
+        };
 
         console.log(JSON.stringify(accountData));
-        fetch("/account/add", {
+        fetch("/api/account/add", {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

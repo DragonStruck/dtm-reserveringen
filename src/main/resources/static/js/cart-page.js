@@ -60,7 +60,7 @@ async function placeReservation() {
         const reservationTemplate = await createReservation();
         console.log(reservationTemplate, "reservation template");
 
-        await fetch('reservation/add', {
+        await fetch('/api/reservation/add', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

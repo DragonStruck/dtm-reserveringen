@@ -1,5 +1,7 @@
 import {Account} from "./account.js";
 import {ItemReservation} from "./itemReservation.js";
+import {StorageManager} from "../classes/storageManager.js";
+import {Item} from "../classes/item.js";
 
 export class Reservation {
 
@@ -34,8 +36,6 @@ export class Reservation {
         this.account = account;
     }
 
-
-
     setButtons(tableRow) {
         const acceptButton = tableRow.querySelector("#accept-button")
         const rejectButton = tableRow.querySelector("#reject-button")
@@ -53,11 +53,62 @@ export class Reservation {
 
         seeReservationButton.addEventListener("click", (e) => {
             e.preventDefault();
-            this.seeReservation();
+            this.seeReservation(seeReservationButton);
         });
     }
 
-    getTableRow() {
+    checkProducts() {
+        if (sessionStorage.getItem("products") == null) {
+            StorageManager.setProductsInStorage();
+            return true;
+        }
+    }
+
+    async getTableRow() {
+        let items;
+
+        try {
+            const response = await fetch("/api/item/all");
+
+            if (!response.ok) {
+                console.log("All items: response is error; Status code: " + response.status);
+            } else {
+                const itemsJson = await response.json();
+                console.log(itemsJson);
+
+                console.log("All items: got a json response");
+                JSON.stringify(itemsJson)
+                console.log(itemsJson);
+
+                items = Object.values(itemsJson).map(data => {
+                    const item = new Item();
+                    item.setValuesFromDbJson(data);
+                    return item;
+                });
+
+                sessionStorage.setItem(StorageKeys.PRODUCTS, JSON.stringify(products));
+            }
+        } catch (error) {
+            console.error("Something went wrong retrieving all items; Error:", error);
+        }
+
+
+
+        console.log(items)
+
+
+
+
+
+        let reservationItems = "";
+        this.itemReservations.forEach(itemReservation => {
+
+
+
+            // console.log(itemReservation.itemId);
+        })
+
+
         let tableRow = document.createElement("tr");
         tableRow.setAttribute("id", "table-row-reservations" + this.id);
         tableRow.innerHTML = `
@@ -67,7 +118,10 @@ export class Reservation {
             <td>
                 <button id="accept-button">accepteer</button>
                 <button id="reject-button">wijger</button>
-                <button id="see-reservation-button">zie reservering</button>
+                <div class="dropdown">
+                    <button class="dropbtn" id="see-reservation-button">zie reservering</button>
+                    <div class="dropdown-content">${reservationItems}</div>
+                </div>  
             </td>
         `;
 
@@ -121,7 +175,7 @@ export class Reservation {
     }
 
     async rejectReservation() {
-        let returnStatus = await this.deleteReservation()
+        let returnStatus = await this.deleteReservation();
 
         if (returnStatus === '"OK"') {
             console.log("return status OK, now making corresponding row disappear");
@@ -132,9 +186,15 @@ export class Reservation {
         }
     }
 
-    seeReservation() {
-        this.itemReservations.forEach(itemReservation => {
-            console.log(itemReservation);
+    seeReservation(seeReservationButton) {
+        console.log(seeReservationButton.closest(".dropdown").querySelector('div.dropdown-content'));
+        let dropdownMenu = seeReservationButton.closest(".dropdown").querySelector('div.dropdown-content');
+        let dropdownContents = document.querySelectorAll(".dropdown-content");
+        dropdownContents.forEach(dropdownContent => {
+            if (dropdownMenu != dropdownContent) {
+                dropdownContent.classList.remove("active");
+            }
         })
+        dropdownMenu.classList.toggle("active");
     }
 }

@@ -17,9 +17,10 @@ function getTableHeader() {
     let tableHeader = document.createElement("tr");
 
     tableHeader.innerHTML = `
-        <th>Name</th>
-        <th>Amount of products</th>
+        <th>Email</th>
+        <th>Hoeveelheid producten</th>
         <th>Datum(s)</th>
+        <th>Acties</th>
         `;
     return tableHeader;
 }
