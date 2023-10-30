@@ -10,17 +10,31 @@ export class Reservation {
         this.account = account;
     }
 
-    setValues(json) {
-        this.id = json.id;
-        for (let i = 0; i < json.itemReservations.length; i++) {
+    setValuesFromDbJson(dbJson) {
+        this.id = dbJson.id;
+        for (let i = 0; i < dbJson.itemReservations.length; i++) {
             const itemReservation = new ItemReservation();
-            itemReservation.setValues(json.itemReservations[0]);
+            itemReservation.setValuesFromDbJson(dbJson.itemReservations[i]);
             this.itemReservations[i] = itemReservation;
         }
         const account = new Account();
-        account.setValues(json.account);
+        account.setValues(dbJson.account);
         this.account = account;
     }
+
+    setValuesFromObject(data) {
+        this.id = data.id;
+        for (let i = 0; i < data.itemReservations.length; i++) {
+            const itemReservation = new ItemReservation();
+            itemReservation.setValuesFromObject(data.itemReservations[i]);
+            this.itemReservations[i] = itemReservation;
+        }
+        const account = new Account();
+        account.setValues(data.account);
+        this.account = account;
+    }
+
+
 
     setButtons(tableRow) {
         const acceptButton = tableRow.querySelector("#accept-button")

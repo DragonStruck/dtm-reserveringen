@@ -18,7 +18,7 @@ export class StorageManager {
 
                 const products = Object.values(productsJson).map(data => {
                     const product = new Product();
-                    product.setValuesFromBackEndJson(data);
+                    product.setValuesFromDbJson(data);
                     return product;
                 });
 
@@ -44,7 +44,7 @@ export class StorageManager {
 
                 const reservations = Object.values(reservationsJson).map(data => {
                     const reservation = new Reservation();
-                    reservation.setValues(data);
+                    reservation.setValuesFromDbJson(data);
                     return reservation;
                 });
 
@@ -94,7 +94,7 @@ export class StorageManager {
 
         return Object.values(reservationsJson).map(data => {
             const reservation = new Reservation();
-            reservation.setValues(data);
+            reservation.setValuesFromObject(data);
             return reservation;
         });
     }
