@@ -32,7 +32,15 @@
     </header>
 
     <main>
-        <div class="container">
+        <!-- login div -->
+        <div id="admin-login-div">
+            <label for="admin-password">Geef wachtwoord op om door te mogen naar de admin pagina</label><br>
+            <input type="password" name="admin-password-name" id="admin-password">
+            <button id="admin-password-button">Log in</button>
+        </div>
+
+        <!-- reservation display div -->
+        <div class="container" id="reservation-display-div" style="display: none">
             <table id="reservation-table">
             </table>
         </div>
