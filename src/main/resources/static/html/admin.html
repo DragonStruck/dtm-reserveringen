@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,41 +8,12 @@
 
     <title>Admin | DTM Reserveringen</title>
 
-    <script type="module" src="/js/main.js"></script>
     <script type="module" src="/js/admin.js"></script>
 
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/admin.css">
 
-
-    <style>
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #f1f1f1;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content p {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content.active {
-            display: block;
-        }
-    </style>
 </head>
 
 <body>
@@ -53,20 +23,45 @@
                 <div class="topbar-logo-container">
                     <a class="topbar-logo-link" href="/">
                         <img class="topbar-logo" src="/icons/HU_logo_small.svg" alt="HU logo">
+                        <div class="topbar-text-container">
+                            <h1>DTM-Reserveringen</h1>
+                        </div>
                     </a>
+                </div>
+                <div class="topbar-nav">
+                    <div class="nav-right">
+                        <div class="top-menu">
+                            <a class="" href="/cart">
+                                <img src="/icons/cart-outline.svg" alt="Cart Icon">
+                                <span id="cart-amount" class="button-badge">0</span>
+                            </a>
+                            <a href="/admin">
+                                <img src="/icons/person-outline.svg" alt="Admin Icon">
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
     <main>
-        <div class="container">
+        <!-- login div -->
+        <div id="admin-login-div">
+            <label for="admin-password">Geef wachtwoord op om door te mogen naar de admin pagina</label><br>
+            <input type="password" name="admin-password-name" id="admin-password"><br>
+
+            <label for="show-password-toggle-admin-login">Laat wachtwoord zien</label><br>
+            <input type="checkbox" id="show-password-toggle-admin-login"><br>
+
+            <button id="admin-password-button">Log in</button>
+        </div>
+
+        <!-- reservation display div -->
+        <div class="container" id="reservation-display-div" style="display: none">
             <table id="reservation-table">
             </table>
         </div>
     </main>
-
-
 </body>
-
 </html>
