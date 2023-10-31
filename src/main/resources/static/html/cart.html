@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,7 +9,6 @@
     <title>Cart | DTM Reserveringen</title>
 
     <script defer type="module" src="/js/cart-page.js"></script>
-    <script type="module" src="/js/main.js"></script>
 
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/main.css">
@@ -33,7 +31,7 @@
                                 <img src="/icons/cart-outline.svg" alt="Cart Icon">
                                 <span id="cart-amount" class="button-badge">0</span>
                             </a>
-                            <a href="/login">
+                            <a href="/admin">
                                 <img src="/icons/person-outline.svg" alt="Admin Icon">
                             </a>
                         </div>
@@ -49,10 +47,8 @@
                 <div class="products-container">
                     <div id="cart" class="products"></div>
                     <div class="checkout">
-                        <a href="./checkout">
-                            <button id="reservation-button" type="button"><img src="../icons/calendar-outline-white.svg" alt="Calender Icon">
-                                Reserveren</button>
-                        </a>
+                        <button id="reservation-button" type="button"><img src="../icons/calendar-outline-white.svg" alt="Calender Icon">
+                            Reserveren</button>
                     </div>
                 </div>
             </div>
@@ -70,5 +66,4 @@
         </div>
     </main>
 </body>
-
 </html>

@@ -20,7 +20,7 @@ public class WebController {
     public String login() {
         return "html/login.html";
     }
-
+    
     @RequestMapping("/register")
     public String register() {
         return "html/register.html";
