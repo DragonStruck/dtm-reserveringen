@@ -8,7 +8,7 @@ const passwordVisibleToggle = document.getElementById("show-password-toggle-admi
 adminPasswordButton.addEventListener("click", async e => {
     e.preventDefault();
     if (await passwordCheck(adminPasswordField.value)) {
-        loadReservationTable();
+        await loadReservationTable();
     } else {
         adminPasswordField.value = '';
     }

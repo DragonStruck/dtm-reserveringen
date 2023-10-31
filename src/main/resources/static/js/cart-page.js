@@ -12,7 +12,7 @@ calendar.setMaxSelectableDays(3);
 
 //loads the cartPage page html lines
 document.getElementById('loader').style.display = "none";
-cart.generateCartDisplay();
+await cart.generateCartDisplay();
 setReservationButtonFunctionality();
 
 function setReservationButtonFunctionality() {
@@ -36,7 +36,7 @@ async function createReservation() {
     const itemsToBeReserved = await reservationHelper.getItemsToBeReserved(cart.getCartStorage());
     const reservationPeriodValue = calendar.amountOfDaysBetween(calendar.selectedStartDate, calendar.selectedEndDate) + 1;
     const date = calendar.selectedStartDate;
-    console.log(date, "date for tempaltte");
+    console.log(date, "date for template");
     console.log(reservationHelper.dateToString(date), "date string");
     const reservationDateValue = reservationHelper.dateToString(calendar.selectedStartDate);
 
