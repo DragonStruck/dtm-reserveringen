@@ -42,8 +42,9 @@ async function passwordCheck(password) {
 let reservations = [];
 
 
-//Switches from the login display to the reseervation display.
+//Switches from the login display to the reservation display.
 //This way you always need to log in when going to /admin, instead of from a separate page
+//The reservation display only gets loaded when the password is entered
 async function loadReservationTable() {
     //switch view
     adminLoginDiv.style.display = "none";
