@@ -3,6 +3,7 @@ import {StorageManager} from "../classes/storageManager.js";
 const adminLoginDiv = document.getElementById("admin-login-div");
 const adminPasswordField = document.getElementById("admin-password");
 const adminPasswordButton = document.getElementById("admin-password-button");
+const passwordVisibleToggle = document.getElementById("show-password-toggle-admin-login");
 
 adminPasswordButton.addEventListener("click", async e => {
     e.preventDefault();
@@ -17,6 +18,14 @@ adminPasswordField.addEventListener("keypress", e => {
     if (e.key === "Enter") {
         e.preventDefault();
         adminPasswordButton.click();
+    }
+});
+
+passwordVisibleToggle.addEventListener("click", e => {
+    if (adminPasswordField.type === "password") {
+        adminPasswordField.type = "text";
+    } else {
+        adminPasswordField.type = "password";
     }
 });
 
