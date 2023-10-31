@@ -1,8 +1,60 @@
 import {StorageManager} from "../classes/storageManager.js";
 
-const reservations = await StorageManager.getReservations();
-console.log(reservations);
-setReservationTable();
+const adminLoginDiv = document.getElementById("admin-login-div");
+const adminPasswordField = document.getElementById("admin-password");
+const adminPasswordButton = document.getElementById("admin-password-button");
+
+adminPasswordButton.addEventListener("click", async e => {
+    e.preventDefault();
+    if (await passwordCheck(adminPasswordField.value)) {
+        loadReservationTable();
+    } else {
+        adminPasswordField.value = '';
+    }
+});
+
+adminPasswordField.addEventListener("keypress", e => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        adminPasswordButton.click();
+    }
+});
+
+async function passwordCheck(password) {
+    const response = await fetch('admin/login', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(password),
+    });
+
+    if (!response.ok) {
+        console.log("All reservations: response is error; Status code: " + response.status);
+        alert("Er is een fout opgetreden bij het verifiëren van het wachtwoord. Probeer het opnieuw");
+        return false;
+    } else {
+        return await response.json();
+    }
+}
+
+let reservations = [];
+
+
+//Switches from the login display to the reseervation display.
+//This way you always need to log in when going to /admin, instead of from a separate page
+async function loadReservationTable() {
+    //switch view
+    adminLoginDiv.style.display = "none";
+    const reservationDisplay = document.getElementById("reservation-display-div");
+    reservationDisplay.style.display = "";
+
+    reservations = await StorageManager.getReservations();
+    setReservationTable();
+    getTableHeader();
+}
+
 function setReservationTable() {
     let table = document.getElementById("reservation-table");
     table.appendChild(getTableHeader());
