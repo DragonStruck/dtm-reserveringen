@@ -2,13 +2,15 @@ import {StorageManager} from "../classes/storageManager.js";
 
 const reservations = await StorageManager.getReservations();
 console.log(reservations);
-setReservationTable();
-function setReservationTable() {
+await setReservationTable();
+
+async function setReservationTable() {
+    const products = await StorageManager.getAllProducts();
     let table = document.getElementById("reservation-table");
     table.appendChild(getTableHeader());
 
     reservations.forEach(reservation => {
-        const tableRow = reservation.getTableRow();
+        const tableRow = reservation.getTableRow(products);
         table.appendChild(tableRow)
     });
 }

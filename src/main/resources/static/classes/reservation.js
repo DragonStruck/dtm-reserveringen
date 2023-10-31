@@ -57,56 +57,24 @@ export class Reservation {
         });
     }
 
-    checkProducts() {
-        if (sessionStorage.getItem("products") == null) {
-            StorageManager.setProductsInStorage();
-            return true;
-        }
-    }
 
-    async getTableRow() {
-        let items;
+    getTableRow(products) {
+        let reservationItemsMap = new Map(products.map(product => [product.name, 0]));
+        let reservationItemsHtml = "";
 
-        try {
-            const response = await fetch("/api/item/all");
-
-            if (!response.ok) {
-                console.log("All items: response is error; Status code: " + response.status);
-            } else {
-                const itemsJson = await response.json();
-                console.log(itemsJson);
-
-                console.log("All items: got a json response");
-                JSON.stringify(itemsJson)
-                console.log(itemsJson);
-
-                items = Object.values(itemsJson).map(data => {
-                    const item = new Item();
-                    item.setValuesFromDbJson(data);
-                    return item;
-                });
-
-                sessionStorage.setItem(StorageKeys.PRODUCTS, JSON.stringify(products));
+        for (const itemReservation of this.itemReservations) {
+            for (const product of products) {
+                if (product.items.includes(itemReservation.itemId)) {
+                    reservationItemsMap.set(product.name, reservationItemsMap.get(product.name) + 1);
+                }
             }
-        } catch (error) {
-            console.error("Something went wrong retrieving all items; Error:", error);
         }
 
-
-
-        console.log(items)
-
-
-
-
-
-        let reservationItems = "";
-        this.itemReservations.forEach(itemReservation => {
-
-
-
-            // console.log(itemReservation.itemId);
-        })
+        [...reservationItemsMap.entries()].forEach(([name, amount]) => {
+            if (amount !== 0) {
+                reservationItemsHtml += `<p>${amount}x - ${name}</p>`
+            }
+        });
 
 
         let tableRow = document.createElement("tr");
@@ -120,7 +88,7 @@ export class Reservation {
                 <button id="reject-button">wijger</button>
                 <div class="dropdown">
                     <button class="dropbtn" id="see-reservation-button">zie reservering</button>
-                    <div class="dropdown-content">${reservationItems}</div>
+                    <div class="dropdown-content">${reservationItemsHtml}</div>
                 </div>  
             </td>
         `;
