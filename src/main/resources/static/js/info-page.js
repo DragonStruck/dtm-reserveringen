@@ -32,6 +32,7 @@ try {
         e.preventDefault();
         console.log("fired");
         cart.addToCart(productId);
+        alert("Item toegevoegd aan winkelmandje");
     });
 
     document.getElementById('loader').style.display = "none";
@@ -68,5 +69,5 @@ try {
         thumbnails.appendChild(thumbnail);
     }
 } catch (error) {
-    console.log("something went wrong when tring to display product info: " + error);
+    console.log("something went wrong when trying to display product info: " + error);
 }

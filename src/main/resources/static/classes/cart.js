@@ -79,6 +79,7 @@ export class Cart {
                 removeButton.addEventListener("click", e => {
                     e.preventDefault();
                     this.removeProductFromCart(productId);
+
                 });
             }
         });
@@ -89,6 +90,7 @@ export class Cart {
         //if there is no previous entry of index, then set itemCount[index] to 1
         this.cart.set(productId, (this.cart.get(productId) || 0) + 1);
         this.afterActionInCart();
+
     }
 
     //make sure index is of type number
@@ -96,6 +98,7 @@ export class Cart {
         this.cart.delete(productId);
         this.disableTileOfProduct(productId);
         this.afterActionInCart();
+
     }
 
 
@@ -137,5 +140,6 @@ export class Cart {
             count += value;
         }
         this.cartAmountElement.textContent = count.toString();
+
     }
 }
