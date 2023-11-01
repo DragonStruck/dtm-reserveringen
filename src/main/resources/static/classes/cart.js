@@ -45,6 +45,7 @@ export class Cart {
         this.calender = null;
         this.updateCartCounter();
 
+
         // Assuming StorageManager.getProductsFromStorage returns a promise
     }
 

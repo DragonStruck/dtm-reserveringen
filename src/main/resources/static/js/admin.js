@@ -6,7 +6,7 @@ setReservationTable();
 function setReservationTable() {
     let table = document.getElementById("reservation-table");
     table.appendChild(getTableHeader());
-
+    console.log(reservations);
     reservations.forEach(reservation => {
         const tableRow = reservation.getTableRow();
         table.appendChild(tableRow)

@@ -3,11 +3,11 @@ import {ItemReservation} from "./itemReservation.js";
 
 export class Reservation {
 
-    constructor(id, itemReservations, account) {
+    constructor(id, itemReservations, email) {
         //values of product
         this.id = -1;
         this.itemReservations = [];
-        this.account = account;
+        this.email = email;
     }
 
     setValues(json) {
@@ -17,9 +17,7 @@ export class Reservation {
             itemReservation.setValues(json.itemReservations[0]);
             this.itemReservations[i] = itemReservation;
         }
-        const account = new Account();
-        account.setValues(json.account);
-        this.account = account;
+        this.email = json.email;
     }
 
     setButtons(tableRow) {
@@ -47,12 +45,12 @@ export class Reservation {
         let tableRow = document.createElement("tr");
         tableRow.setAttribute("id", "table-row-reservations" + this.id);
         tableRow.innerHTML = `
-            <td>${this.account.email}</td>
+            <td>${this.email}</td>
             <td>${this.itemReservations.length}</td>
             <td>${this.getDates()}</td>
             <td>
                 <button id="accept-button">accepteer</button>
-                <button id="reject-button">wijger</button>
+                <button id="reject-button">weiger</button>
                 <button id="see-reservation-button">zie reservering</button>
             </td>
         `;
