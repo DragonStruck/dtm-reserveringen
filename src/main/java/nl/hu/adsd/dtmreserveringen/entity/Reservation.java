@@ -24,10 +24,13 @@ public class Reservation {
     private List<ItemReservation> itemReservations;
 
 
-    @JsonManagedReference(value = "Account -> Reservations")
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+//    @JsonManagedReference(value = "Account -> Reservations")
+//    @ManyToOne
+//    @JoinColumn(name = "account_id")
+//    private Account account;
+
+    private String email;
+
 
     @Column(columnDefinition = "LONGTEXT")
     private String message;

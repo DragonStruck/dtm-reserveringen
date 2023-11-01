@@ -12,7 +12,7 @@ calendar.setMaxSelectableDays(3);
 
 //loads the cartPage page html lines
 document.getElementById('loader').style.display = "none";
-cart.generateCartDisplay();
+await cart.generateCartDisplay();
 setReservationButtonFunctionality();
 
 function setReservationButtonFunctionality() {
@@ -27,17 +27,17 @@ function setReservationButtonFunctionality() {
 async function createReservation() {
     const reservationTemplate = {
         itemReservationDTOS: [],
-        accountDTO: {
-            id: 1
-        },
+        email: "",
         message: "message"
     }
+
+    const email = document.getElementById("insertEmail");
+    console.log(email.value);
+    reservationTemplate.email = email.value;
 
     const itemsToBeReserved = await reservationHelper.getItemsToBeReserved(cart.getCartStorage());
     const reservationPeriodValue = calendar.amountOfDaysBetween(calendar.selectedStartDate, calendar.selectedEndDate) + 1;
     const date = calendar.selectedStartDate;
-    console.log(date, "date for tempaltte");
-    console.log(reservationHelper.dateToString(date), "date string");
     const reservationDateValue = reservationHelper.dateToString(calendar.selectedStartDate);
 
     itemsToBeReserved.forEach(item => {
@@ -60,7 +60,7 @@ async function placeReservation() {
         const reservationTemplate = await createReservation();
         console.log(reservationTemplate, "reservation template");
 
-        await fetch('reservation/add', {
+        await fetch('/api/reservation/add', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -89,6 +89,11 @@ async function validReservation() {
         alert("Selecteer eerst een datum voordat je reserveert ");
         return false;
     }
+    const email = document.getElementById("insertEmail");
+    if (email.value === "") {
+        alert("Voer eerst je email in");
+        return false;
+    }
 
     const startDate = calendar.selectedStartDate;
     const endDate = calendar.selectedEndDate;
@@ -98,3 +103,6 @@ async function validReservation() {
     }
     return validReservation;
 }
+
+
+

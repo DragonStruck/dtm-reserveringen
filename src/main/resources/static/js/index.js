@@ -23,6 +23,8 @@ if (products.length > 0) {
         cartButton.addEventListener('click', e => {
             e.preventDefault();
             cart.addToCart(productId);
+            alert("Item toegevoegd aan winkelmandje");
+
         })
     });
 

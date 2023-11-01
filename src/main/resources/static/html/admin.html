@@ -8,11 +8,14 @@
 
     <title>Admin | DTM Reserveringen</title>
 
-    <script type="module" src="/js/admin.js" ></script>
 
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/admin.css">
+    <script type="module" src="../js/admin.js" ></script>
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+
 </head>
 
 <body>
@@ -21,8 +24,26 @@
             <div class="topbar-container">
                 <div class="topbar-logo-container">
                     <a class="topbar-logo-link" href="/">
-                        <img class="topbar-logo" src="/icons/HU_logo_small.svg" alt="HU logo">
+
+                        <img class="topbar-logo" src="../icons/HU_logo_small.svg" alt="HU logo">
+                        <div class="topbar-text-container">
+                            <h1>DTM-Reserveringen</h1>
+                        </div>
+
                     </a>
+                </div>
+                <div class="topbar-nav">
+                    <div class="nav-right">
+                        <div class="top-menu">
+                            <a class="" href="/cart">
+                                <img src="../icons/cart-outline.svg" alt="Cart Icon">
+                                <span id="cart-amount" class="button-badge">0</span>
+                            </a>
+                            <a href="/admin">
+                                <img src="../icons/person-outline.svg" alt="Admin Icon">
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -32,7 +53,11 @@
         <!-- login div -->
         <div id="admin-login-div">
             <label for="admin-password">Geef wachtwoord op om door te mogen naar de admin pagina</label><br>
-            <input type="password" name="admin-password-name" id="admin-password">
+            <input type="password" name="admin-password-name" id="admin-password"><br>
+
+            <label for="show-password-toggle-admin-login">Laat wachtwoord zien</label><br>
+            <input type="checkbox" id="show-password-toggle-admin-login"><br>
+
             <button id="admin-password-button">Log in</button>
         </div>
 

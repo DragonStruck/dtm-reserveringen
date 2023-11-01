@@ -9,7 +9,7 @@ export class ReservationHelper {
 
 
     async getItemReservations() {
-        const response = await fetch("/item-reservation/all");
+        const response = await fetch("/api/item-reservation/all");
         console.log(response);
         if (!response.ok) {
             console.log("All item Reservations: response is error; Status code: " + response.status);
