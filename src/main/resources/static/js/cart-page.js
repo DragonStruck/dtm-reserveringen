@@ -27,11 +27,12 @@ function setReservationButtonFunctionality() {
 async function createReservation() {
     const reservationTemplate = {
         itemReservationDTOS: [],
-        accountDTO: {
-            id: 1
-        },
+        email: "",
         message: "message"
     }
+
+    const email = document.getElementById("insertEmail");
+    reservationTemplate.email = email.value;
 
     const itemsToBeReserved = await reservationHelper.getItemsToBeReserved(cart.getCartStorage());
     const reservationPeriodValue = calendar.amountOfDaysBetween(calendar.selectedStartDate, calendar.selectedEndDate) + 1;
@@ -89,6 +90,11 @@ async function validReservation() {
         alert("Selecteer eerst een datum voordat je reserveert ");
         return false;
     }
+    const email = document.getElementById("insertEmail");
+    if (email.value === "") {
+        alert("Voer eerst je email in");
+        return false;
+        }
 
     const startDate = calendar.selectedStartDate;
     const endDate = calendar.selectedEndDate;
@@ -98,3 +104,6 @@ async function validReservation() {
     }
     return validReservation;
 }
+
+
+

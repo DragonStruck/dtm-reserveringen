@@ -11,6 +11,7 @@ import java.util.List;
 @ToString
 public class ReservationDTO {
     private List<ItemReservationDTO> itemReservationDTOS;
-    private AccountDTO accountDTO;
+  //  private AccountDTO accountDTO;
+    private String email;
     private String message;
 }

@@ -31,9 +31,9 @@ public class Account {
     private int admin;
 
 
-    @JsonBackReference(value = "Account -> Reservations")
-    @Fetch(FetchMode.JOIN)
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Reservation> reservations;
+//    @JsonBackReference(value = "Account -> Reservations")
+//    @Fetch(FetchMode.JOIN)
+//    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    private List<Reservation> reservations;
 }
 

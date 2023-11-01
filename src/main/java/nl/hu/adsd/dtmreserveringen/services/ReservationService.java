@@ -52,13 +52,13 @@ public class ReservationService {
         try {
             Reservation reservation = new Reservation();
 
-            Optional<Account> accountOptional = accountRepository.findById(reservationDTO.getAccountDTO().getId());
-            if (accountOptional.isEmpty()) {
-                logger.error("Account not found");
-                return HttpStatus.INTERNAL_SERVER_ERROR;
-            }
+           // Optional<Account> accountOptional = accountRepository.findById(reservationDTO.getAccountDTO().getId());
+//            if (accountOptional.isEmpty()) {
+//                logger.error("Account not found");
+//                return HttpStatus.INTERNAL_SERVER_ERROR;
+//            }
 
-            reservation.setAccount(accountOptional.get());
+            //reservation.setAccount(accountOptional.get());
 
             List<ItemReservationDTO> itemReservationDTOS = reservationDTO.getItemReservationDTOS();
             List<ItemReservation> itemReservations = new ArrayList<>(itemReservationDTOS.size());
@@ -81,6 +81,7 @@ public class ReservationService {
             }
             reservation.setItemReservations(itemReservations);
             reservation.setMessage(reservationDTO.getMessage());
+            reservation.setEmail(reservationDTO.getEmail());
             logger.info(reservation.toString());
             reservationRepository.save(reservation);
         } catch (Exception e) {
