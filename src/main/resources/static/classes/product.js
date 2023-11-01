@@ -1,5 +1,3 @@
-import {Cart} from "./cart.js"
-
 export class Product {
 
     constructor(id, items, name, description, details, contents, imagePaths, imageAltTexts) {

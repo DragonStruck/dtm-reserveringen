@@ -1,4 +1,3 @@
-import {Product} from "../classes/product.js";
 import {Cart} from "../classes/cart.js";
 import {StorageManager} from "../classes/storageManager.js";
 

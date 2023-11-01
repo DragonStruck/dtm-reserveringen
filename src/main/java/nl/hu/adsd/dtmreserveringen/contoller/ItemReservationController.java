@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @CrossOrigin(originPatterns = "http://localhost:[*]")
 @RestController
-@RequestMapping(path = "/item-reservation")
+@RequestMapping(path = "/api/item-reservation")
 public class ItemReservationController {
     private static final Logger logger = LoggerFactory.getLogger(ItemReservationController.class);
 
