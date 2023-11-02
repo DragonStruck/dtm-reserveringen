@@ -60,21 +60,23 @@ async function placeReservation() {
         const reservationTemplate = await createReservation();
         console.log(reservationTemplate, "reservation template");
 
-        await fetch('/api/reservation/add', {
+        const response = await fetch('/api/reservation/add', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(reservationTemplate)
-        }).then(response => console.log(response))
-            .catch(error => console.error('Error:', error));
-
-        calendar.selectedStartDate = null;
-        calendar.selectedEndDate = null;
-        calendar.highlightSelectedDates();
-        alert("Reservering is geslaagd");
-        await StorageManager.setReservationsInStorage();
+        });
+        if (!response.ok) {
+            alert("Er is iets mis gegaan met het plaatsen van de reservering, probeer het nog een keer");
+        } else {
+            calendar.selectedStartDate = null;
+            calendar.selectedEndDate = null;
+            calendar.highlightSelectedDates();
+            alert("Reservering is geslaagd");
+            await StorageManager.setReservationsInStorage();
+        }
     }
 }
 
