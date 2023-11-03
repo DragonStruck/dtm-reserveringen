@@ -12,6 +12,10 @@ De git repository voor het DTM Reserveringen school project.
 ### Node packages
 - Open de console binnen IntelliJ en voer het `npm install` command uit.
 
+### Maven
+- Download maven sources, documentation is optioneel.
+![download](https://github.com/DragonStruck/DTM-Reserveringen/blob/dev/src/main/resources/static/images/github/maven.png?raw=true)
+
 ### Database
 - navigeer naar de `.env.example` file en copy deze file en hernoem het naar `.env`
 - verander de `database`, `name`, `password` en `admin_password`. Waar `database` naar de gewenste database naam wordt verandert, 
