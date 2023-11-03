@@ -13,6 +13,7 @@ body .wrapper {
     right: 0;
     top: 0;
     bottom: 0;
+    background: var(--secondary);
 }
 
 body .wrapper .form-wrapper {
