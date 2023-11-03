@@ -60,20 +60,6 @@ export class Cart {
         return cartMap;
     }
 
-    constructor() {
-        this.createCartInLocalStorage();
-
-
-        //Map()
-        //key: product id (number)
-        //value: amount of items of product (number)
-        this.cart = this.getCartStorage();
-
-        this.outputElement = document.getElementById("cart");
-        this.cartAmountElement = document.getElementById('cart-amount');
-        this.updateCartCounter();
-    }
-
     async generateCartDisplay() {
         console.log(this.cart, "cart");
 
@@ -136,7 +122,7 @@ export class Cart {
 
     //make sure index is of type number
     async removeProductFromCart(productId) {
-        this.cart.delete(productId);
+        this.cart.set(productId, 0);
         //await this.disableTileOfProduct(productId);
         await this.generateCartDisplay();
         await this.afterActionInCart();
