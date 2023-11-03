@@ -28,16 +28,12 @@ export class Cart {
     }
 
     createCartInLocalStorage() {
-        console.log(this.products);
-        const cartForStorage = {};
-        this.products.forEach(product => {
-            cartForStorage[product.id] = 0;
-        });
+        const cartForStorage = new Map(this.products.map(product => [product.id, 0]));
 
         console.log(cartForStorage);
 
         if (localStorage.getItem(StorageKeys.CART) === null) {
-            localStorage.setItem(StorageKeys.CART, JSON.stringify(cartForStorage));
+            localStorage.setItem(StorageKeys.CART, JSON.stringify(Object.fromEntries(cartForStorage)));
         }
     }
 
@@ -54,10 +50,9 @@ export class Cart {
 
     getCartStorage() {
         const cartEntries = JSON.parse(localStorage.getItem(StorageKeys.CART));
-
+        console.log(cartEntries, "cart map from storage");
         const cartMap =  new Map();
 
-        console.log(cartEntries, "cart map from storage");
         Object.entries(cartEntries).forEach(([productId, amountOfItems]) => {
             cartMap.set(Number.parseInt(productId), amountOfItems);
         });
