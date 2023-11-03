@@ -82,6 +82,23 @@ margin-left: 10px;
 }
 
 
+#admin-password + .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#admin-password + .toggle-password img {
+    width: 24px;
+    height: auto;
+    padding-bottom: 10px;
+}
+
+
 th {
     text-align: center;
     border: 1px solid;

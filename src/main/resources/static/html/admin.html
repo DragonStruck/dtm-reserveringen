@@ -60,14 +60,16 @@
                     </div>
                 <label for="admin-password"></label><br>
                     <div class="input-box">
-                        <img src="../icons/person-outline.svg" alt="Admin Icon"></a>
-                        <input type="password" name="admin-password-name" placeholder="Wachtwoord" id="admin-password"><br>
+                        <input type="password" id="admin-password" placeholder="Wachtwoord" required>
+                        <button type="button" id="toggle-password" class="toggle-password">
+                            <img src="../icons/eye-outline.svg" alt="Show Password">
+                        </button>
                     </div>
-                <button id="admin-password-button">Inloggen</button>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="show-password-toggle-admin-login">
-                        <label for="show-password-toggle-admin-login">Laat wachtwoord zien</label>
-                    </div>
+                    <button id="admin-password-button">Inloggen</button>
+<!--                    <div class="checkbox-container">-->
+<!--                        <input type="checkbox" id="show-password-toggle-admin-login">-->
+<!--                        <label for="show-password-toggle-admin-login">Laat wachtwoord zien</label>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>

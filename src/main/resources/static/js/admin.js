@@ -3,7 +3,7 @@ import {StorageManager} from "../classes/storageManager.js";
 const adminLoginDiv = document.getElementById("wrapper");
 const adminPasswordField = document.getElementById("admin-password");
 const adminPasswordButton = document.getElementById("admin-password-button");
-const passwordVisibleToggle = document.getElementById("show-password-toggle-admin-login");
+//const passwordVisibleToggle = document.getElementById("show-password-toggle-admin-login");
 
 adminPasswordButton.addEventListener("click", async e => {
     e.preventDefault();
@@ -27,13 +27,31 @@ adminPasswordField.addEventListener("keypress", e => {
     }
 });
 
-passwordVisibleToggle.addEventListener("click", e => {
-    if (adminPasswordField.type === "password") {
-        adminPasswordField.type = "text";
-    } else {
-        adminPasswordField.type = "password";
-    }
-});
+
+       document.addEventListener('DOMContentLoaded', (event) => {
+           const togglePassword = document.getElementById('toggle-password');
+           const adminPasswordField = document.getElementById('admin-password'); // Make sure this ID matches your HTML
+           const togglePasswordImage = togglePassword.querySelector('img');
+
+           togglePassword.addEventListener('click', () => {
+               // Check if the password is currently visible
+               const isPasswordVisible = adminPasswordField.getAttribute('type') === 'text';
+               adminPasswordField.setAttribute('type', isPasswordVisible ? 'password' : 'text');
+
+               // Toggle the eye/eye-off icon
+               togglePasswordImage.src = isPasswordVisible ?
+                   '../icons/eye-outline.svg' : // Path to the eye icon
+                   '../icons/eye-off-outline.svg'; // Path to the eye-off icon
+           });
+       });
+
+//passwordVisibleToggle.addEventListener("click", e => {
+//    if (adminPasswordField.type === "password") {
+//        adminPasswordField.type = "text";
+//    } else {
+//        adminPasswordField.type = "password";
+//    }
+//});
 
 async function passwordCheck(password) {
     const response = await fetch('admin/login', {
@@ -55,6 +73,7 @@ async function passwordCheck(password) {
         return await response.json();
     }
 }
+
 
 //Switches from the login display to the reservation display.
 //This way you always need to log in when going to /admin, instead of from a separate page
