@@ -57,8 +57,8 @@ async function createReservation() {
 
 
 async function placeReservation() {
+    reservationButton.disabled = true;
     if (await validReservation()) {
-        reservationButton.disabled = true;
         const reservationTemplate = await createReservation();
         console.log(reservationTemplate, "reservation template");
 
@@ -70,7 +70,6 @@ async function placeReservation() {
             },
             body: JSON.stringify(reservationTemplate)
         });
-        reservationButton.disabled = false;
         if (!response.ok) {
             alert("Er is iets mis gegaan met het plaatsen van de reservering, probeer het nog een keer");
         } else {
@@ -86,6 +85,7 @@ async function placeReservation() {
             await StorageManager.setReservationsInStorage();
         }
     }
+    reservationButton.disabled = false;
 }
 
 async function validReservation() {
