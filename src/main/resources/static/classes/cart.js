@@ -28,7 +28,7 @@ export class Cart {
     }
 
     createCartInLocalStorage() {
-        const cartForStorage = new Map(this.products.map(product => [product.id, 0]));
+        const cartForStorage = this.createEmptyCart();
 
         console.log(cartForStorage);
 
@@ -98,6 +98,10 @@ export class Cart {
         });
     }
 
+    createEmptyCart() {
+        return new Map(this.products.map(product => [product.id, 0]));
+    }
+
     //make sure index is of type number
     async addToCart(productId) {
         const currentAmountOfItems = this.cart.get(productId);
@@ -140,7 +144,7 @@ export class Cart {
     }
 
     async emptyCart() {
-        this.cart = new Map();
+        this.cart = this.createEmptyCart();
         await this.generateCartDisplay();
         await this.afterActionInCart();
     }

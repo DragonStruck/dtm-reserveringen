@@ -10,15 +10,15 @@ const reservationHelper = new ReservationHelper();
 const calendar = new SelectableRangeCalendar();
 calendar.setMaxSelectableDays(3);
 
+const emailField = document.getElementById("insertEmail");
+const reservationButton = document.getElementById("reservation-button");
+
 //loads the cartPage page html lines
 document.getElementById('loader').style.display = "none";
 await cart.generateCartDisplay();
 setReservationButtonFunctionality();
 
-const emailField = document.getElementById("insertEmail");
-
 function setReservationButtonFunctionality() {
-    const reservationButton = document.getElementById("reservation-button");
     reservationButton.addEventListener("click", (e) => {
         e.preventDefault();
         placeReservation().then(r => console.log(r)).catch(r => console.log(r));
@@ -58,6 +58,7 @@ async function createReservation() {
 
 async function placeReservation() {
     if (await validReservation()) {
+        reservationButton.disabled = true;
         const reservationTemplate = await createReservation();
         console.log(reservationTemplate, "reservation template");
 
@@ -69,6 +70,7 @@ async function placeReservation() {
             },
             body: JSON.stringify(reservationTemplate)
         });
+        reservationButton.disabled = false;
         if (!response.ok) {
             alert("Er is iets mis gegaan met het plaatsen van de reservering, probeer het nog een keer");
         } else {
