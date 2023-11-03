@@ -42,11 +42,7 @@ export class Cart {
 
         this.outputElement = document.getElementById("cart");
         this.cartAmountElement = document.getElementById('cart-amount');
-        this.calender = null;
         this.updateCartCounter();
-
-
-        // Assuming StorageManager.getProductsFromStorage returns a promise
     }
 
     async generateCartDisplay() {
@@ -77,70 +73,63 @@ export class Cart {
             const productId = product.id;
             const removeButton = document.getElementById("remove-product-button-" + productId)
             if (removeButton !== null) {
-                removeButton.addEventListener("click", e => {
+                removeButton.addEventListener("click", async e => {
                     e.preventDefault();
-                    this.removeProductFromCart(productId);
-
+                    await this.removeProductFromCart(productId);
                 });
             }
         });
     }
 
     //make sure index is of type number
-    addToCart(productId) {
+    async addToCart(productId) {
         //if there is no previous entry of index, then set itemCount[index] to 1
         this.cart.set(productId, (this.cart.get(productId) || 0) + 1);
-        this.afterActionInCart();
-
+        await this.afterActionInCart();
     }
 
     //make sure index is of type number
-    removeProductFromCart(productId) {
+    async removeProductFromCart(productId) {
         this.cart.delete(productId);
-        this.disableTileOfProduct(productId);
-        this.afterActionInCart();
-
+        //await this.disableTileOfProduct(productId);
+        await this.afterActionInCart();
     }
 
 
     //make sure index is of type number
     //if there are 0 after removing, make sure that the entry of that product is deleted
-    removeItemFromCart(productId) {
+    async removeItemFromCart(productId) {
         const items = this.cart.get(productId);
         if (items > 0) {
             this.cart.set(productId, items - 1);
         } else {
             console.log("Something went wrong; trying to remove product where there are 0 of in the cart");
         }
-        this.afterActionInCart();
-        this.disableTileOfProduct(productId);
+
+        await this.afterActionInCart();
     }
 
-    emptyCart() {
+    async emptyCart() {
         this.cart = new Map();
-        this.afterActionInCart();
+        await this.afterActionInCart();
     }
 
-    afterActionInCart() {
+    async afterActionInCart() {
         console.log(this.cart);
         this.setCartStorage();
         this.updateCartCounter();
+        await this.generateCartDisplay();
         console.log(this.getCartStorage());
-    }
-
-    disableTileOfProduct(productId) {
-        console.log(productId);
-        const tile = document.getElementById("cart-product-tile-" + productId);
-        this.generateCartDisplay();
     }
 
     updateCartCounter() {
         let count = 0;
         const values = this.cart.values();
+
         for (const value of values) {
             count += value;
         }
-        this.cartAmountElement.textContent = count.toString();
 
+        this.cartAmountElement.textContent = count.toString();
     }
 }

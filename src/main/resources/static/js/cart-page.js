@@ -15,6 +15,8 @@ document.getElementById('loader').style.display = "none";
 await cart.generateCartDisplay();
 setReservationButtonFunctionality();
 
+const emailField = document.getElementById("insertEmail");
+
 function setReservationButtonFunctionality() {
     const reservationButton = document.getElementById("reservation-button");
     reservationButton.addEventListener("click", (e) => {
@@ -31,13 +33,12 @@ async function createReservation() {
         message: "message"
     }
 
-    const email = document.getElementById("insertEmail");
-    console.log(email.value);
-    reservationTemplate.email = email.value;
+
+    console.log(emailField.value);
+    reservationTemplate.email = emailField.value;
 
     const itemsToBeReserved = await reservationHelper.getItemsToBeReserved(cart.getCartStorage());
     const reservationPeriodValue = calendar.amountOfDaysBetween(calendar.selectedStartDate, calendar.selectedEndDate) + 1;
-    const date = calendar.selectedStartDate;
     const reservationDateValue = reservationHelper.dateToString(calendar.selectedStartDate);
 
     itemsToBeReserved.forEach(item => {
@@ -74,6 +75,11 @@ async function placeReservation() {
             calendar.selectedStartDate = null;
             calendar.selectedEndDate = null;
             calendar.highlightSelectedDates();
+
+            await cart.emptyCart();
+
+            emailField.value = "";
+
             alert("Reservering is geslaagd");
             await StorageManager.setReservationsInStorage();
         }
@@ -91,8 +97,8 @@ async function validReservation() {
         alert("Selecteer eerst een datum voordat je reserveert ");
         return false;
     }
-    const email = document.getElementById("insertEmail");
-    if (email.value === "") {
+
+    if (emailField.value === "") {
         alert("Voer eerst je email in");
         return false;
     }
@@ -100,10 +106,13 @@ async function validReservation() {
     const startDate = calendar.selectedStartDate;
     const endDate = calendar.selectedEndDate;
     const validReservation = await reservationHelper.isValidReservation(cartInventory, startDate, calendar.amountOfDaysBetween(startDate, endDate) + 1);
+
     if (!validReservation) {
         alert("De items zijn niet beschikbaar op deze datum(s), verander de reserveringsperiode of je producten");
+        return false;
     }
-    return validReservation;
+
+    return true;
 }
 
 
