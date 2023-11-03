@@ -55,7 +55,7 @@ export class Product {
                     <p>${this.description}</p>
                 </div>
                 <button class="cartDirectButton">
-                    <img src="./icons/cart-outline-white.svg" class="cartDirectImg" alt="Cart Icon">
+                    <img src="./icons/add-outline-white.svg" class="cartDirectImg" alt="Cart Icon">
                 </button>
             </a>
         `;
