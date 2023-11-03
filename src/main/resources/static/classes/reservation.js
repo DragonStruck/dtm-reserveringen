@@ -1,7 +1,4 @@
-import {Account} from "./account.js";
 import {ItemReservation} from "./itemReservation.js";
-import {StorageManager} from "../classes/storageManager.js";
-import {Item} from "../classes/item.js";
 
 export class Reservation {
 

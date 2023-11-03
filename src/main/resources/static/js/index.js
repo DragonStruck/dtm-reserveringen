@@ -8,7 +8,7 @@ sessionStorage.setItem(StorageKeys.ACCOUNT, JSON.stringify(new Account(1, 1, "te
 
 //get all products
 const products = await StorageManager.getAllProducts();
-const cart = new Cart();
+const cart = await Cart.getCart();
 
 //display all the product tiles on the home page
 if (products.length > 0) {
@@ -20,11 +20,9 @@ if (products.length > 0) {
     buttons.forEach((cartButton, index) => {
         //when a product is removed, the id's won't be ascending by the same amount, so need to use the productId
         const productId = products[index].id;
-        cartButton.addEventListener('click', e => {
+        cartButton.addEventListener('click', async e => {
             e.preventDefault();
-            cart.addToCart(productId);
-            alert("Item toegevoegd aan winkelmandje");
-
+            await cart.addToCart(productId);
         })
     });
 

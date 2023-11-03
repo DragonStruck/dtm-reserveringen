@@ -3,7 +3,7 @@ import {SelectableRangeCalendar} from "../classes/calendar.js";
 import {ReservationHelper} from "../classes/reservationHelper.js";
 import {StorageManager} from "../classes/storageManager.js";
 
-const cart = new Cart();
+const cart = await Cart.getCart();
 
 const reservationHelper = new ReservationHelper();
 

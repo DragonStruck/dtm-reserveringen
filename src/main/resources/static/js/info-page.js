@@ -2,7 +2,7 @@ import {Cart} from "../classes/cart.js";
 import {StorageManager} from "../classes/storageManager.js";
 
 let productContainer = document.getElementById("product-container");
-const cart = new Cart();
+const cart = await Cart.getCart();
 
 function findGetParameter(parameterName) {
     let result = null,
@@ -27,11 +27,10 @@ try {
     productContainer.innerHTML = product.generateProductInfoPage();
 
     const cartButton = document.getElementById("info-page-add-to-cart-button");
-    cartButton.addEventListener("click", e => {
+    cartButton.addEventListener("click", async e => {
         e.preventDefault();
         console.log("fired");
-        cart.addToCart(productId);
-        alert("Item toegevoegd aan winkelmandje");
+        await cart.addToCart(productId);
     });
 
     document.getElementById('loader').style.display = "none";

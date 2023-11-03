@@ -3,7 +3,7 @@ import {Cart} from "./cart.js";
 
 export class SelectableRangeCalendar {
     constructor() {
-        this.cart = new Cart();
+        this.cart = Cart.getCart();
         this.calendarDays = document.getElementById("calendarDays");
         this.currentMonth = document.getElementById("currentMonth");
         this.prevMonthBtn = document.getElementById("prevMonth");
