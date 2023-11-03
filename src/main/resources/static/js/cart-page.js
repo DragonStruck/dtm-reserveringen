@@ -88,7 +88,7 @@ async function placeReservation() {
 
 async function validReservation() {
     const cartInventory = cart.getCartStorage();
-    if ([...cartInventory.values()].some(value => value !== 0)) {
+    if (![...cartInventory.values()].some(value => value !== 0)) {
         alert("Doe eerst producten in je mandje");
         return false;
     }
