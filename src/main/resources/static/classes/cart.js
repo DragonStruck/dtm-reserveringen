@@ -60,6 +60,19 @@ export class Cart {
         return cartMap;
     }
 
+    constructor() {
+        this.createCartInLocalStorage();
+
+
+        //Map()
+        //key: product id (number)
+        //value: amount of items of product (number)
+        this.cart = this.getCartStorage();
+
+        this.outputElement = document.getElementById("cart");
+        this.cartAmountElement = document.getElementById('cart-amount');
+        this.updateCartCounter();
+    }
 
     async generateCartDisplay() {
         console.log(this.cart, "cart");
