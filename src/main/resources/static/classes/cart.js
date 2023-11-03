@@ -2,19 +2,52 @@ import {StorageKeys} from "../ENUM/storageKeys.js";
 import {StorageManager} from "./storageManager.js";
 
 
-//TODO: cart counter only updates if a cart object is created on that hml page. so pages where that currently doesn't happen dont display an item count
+//to create a new cart call getCart();
 export class Cart {
+    static async getCart() {
+        const products = await StorageManager.getAllProducts();
+        return new Cart(products);
+    }
+
+    //don't call the constructor, call getCart()!!!!!
+    constructor(products) {
+        this.products = products;
+
+        this.createCartInLocalStorage();
+        this.maxAmountOfItemsPerProductMap = new Map(this.products.map(product => [product.id, product.items.length]));
+
+        //Map()
+        //key: product id (number)
+        //value: amount of items of product (number)
+        this.cart = this.getCartStorage();
+        console.log(this.cart);
+
+        this.outputElement = document.getElementById("cart");
+        this.cartAmountElement = document.getElementById('cart-amount');
+        this.updateCartCounter();
+    }
+
     createCartInLocalStorage() {
+        console.log(this.products);
+        const cartForStorage = {};
+        this.products.forEach(product => {
+            cartForStorage[product.id] = 0;
+        });
+
+        console.log(cartForStorage);
+
         if (localStorage.getItem(StorageKeys.CART) === null) {
-            localStorage.setItem(StorageKeys.CART, JSON.stringify({}));
+            localStorage.setItem(StorageKeys.CART, JSON.stringify(cartForStorage));
         }
     }
 
     setCartStorage() {
         const cartForStorage = {};
+
         this.cart.forEach((amountOfItems, productId) => {
             cartForStorage[productId] = amountOfItems;
         });
+
         console.log(cartForStorage, "cart object for in storage");
         localStorage.setItem(StorageKeys.CART, JSON.stringify(cartForStorage));
     }
@@ -32,26 +65,14 @@ export class Cart {
         return cartMap;
     }
 
-    constructor() {
-        this.createCartInLocalStorage();
-
-        //Map()
-        //key: product id (number)
-        //value: amount of items of product (number)
-        this.cart = this.getCartStorage();
-
-        this.outputElement = document.getElementById("cart");
-        this.cartAmountElement = document.getElementById('cart-amount');
-        this.updateCartCounter();
-    }
 
     async generateCartDisplay() {
         console.log(this.cart, "cart");
-        const products = await StorageManager.getAllProducts();
 
         this.outputElement.innerHTML = Array.from(this.cart.entries()).map(([productId, amountOfItems]) => {
-            const product = products[productId - 1];
-            return `
+            if (amountOfItems > 0) {
+                const product = this.products.filter(product => product.id === productId)[0];
+                return `
                 <div class="product" id="cart-product-tile-${productId}">
                     <img src="${product.imagePaths[0]}" alt="${product.imageAltTexts[0]}">
                     <div class="about">
@@ -62,14 +83,15 @@ export class Cart {
                         <button id="remove-product-button-${productId}"<img src="./icons/trash-outline-white.svg" alt="Delete Icon">Verwijder</buttonid>
                     </div>
                 </div>
-            `;
+                `;
+            }
         }).join("");
 
-        this.addRemoveEventToButton(products);
+        this.addRemoveEventToButton();
     }
 
-    addRemoveEventToButton(products) {
-        products.forEach(product => {
+    addRemoveEventToButton() {
+        this.products.forEach(product => {
             const productId = product.id;
             const removeButton = document.getElementById("remove-product-button-" + productId)
             if (removeButton !== null) {
@@ -83,8 +105,20 @@ export class Cart {
 
     //make sure index is of type number
     async addToCart(productId) {
-        //if there is no previous entry of index, then set itemCount[index] to 1
-        this.cart.set(productId, (this.cart.get(productId) || 0) + 1);
+        const currentAmountOfItems = this.cart.get(productId);
+        const maxAmountOfItems = this.maxAmountOfItemsPerProductMap.get(productId);
+
+        if (currentAmountOfItems < maxAmountOfItems) {
+            this.cart.set(productId, (currentAmountOfItems + 1));
+            alert("Item toegevoegd aan winkelmandje");
+        } else {
+            if (maxAmountOfItems === 1) {
+                alert(`Er is maar ${maxAmountOfItems} item beschikbaar van dit product`);
+            } else {
+                alert(`Er zijn maar ${maxAmountOfItems} items beschikbaar van dit product`);
+            }
+        }
+
         await this.afterActionInCart();
     }
 
@@ -92,6 +126,7 @@ export class Cart {
     async removeProductFromCart(productId) {
         this.cart.delete(productId);
         //await this.disableTileOfProduct(productId);
+        await this.generateCartDisplay();
         await this.afterActionInCart();
     }
 
@@ -105,21 +140,19 @@ export class Cart {
         } else {
             console.log("Something went wrong; trying to remove product where there are 0 of in the cart");
         }
-
+        await this.generateCartDisplay();
         await this.afterActionInCart();
     }
 
     async emptyCart() {
         this.cart = new Map();
+        await this.generateCartDisplay();
         await this.afterActionInCart();
     }
 
     async afterActionInCart() {
-        console.log(this.cart);
         this.setCartStorage();
         this.updateCartCounter();
-        await this.generateCartDisplay();
-        console.log(this.getCartStorage());
     }
 
     updateCartCounter() {
