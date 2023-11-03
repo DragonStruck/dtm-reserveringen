@@ -9,7 +9,7 @@ export class Cart {
         return new Cart(products);
     }
 
-    //don't call the constructor, call getCart()!!!!!
+    //PRIVATE: don't call the constructor, call getCart()!!!!!
     constructor(products) {
         this.products = products;
 
