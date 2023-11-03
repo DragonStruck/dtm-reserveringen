@@ -35,6 +35,7 @@ export class Cart {
     constructor() {
         this.createCartInLocalStorage();
 
+
         //Map()
         //key: product id (number)
         //value: amount of items of product (number)

@@ -1,6 +1,6 @@
 import {StorageManager} from "../classes/storageManager.js";
 
-const adminLoginDiv = document.getElementById("admin-login-div");
+const adminLoginDiv = document.getElementById("wrapper");
 const adminPasswordField = document.getElementById("admin-password");
 const adminPasswordButton = document.getElementById("admin-password-button");
 const passwordVisibleToggle = document.getElementById("show-password-toggle-admin-login");
@@ -11,7 +11,13 @@ adminPasswordButton.addEventListener("click", async e => {
         await loadReservationTable();
     } else {
         adminPasswordField.value = '';
+
+          document.getElementById("error-message").style.display = 'block';
     }
+});
+// Hide the error message when the user starts typing a new password
+adminPasswordField.addEventListener("input", e => {
+    document.getElementById("error-message").style.display = 'none';
 });
 
 adminPasswordField.addEventListener("keypress", e => {
@@ -38,6 +44,8 @@ async function passwordCheck(password) {
         },
         body: JSON.stringify(password),
     });
+
+
 
     if (!response.ok) {
         console.log("All reservations: response is error; Status code: " + response.status);

@@ -51,14 +51,25 @@
 
     <main>
         <!-- login div -->
-        <div id="admin-login-div">
-            <label for="admin-password">Geef wachtwoord op om door te mogen naar de admin pagina</label><br>
-            <input type="password" name="admin-password-name" id="admin-password"><br>
-
-            <label for="show-password-toggle-admin-login">Laat wachtwoord zien</label><br>
-            <input type="checkbox" id="show-password-toggle-admin-login"><br>
-
-            <button id="admin-password-button">Log in</button>
+        <div class="wrapper" id="wrapper">
+            <div id="admin-login-div">
+                <div class="box-form">
+                <h1>Inloggen</h1>
+                    <div id="error-message" style="display: none; color: red;">
+                        Wachtwoord is incorrect. Probeer opnieuw.
+                    </div>
+                <label for="admin-password"></label><br>
+                    <div class="input-box">
+                        <img src="../icons/person-outline.svg" alt="Admin Icon"></a>
+                        <input type="password" name="admin-password-name" placeholder="Wachtwoord" id="admin-password"><br>
+                    </div>
+                <button id="admin-password-button">Inloggen</button>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="show-password-toggle-admin-login">
+                        <label for="show-password-toggle-admin-login">Laat wachtwoord zien</label>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- reservation display div -->
