@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(originPatterns = "http://localhost:[*]")
 @RestController
-@RequestMapping(path = "/account")
+@RequestMapping(path = "/api/account")
 public class AccountController {
 
     private final AccountRepository accountRepository;

@@ -1,3 +1,100 @@
+body {
+    background-color: white;
+    height: 100vh;
+}
+
+body .wrapper {
+    display: flex;
+    background-color: rgb(0, 161, 225);
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+
+
+}
+
+body .wrapper h1 {
+    font-size: 75px;
+    color: var(--secondary);
+    text-align: center;
+}
+
+body .wrapper .box-form {
+    background-color: white;
+    width: 500px;
+    border-radius: var(--border-radius);
+    padding: 30px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body .wrapper .box-form .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-top: var(--default-padding);
+}
+
+body .wrapper .box-form .input-box input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    color: black;
+    padding: 20px 50px 20px 20px;
+    border: solid 1px var(--border-color);
+}
+
+body .wrapper .box-form .input-box input::placeholder {
+    color: black;
+}
+
+body .wrapper .input-box img {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+body .wrapper .box-form .checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+body .wrapper .box-form .checkbox-container label {
+    margin-left: 10px;
+}
+
+
+#admin-password+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#admin-password+.toggle-password img {
+    width: 24px;
+    height: auto;
+    padding-bottom: 10px;
+}
+
+
 th {
     text-align: center;
     border: 1px solid;
@@ -16,12 +113,24 @@ table {
 
 button {
     height: 30px;
-    width: 125px;
     font-size: 16px;
-    padding: 0;
+    padding: 0 var(--default-padding);
     margin: 5px;
     display: table-cell;
     vertical-align: middle;
+
+}
+
+#admin-password-button {
+    position: relative;
+    display: flex;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 45px;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: 15ms;
 }
 
 #reject-button {
@@ -30,4 +139,34 @@ button {
 
 #see-reservation-button {
     background-color: darkgoldenrod;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content.active {
+    display: block;
+}
+
+#reservation-display-div {
+    background-color: white;
 }

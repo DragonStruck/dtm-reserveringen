@@ -80,13 +80,21 @@ header .topbar-logo-container .topbar-logo-link {
     display: flex;
 }
 
-header .topbar-logo-container .topbar-logo-link .topbar-logo {
-    height: 38px;
+header .topbar-text-container {
+    display: flex;
+}
+
+header .topbar-text-container h1 {
+    font-size: 38px;
+    margin-left: 14px;
+    color: var(--secondary);
+    align-self: center;
+    
 }
 
 header .topbar-nav {
     height: 48px;
-    width: calc(100% - var(--sidebar-width));
+    /* width: calc(100% - var(--sidebar-width)); */
     display: flex;
     justify-content: flex-end;
     padding: 0 var(--default-padding) 0 0;

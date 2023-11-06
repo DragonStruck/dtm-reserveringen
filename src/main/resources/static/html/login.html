@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,11 +8,9 @@
 
     <title>Login | DTM Reserveringen</title>
 
-    <script type="module" src="/js/main.js"></script>
-
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/login-register.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/login-register.css">
 </head>
 
 <body>
@@ -22,18 +19,21 @@
             <div class="topbar-container">
                 <div class="topbar-logo-container">
                     <a class="topbar-logo-link" href="/">
-                        <img class="topbar-logo" src="/icons/HU_logo_small.svg" alt="HU logo">
+                        <img class="topbar-logo" src="../icons/HU_logo_small.svg" alt="HU logo">
+                        <div class="topbar-text-container">
+                            <h1>DTM-Reserveringen</h1>
+                        </div>
                     </a>
                 </div>
                 <div class="topbar-nav">
                     <div class="nav-right">
                         <div class="top-menu">
                             <a class="" href="/cart">
-                                <img src="/icons/cart-outline.svg" alt="Cart Icon">
+                                <img src="../icons/cart-outline.svg" alt="Cart Icon">
                                 <span id="cart-amount" class="button-badge">0</span>
                             </a>
-                            <a href="/login">
-                                <img src="/icons/person-outline.svg" alt="Admin Icon">
+                            <a href="/admin">
+                                <img src="../icons/person-outline.svg" alt="Admin Icon">
                             </a>
                         </div>
                     </div>
@@ -66,5 +66,4 @@
         </div>
     </div>
 </body>
-
 </html>

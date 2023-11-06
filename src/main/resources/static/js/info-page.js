@@ -1,9 +1,8 @@
-import {Product} from "../classes/product.js";
 import {Cart} from "../classes/cart.js";
 import {StorageManager} from "../classes/storageManager.js";
 
 let productContainer = document.getElementById("product-container");
-const cart = new Cart();
+const cart = await Cart.getCart();
 
 function findGetParameter(parameterName) {
     let result = null,
@@ -28,10 +27,10 @@ try {
     productContainer.innerHTML = product.generateProductInfoPage();
 
     const cartButton = document.getElementById("info-page-add-to-cart-button");
-    cartButton.addEventListener("click", e => {
+    cartButton.addEventListener("click", async e => {
         e.preventDefault();
         console.log("fired");
-        cart.addToCart(productId);
+        await cart.addToCart(productId);
     });
 
     document.getElementById('loader').style.display = "none";
@@ -68,5 +67,5 @@ try {
         thumbnails.appendChild(thumbnail);
     }
 } catch (error) {
-    console.log("something went wrong when tring to display product info: " + error);
+    console.log("something went wrong when trying to display product info: " + error);
 }

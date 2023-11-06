@@ -9,7 +9,7 @@ export class ReservationHelper {
 
 
     async getItemReservations() {
-        const response = await fetch("/item-reservation/all");
+        const response = await fetch("/api/item-reservation/all");
         console.log(response);
         if (!response.ok) {
             console.log("All item Reservations: response is error; Status code: " + response.status);
@@ -22,7 +22,7 @@ export class ReservationHelper {
 
             const itemReservations = Object.values(itemReservationsJson).map(data => {
                 const itemReservation = new ItemReservation();
-                itemReservation.setValues(data);
+                itemReservation.setValuesFromDbJson(data);
                 return itemReservation;
             });
             console.log(itemReservations, "item reservations as objects");
@@ -59,7 +59,7 @@ export class ReservationHelper {
         const itemReservationMap = this.putItemReservationInMap(emptyItemReservationMap, itemReservations, products); //populate that map
         console.log(itemReservationMap, "map with item reservations");
 
-        //contains the amount of items NOT available for a given item
+        //contains the number of items NOT available for a given item
         const itemAvailabilityMap = this.checkIfItemsAreAvailable(itemReservations, itemReservationMap, reservationDates);
         console.log(itemAvailabilityMap, "is item available map");
         this.itemAvailabilityMap = itemAvailabilityMap;
@@ -201,7 +201,7 @@ export class ReservationHelper {
     }
 
 
-    //given the start date and the amount of days, return all the dates of these days in string "yyyy-mm-dd"
+    //given the start date and the number of days, return all the dates of these days in string "yyyy-mm-dd"
     getAllDatesOfReservation(date, amountOfDays) {
         const dates = [];
         dates.push(this.dateToString(date));

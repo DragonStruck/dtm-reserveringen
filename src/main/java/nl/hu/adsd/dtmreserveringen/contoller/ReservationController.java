@@ -14,7 +14,7 @@ import java.util.List;
 
 @CrossOrigin(originPatterns = "http://localhost:[*]")
 @RestController
-@RequestMapping(path = "/reservation")
+@RequestMapping(path = "/api/reservation")
 public class ReservationController {
     private final Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
@@ -31,7 +31,6 @@ public class ReservationController {
         List<Reservation> reservationList = new ArrayList<>();
 
         for (Reservation reservation : reservationIterable) {
-            reservation.setAccount(reservation.getAccount());
             reservationList.add(reservation);
         }
 

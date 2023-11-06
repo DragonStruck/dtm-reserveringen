@@ -16,7 +16,7 @@ newProduct.addEventListener("submit", (e) => {
     if (correctForm) {
         const form = new FormData(document.getElementById("form-new-product"));
         console.log(form);
-        fetch("product/add", {
+        fetch("/api/product/add", {
             method: "POST",
             body: form
         })

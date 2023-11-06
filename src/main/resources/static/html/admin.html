@@ -9,12 +9,13 @@
 
     <title>Admin | DTM Reserveringen</title>
 
-    <script type="module" src="/js/main.js"></script>
-    <script type="module" src="/js/admin.js" ></script>
 
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/admin.css">
+    <script type="module" src="../js/admin.js"></script>
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
 
 </head>
 
@@ -24,18 +25,23 @@
             <div class="topbar-container">
                 <div class="topbar-logo-container">
                     <a class="topbar-logo-link" href="/">
-                        <img class="topbar-logo" src="/icons/HU_logo_small.svg" alt="HU logo">
+
+                        <img class="topbar-logo" src="../icons/HU_logo_small.svg" alt="HU logo">
+                        <div class="topbar-text-container">
+                            <h1>DTM-Reserveringen</h1>
+                        </div>
+
                     </a>
                 </div>
                 <div class="topbar-nav">
                     <div class="nav-right">
                         <div class="top-menu">
                             <a class="" href="/cart">
-                                <img src="/icons/cart-outline.svg" alt="Cart Icon">
+                                <img src="../icons/cart-outline.svg" alt="Cart Icon">
                                 <span id="cart-amount" class="button-badge">0</span>
                             </a>
-                            <a href="/login">
-                                <img src="/icons/person-outline.svg" alt="Admin Icon">
+                            <a href="/admin">
+                                <img src="../icons/person-outline.svg" alt="Admin Icon">
                             </a>
                         </div>
                     </div>
@@ -45,13 +51,36 @@
     </header>
 
     <main>
-        <div class="container">
+        <!-- login div -->
+        <div class="wrapper" id="wrapper">
+            <div id="admin-login-div">
+                <div class="box-form">
+                    <h1>Inloggen</h1>
+                    <div id="error-message" style="display: none; color: red;">
+                        Wachtwoord is incorrect. Probeer opnieuw.
+                    </div>
+                    <label for="admin-password"></label><br>
+                    <div class="input-box">
+                        <input type="password" id="admin-password" autofocus placeholder="Wachtwoord" required>
+                        <button type="button" id="toggle-password" class="toggle-password">
+                            <img src="../icons/eye-outline.svg" alt="Show Password">
+                        </button>
+                    </div>
+                    <button id="admin-password-button">Inloggen</button>
+<!--                    <div class="checkbox-container">-->
+<!--                        <input type="checkbox" id="show-password-toggle-admin-login">-->
+<!--                        <label for="show-password-toggle-admin-login">Laat wachtwoord zien</label>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+
+        <!-- reservation display div -->
+        <div class="container" id="reservation-display-div" style="display: none">
             <table id="reservation-table">
             </table>
         </div>
     </main>
-
-
 </body>
 
 </html>

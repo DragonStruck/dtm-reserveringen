@@ -1,25 +1,33 @@
-import {Account} from "./account.js";
 import {ItemReservation} from "./itemReservation.js";
 
 export class Reservation {
 
-    constructor(id, itemReservations, account) {
+    constructor(id, itemReservations, email) {
         //values of product
         this.id = -1;
         this.itemReservations = [];
-        this.account = account;
+        this.email = email;
     }
 
-    setValues(json) {
-        this.id = json.id;
-        for (let i = 0; i < json.itemReservations.length; i++) {
+    setValuesFromDbJson(dbJson) {
+        this.id = dbJson.id;
+        for (let i = 0; i < dbJson.itemReservations.length; i++) {
             const itemReservation = new ItemReservation();
-            itemReservation.setValues(json.itemReservations[0]);
+            itemReservation.setValuesFromDbJson(dbJson.itemReservations[i]);
             this.itemReservations[i] = itemReservation;
         }
-        const account = new Account();
-        account.setValues(json.account);
-        this.account = account;
+        this.email = dbJson.email;
+    }
+
+    setValuesFromObject(data) {
+        this.id = data.id;
+        for (let i = 0; i < data.itemReservations.length; i++) {
+            const itemReservation = new ItemReservation();
+            itemReservation.setValuesFromObject(data.itemReservations[i]);
+            this.itemReservations[i] = itemReservation;
+        }
+
+        this.email = data.email;
     }
 
     setButtons(tableRow) {
@@ -39,21 +47,43 @@ export class Reservation {
 
         seeReservationButton.addEventListener("click", (e) => {
             e.preventDefault();
-            this.seeReservation();
+            this.seeReservation(seeReservationButton);
         });
     }
 
-    getTableRow() {
+
+    getTableRow(products) {
+        let reservationItemsMap = new Map(products.map(product => [product.name, 0]));
+        let reservationItemsHtml = "";
+
+        for (const itemReservation of this.itemReservations) {
+            for (const product of products) {
+                if (product.items.includes(itemReservation.itemId)) {
+                    reservationItemsMap.set(product.name, reservationItemsMap.get(product.name) + 1);
+                }
+            }
+        }
+
+        [...reservationItemsMap.entries()].forEach(([name, amount]) => {
+            if (amount !== 0) {
+                reservationItemsHtml += `<p>${amount}x - ${name}</p>`
+            }
+        });
+
+
         let tableRow = document.createElement("tr");
         tableRow.setAttribute("id", "table-row-reservations" + this.id);
         tableRow.innerHTML = `
-            <td>${this.account.email}</td>
+            <td>${this.email}</td>
             <td>${this.itemReservations.length}</td>
             <td>${this.getDates()}</td>
             <td>
                 <button id="accept-button">accepteer</button>
-                <button id="reject-button">wijger</button>
-                <button id="see-reservation-button">zie reservering</button>
+                <button id="reject-button">weiger</button>
+                <div class="dropdown">
+                    <button class="dropbtn" id="see-reservation-button">zie reservering</button>
+                    <div class="dropdown-content">${reservationItemsHtml}</div>
+                </div>
             </td>
         `;
 
@@ -107,7 +137,7 @@ export class Reservation {
     }
 
     async rejectReservation() {
-        let returnStatus = await this.deleteReservation()
+        let returnStatus = await this.deleteReservation();
 
         if (returnStatus === '"OK"') {
             console.log("return status OK, now making corresponding row disappear");
@@ -118,9 +148,15 @@ export class Reservation {
         }
     }
 
-    seeReservation() {
-        this.itemReservations.forEach(itemReservation => {
-            console.log(itemReservation);
+    seeReservation(seeReservationButton) {
+        console.log(seeReservationButton.closest(".dropdown").querySelector('div.dropdown-content'));
+        let dropdownMenu = seeReservationButton.closest(".dropdown").querySelector('div.dropdown-content');
+        let dropdownContents = document.querySelectorAll(".dropdown-content");
+        dropdownContents.forEach(dropdownContent => {
+            if (dropdownMenu != dropdownContent) {
+                dropdownContent.classList.remove("active");
+            }
         })
+        dropdownMenu.classList.toggle("active");
     }
 }

@@ -3,20 +3,22 @@ import {SelectableRangeCalendar} from "../classes/calendar.js";
 import {ReservationHelper} from "../classes/reservationHelper.js";
 import {StorageManager} from "../classes/storageManager.js";
 
-const cart = new Cart();
+const cart = await Cart.getCart();
 
 const reservationHelper = new ReservationHelper();
 
 const calendar = new SelectableRangeCalendar();
 calendar.setMaxSelectableDays(3);
 
+const emailField = document.getElementById("insertEmail");
+const reservationButton = document.getElementById("reservation-button");
+
 //loads the cartPage page html lines
 document.getElementById('loader').style.display = "none";
-cart.generateCartDisplay();
+await cart.generateCartDisplay();
 setReservationButtonFunctionality();
 
 function setReservationButtonFunctionality() {
-    const reservationButton = document.getElementById("reservation-button");
     reservationButton.addEventListener("click", (e) => {
         e.preventDefault();
         placeReservation().then(r => console.log(r)).catch(r => console.log(r));
@@ -27,17 +29,16 @@ function setReservationButtonFunctionality() {
 async function createReservation() {
     const reservationTemplate = {
         itemReservationDTOS: [],
-        accountDTO: {
-            id: 1
-        },
+        email: "",
         message: "message"
     }
 
+
+    console.log(emailField.value);
+    reservationTemplate.email = emailField.value;
+
     const itemsToBeReserved = await reservationHelper.getItemsToBeReserved(cart.getCartStorage());
     const reservationPeriodValue = calendar.amountOfDaysBetween(calendar.selectedStartDate, calendar.selectedEndDate) + 1;
-    const date = calendar.selectedStartDate;
-    console.log(date, "date for tempaltte");
-    console.log(reservationHelper.dateToString(date), "date string");
     const reservationDateValue = reservationHelper.dateToString(calendar.selectedStartDate);
 
     itemsToBeReserved.forEach(item => {
@@ -56,31 +57,40 @@ async function createReservation() {
 
 
 async function placeReservation() {
+    reservationButton.disabled = true;
     if (await validReservation()) {
         const reservationTemplate = await createReservation();
         console.log(reservationTemplate, "reservation template");
 
-        await fetch('reservation/add', {
+        const response = await fetch('/api/reservation/add', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(reservationTemplate)
-        }).then(response => console.log(response))
-            .catch(error => console.error('Error:', error));
+        });
+        if (!response.ok) {
+            alert("Er is iets mis gegaan met het plaatsen van de reservering, probeer het nog een keer");
+        } else {
+            calendar.selectedStartDate = null;
+            calendar.selectedEndDate = null;
+            calendar.highlightSelectedDates();
 
-        calendar.selectedStartDate = null;
-        calendar.selectedEndDate = null;
-        calendar.highlightSelectedDates();
-        alert("Reservering is geslaagd");
-        await StorageManager.setReservationsInStorage();
+            await cart.emptyCart();
+
+            emailField.value = "";
+
+            alert("Reservering is geslaagd");
+            await StorageManager.setReservationsInStorage();
+        }
     }
+    reservationButton.disabled = false;
 }
 
 async function validReservation() {
     const cartInventory = cart.getCartStorage();
-    if (cartInventory.size === 0) {
+    if (![...cartInventory.values()].some(value => value !== 0)) {
         alert("Doe eerst producten in je mandje");
         return false;
     }
@@ -90,11 +100,22 @@ async function validReservation() {
         return false;
     }
 
+    if (emailField.value === "") {
+        alert("Voer eerst je email in");
+        return false;
+    }
+
     const startDate = calendar.selectedStartDate;
     const endDate = calendar.selectedEndDate;
     const validReservation = await reservationHelper.isValidReservation(cartInventory, startDate, calendar.amountOfDaysBetween(startDate, endDate) + 1);
+
     if (!validReservation) {
         alert("De items zijn niet beschikbaar op deze datum(s), verander de reserveringsperiode of je producten");
+        return false;
     }
-    return validReservation;
+
+    return true;
 }
+
+
+

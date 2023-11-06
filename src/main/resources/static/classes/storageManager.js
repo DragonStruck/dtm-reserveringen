@@ -5,7 +5,7 @@ import {Reservation} from "./reservation.js";
 export class StorageManager {
     static async setProductsInStorage() {
         try {
-            const response = await fetch("/product/all");
+            const response = await fetch("/api/product/all");
 
             if (!response.ok) {
                 console.log("All products: response is error; Status code: " + response.status);
@@ -18,7 +18,7 @@ export class StorageManager {
 
                 const products = Object.values(productsJson).map(data => {
                     const product = new Product();
-                    product.setValuesFromBackEndJson(data);
+                    product.setValuesFromDbJson(data);
                     return product;
                 });
 
@@ -32,7 +32,7 @@ export class StorageManager {
     //TODO: only retrieve the non password relevant thing
     static async setReservationsInStorage() {
         try {
-            const response = await fetch("/reservation/all");
+            const response = await fetch("/api/reservation/all");
             if (!response.ok) {
                 console.log("All reservations: response is error; Status code: " + response.status);
             } else {
@@ -42,9 +42,10 @@ export class StorageManager {
                 JSON.stringify(reservationsJson);
                 console.log(reservationsJson);
 
+                console.log(reservationsJson);
                 const reservations = Object.values(reservationsJson).map(data => {
                     const reservation = new Reservation();
-                    reservation.setValues(data);
+                    reservation.setValuesFromDbJson(data);
                     return reservation;
                 });
 
@@ -94,7 +95,7 @@ export class StorageManager {
 
         return Object.values(reservationsJson).map(data => {
             const reservation = new Reservation();
-            reservation.setValues(data);
+            reservation.setValuesFromObject(data);
             return reservation;
         });
     }

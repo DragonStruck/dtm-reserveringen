@@ -10,7 +10,6 @@
     <title>Cart | DTM Reserveringen</title>
 
     <script defer type="module" src="/js/cart-page.js"></script>
-    <script type="module" src="/js/main.js"></script>
 
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/main.css">
@@ -23,18 +22,21 @@
             <div class="topbar-container">
                 <div class="topbar-logo-container">
                     <a class="topbar-logo-link" href="/">
-                        <img class="topbar-logo" src="/icons/HU_logo_small.svg" alt="HU logo">
+                        <img class="topbar-logo" src="../icons/HU_logo_small.svg" alt="HU logo">
+                        <div class="topbar-text-container">
+                            <h1>DTM-Reserveringen</h1>
+                        </div>
                     </a>
                 </div>
                 <div class="topbar-nav">
                     <div class="nav-right">
                         <div class="top-menu">
                             <a class="" href="/cart">
-                                <img src="/icons/cart-outline.svg" alt="Cart Icon">
+                                <img src="../icons/cart-outline.svg" alt="Cart Icon">
                                 <span id="cart-amount" class="button-badge">0</span>
                             </a>
-                            <a href="/login">
-                                <img src="/icons/person-outline.svg" alt="Admin Icon">
+                            <a href="/admin">
+                                <img src="../icons/person-outline.svg" alt="Admin Icon">
                             </a>
                         </div>
                     </div>
@@ -42,31 +44,55 @@
             </div>
         </div>
     </header>
-
+  
     <main>
-        <div class="container">
+        <div class="outerContainer">
+            <div class="itemsContainer">
+                <div class="calendarContainer">
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <button id="prevMonth">❮</button>
+                            <span id="currentMonth"></span>
+                            <button id="nextMonth">❯</button>
+                        </div>
+                        <div class="calendar-days" id="calendarDays"></div>
+                    </div>
+                </div>
+<!--                <div class="dataConfirmContainer">-->
+<!--                    <h5 id="enterNotesTitle">Opmerkingen bij reservering:</h5>-->
+<!--                    <textarea name="info" id="info-display" cols="60" rows="10"></textarea>-->
+<!--                </div>        -->
+            </div>
+            <div class="textContainer">
+                    <div class="cartContainer">
+                        <div id="cart" class="products"></div>
+                    </div>
+                    <div class="mailContainer">
+                        <h5 id="enterMailTitle">Vul hier je school e-mail adres in:</h5>
+                        <input id="insertEmail" type="email">
+                    </div>
+                    <div class="buttonContainer">
+                        <button id="reservation-button" type="button"><img src="../icons/calendar-outline-white.svg" alt="Calender Icon">
+                            Reserveren</button>
+                    </div>
+            </div>
+        </div>
+
+
+        <!-- <div class="container">
             <div class="content-container">
                 <div class="products-container">
                     <div id="cart" class="products"></div>
                     <div class="checkout">
-                        <a href="./checkout">
-                            <button id="reservation-button" type="button"><img src="../icons/calendar-outline-white.svg" alt="Calender Icon">
-                                Reserveren</button>
-                        </a>
+                        
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+
+
         <div id="loader" class="loader-background">
             <div class="spinner"></div>
-        </div>
-        <div class="calendar">
-            <div class="calendar-header">
-                <button id="prevMonth">❮</button>
-                <span id="currentMonth"></span>
-                <button id="nextMonth">❯</button>
-            </div>
-            <div class="calendar-days" id="calendarDays"></div>
         </div>
     </main>
 </body>

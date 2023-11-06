@@ -1,5 +1,3 @@
-import {Cart} from "./cart.js"
-
 export class Product {
 
     constructor(id, items, name, description, details, contents, imagePaths, imageAltTexts) {
@@ -16,7 +14,7 @@ export class Product {
         this.imageAltTexts = imageAltTexts || [];
     }
 
-    setValuesFromBackEndJson(json) {
+    setValuesFromDbJson(json) {
         this.id = json.id;
         this.name = json.name;
         this.description = json.description;
@@ -57,7 +55,7 @@ export class Product {
                     <p>${this.description}</p>
                 </div>
                 <button class="cartDirectButton">
-                    <img src="./icons/cart-outline-white.svg" class="cartDirectImg" alt="Cart Icon">
+                    <img src="./icons/add-outline-white.svg" class="cartDirectImg" alt="Cart Icon">
                 </button>
             </a>
         `;
@@ -94,7 +92,7 @@ export class Product {
                         <p id="contents-text">${this.contents}</p>
                     </div>
                     <div class="product-section">
-                        <button id="info-page-add-to-cart-button" class="add-to-cart-button"><img src="./icons/cart-outline-white.svg" alt="Calender Icon"> Toevoegen *</button>
+                        <button id="info-page-add-to-cart-button" class="add-to-cart-button"><img src="./icons/add-outline-white.svg" alt="Calender Icon"> Toevoegen *</button>
                         <p><strong>* maximaal 3 dagen per keer reserveren</strong></p>
                     </div>
                 </div>

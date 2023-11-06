@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin(originPatterns = "http://localhost:[*]")
 @RestController
-@RequestMapping(path = "/product")
+@RequestMapping(path = "/api/product")
 public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
