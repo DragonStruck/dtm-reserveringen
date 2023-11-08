@@ -1,12 +1,12 @@
 import {Product} from "../../main/resources/static/classes/product.js";
 import {ItemReservation} from "../../main/resources/static/classes/itemReservation.js";
 
-const nonSelectableDaysHelper = require("../../main/resources/static/classes/reservationHelper.js");
-const caller = nonSelectableDaysHelper.ReservationHelper.prototype;
+const reservationHelperImport = require("../../main/resources/static/classes/reservationHelper.js");
+const reservationHelper = reservationHelperImport.ReservationHelper.prototype;
 
 describe("checks if reservation is possible", () => {
-    const product1 = new Product(1, [1,2], "naam", "des", "det", "con", ["a"], ["b"]);
-    const product2 = new Product(2, [4,5]);
+    const product1 = new Product(1, [1,2]);
+    const product2 = new Product(2, [3,4]);
 
     const products = [product1, product2];
 
@@ -22,20 +22,26 @@ describe("checks if reservation is possible", () => {
 
     const itemReservations = [itemReservation1, itemReservation2, itemReservation3, itemReservation4];
 
+    const cart = new Map([
+        [1, 2]
+    ]);
+
+    const reservationDates = ["2023-04-20"];
 
     it("gives the dates, given a start date and a period", () => {
-        let firsDate = new Date(2023,3,20);
+        let firstDate = new Date(2023,3,20);
         let amountOfDays = 3;
-        expect(caller.getAllDatesOfReservation(firsDate, amountOfDays)).toStrictEqual(["2023-04-20", "2023-04-21", "2023-04-22"]);
+        expect(reservationHelper.getAllDatesOfReservation(firstDate, amountOfDays)).toStrictEqual(["2023-04-20", "2023-04-21", "2023-04-22"]);
 
-        firsDate = new Date(2023, 11, 31);
+        firstDate = new Date(2023, 11, 31);
         amountOfDays = 3;
-        expect(caller.getAllDatesOfReservation(firsDate, amountOfDays)).toStrictEqual(["2023-12-31", "2024-01-01", "2024-01-02"]);
+        expect(reservationHelper.getAllDatesOfReservation(firstDate, amountOfDays)).toStrictEqual(["2023-12-31", "2024-01-01", "2024-01-02"]);
 
-        firsDate = new Date(2023, 11, 31);
+        firstDate = new Date(2023, 11, 31);
         amountOfDays = 1;
-        expect(caller.getAllDatesOfReservation(firsDate, amountOfDays)).toStrictEqual(["2023-12-31"]);
+        expect(reservationHelper.getAllDatesOfReservation(firstDate, amountOfDays)).toStrictEqual(["2023-12-31"]);
     });
+
 
     it("creates a map of all the items of products, with an empty array for dates", () => {
         const checkMap = new Map([
@@ -43,12 +49,9 @@ describe("checks if reservation is possible", () => {
             [2, []]
         ]);
 
-        const cart = new Map([
-            [1, 2]
-        ]);
-
-        expect(caller.createItemReservationMap(cart, products)).toStrictEqual(checkMap);
+        expect(reservationHelper.createItemReservationMap(cart, products)).toStrictEqual(checkMap);
     });
+
 
     it("puts the item reservations dates into the map, appending arrays with multiple days", () => {
         const itemReservationMap = new Map([
@@ -65,57 +68,55 @@ describe("checks if reservation is possible", () => {
             [4, []]
         ]);
 
-
-
-        const itemReservation1 = new ItemReservation(date1, 1, 1);
-        const itemReservation2 = new ItemReservation(date2, 1, 1);
-        const itemReservation3 = new ItemReservation(date3, 1, 2);
-        const itemReservation4 = new ItemReservation(date4, 1, 3);
-
-        const itemReservations = [itemReservation1, itemReservation2, itemReservation3, itemReservation4];
-
-        expect(caller.putItemReservationInMap(itemReservationMap, itemReservations)).toStrictEqual(resultMap);
+        expect(reservationHelper.putItemReservationInMap(itemReservationMap, itemReservations)).toStrictEqual(resultMap);
     });
 
-    it("for the products the user wants to reserve, check how many products are not available", () => {
-        const cart = new Map([
-            [1, 2],
-            [2, 1]
-        ])
 
-        const reservationDates = ["2023-04-20"];
-
-        const emptyItemReservationMap = caller.createItemReservationMap(cart, products);
-        const itemReservationMap = caller.putItemReservationInMap(emptyItemReservationMap, itemReservations, products);
-
-        const expectedMap = new Map([
-            [1, 1],
-            [2, 0]
+    it("for every item, check whether the item is available on the given dates", () => {
+        const resultMap = new Map([
+            [1, false],
+            [2, true],
+            [3, true],
+            [4, true]
         ]);
 
-        expect(caller.calculateNonAvailabilityOfItems(cart, products, itemReservationMap, reservationDates)).toStrictEqual(expectedMap);
+        const itemReservationMap  = new Map([
+            [1, ["2023-04-20", "2024-04-20"]],
+            [2, ["2025-04-20"]],
+            [3, ["2026-04-20"]],
+            [4, []]
+        ]);
 
+        expect(reservationHelper.checkIfItemsAreAvailable(itemReservations, itemReservationMap, reservationDates)).toStrictEqual(resultMap);
     });
 
-    it("for every product, check whether there are enough items available compared to the amount of items not available", () => {
-        const productNonAvailabilityMap = new Map([
-            [1, 1],
-            [2, 1]
-        ])
 
-        const cart = new Map([
-            [1, 2],
-            [2, 1]
-        ])
-
-        const answerMap = new Map([
-            [1,false],
-            [2,true]
+    it("lists the amount of items available per products", () => {
+        const itemAvailabilityMap = new Map([
+            [1, false],
+            [2, true],
+            [3, true],
+            [4, true]
         ]);
 
+        const resultMap = new Map([
+            [1, 1]
+        ]);
+
+        expect(reservationHelper.itemsPerProductAvailable(cart, products, itemAvailabilityMap)).toStrictEqual(resultMap);
+    });
 
 
-        expect(caller.checkWhetherEnoughItemsAreAvailable(cart, products, productNonAvailabilityMap)).toStrictEqual(answerMap);
+    it("converts the date object to a date string of format: 'YYYY-MM-DD'", () => {
+        const result = "2023-04-20"
+
+        expect(reservationHelper.dateToString(date1)).toStrictEqual(result);
+    });
+
+    it("uses all the functions above to check whether a reservation is available", () => {
+        const result = false;
+
+        expect(reservationHelper.isReservationAvailable(cart, date1, 1, products, itemReservations)).toStrictEqual(result);
     });
 });
 

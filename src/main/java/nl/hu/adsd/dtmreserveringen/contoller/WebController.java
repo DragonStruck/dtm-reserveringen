@@ -50,5 +50,4 @@ public class WebController {
     public String favIcon() {
         return "icons/favicon.ico";
     }
-
 }

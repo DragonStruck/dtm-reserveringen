@@ -1,6 +1,7 @@
 import {StorageKeys} from "../ENUM/storageKeys.js";
 import {Product} from "./product.js";
 import {Reservation} from "./reservation.js";
+import {ItemReservation} from "./itemReservation.js";
 
 export class StorageManager {
     static async setProductsInStorage() {
@@ -98,5 +99,30 @@ export class StorageManager {
             reservation.setValuesFromObject(data);
             return reservation;
         });
+    }
+
+
+    static async getAllItemReservations() {
+        
+        const response = await fetch("/api/item-reservation/all");
+        console.log(response);
+        if (!response.ok) {
+            console.log("All item Reservations: response is error; Status code: " + response.status);
+        } else {
+            const itemReservationsJson = await response.json();
+
+            console.log("All item reservations: got json response")
+            JSON.stringify(itemReservationsJson);
+            console.log(itemReservationsJson, "item reservations json from db");
+
+            const itemReservations = Object.values(itemReservationsJson).map(data => {
+                const itemReservation = new ItemReservation();
+                itemReservation.setValuesFromDbJson(data);
+                return itemReservation;
+            });
+            console.log(itemReservations, "item reservations as objects");
+
+            return itemReservations;
+        }
     }
 }

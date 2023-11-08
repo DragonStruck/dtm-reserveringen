@@ -107,7 +107,9 @@ async function validReservation() {
 
     const startDate = calendar.selectedStartDate;
     const endDate = calendar.selectedEndDate;
-    const validReservation = await reservationHelper.isValidReservation(cartInventory, startDate, calendar.amountOfDaysBetween(startDate, endDate) + 1);
+    const products = await StorageManager.getAllProducts();
+    const itemReservations = await StorageManager.getAllItemReservations();
+    const validReservation = reservationHelper.isReservationAvailable(cartInventory, startDate, calendar.amountOfDaysBetween(startDate, endDate) + 1, products, itemReservations);
 
     if (!validReservation) {
         alert("De items zijn niet beschikbaar op deze datum(s), verander de reserveringsperiode of je producten");

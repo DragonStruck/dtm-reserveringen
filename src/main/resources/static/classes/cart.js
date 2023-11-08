@@ -11,6 +11,7 @@ export class Cart {
 
     //PRIVATE: don't call the constructor, call getCart()!!!!!
     constructor(products) {
+        //localStorage.clear();
         this.products = products;
 
         this.createCartInLocalStorage();
